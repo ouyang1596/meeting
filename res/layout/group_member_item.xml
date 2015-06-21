@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/item_bg" >
+
+    <!-- com.deshang365.meeting.view.CircularImageView -->
+
+    <RelativeLayout
+        android:id="@+id/rel_groupMemember"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:paddingTop="5dp" >
+
+        <com.deshang365.meeting.view.CircularImageView
+            android:id="@+id/imgv_memberHead"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/default_head_portrait" />
+
+        <TextView
+            android:id="@+id/txtv_groupMember"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/imgv_memberHead"
+            android:layout_alignRight="@+id/imgv_memberHead"
+            android:layout_below="@+id/imgv_memberHead"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="欧阳司马"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_16" />
+
+        <TextView
+            android:id="@+id/txtv_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/orange_red_radius"
+            android:padding="1dp"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_10"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/imgv_delete"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/delete_member"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rel_groupMemember_end"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/item_bg"
+        android:paddingTop="5dp"
+        android:visibility="gone" >
+
+        <!-- com.deshang365.meeting.view.CircularImageView -->
+
+        <com.deshang365.meeting.view.CircularImageView
+            android:id="@+id/imgv_memberHead_end"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/delete" />
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,105 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <include
+        android:id="@+id/top_alert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/public_top_alert" />
+
+    <RelativeLayout
+        android:id="@+id/rel_join_group"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_below="@+id/top_alert"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rel_bg" >
+
+        <com.deshang365.meeting.view.CircularImageView
+            android:id="@+id/imgv_join_group_head"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/default_head_portrait" />
+
+        <RelativeLayout
+            android:id="@+id/rel_groupinfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/imgv_join_group_head" >
+
+            <TextView
+                android:id="@+id/txtv_group_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxWidth="150dp"
+                android:singleLine="true"
+                android:text="自行车俱乐部"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_20" />
+
+            <TextView
+                android:id="@+id/txtv_tag_group_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtv_group_name"
+                android:layout_marginTop="10dp"
+                android:ellipsize="end"
+                android:maxWidth="150dp"
+                android:singleLine="true"
+                android:text="群组码："
+                android:textColor="#CBCBCB"
+                android:textSize="@dimen/text_size_18" />
+
+            <TextView
+                android:id="@+id/txtv_group_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtv_group_name"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/txtv_tag_group_code"
+                android:ellipsize="end"
+                android:maxWidth="150dp"
+                android:singleLine="true"
+                android:text="143294353429567784"
+                android:textColor="#CBCBCB"
+                android:textSize="@dimen/text_size_18" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rel_groupmick"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rel_join_group"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp" >
+
+        <EditText
+            android:id="@+id/etv_group_nickname"
+            style="@style/EditBg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_bg_selector"
+            android:hint="请输入群组昵称" />
+
+        <Button
+            android:id="@+id/btn_join"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/etv_group_nickname"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/btn_blue_bg_radius_selector"
+            android:text="加入"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_20" />
+    </RelativeLayout>
+
+</RelativeLayout>

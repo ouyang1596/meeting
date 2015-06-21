@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 加载异常显示界面 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_no_response"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:visibility="gone" >
+
+    <Button
+        android:id="@+id/btn_refresh"
+        android:layout_width="120dip"
+        android:layout_height="120dip"
+        />
+    <!-- android:background="@drawable/selector_refresh_big"  -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dip"
+        android:text="@string/refresh"
+        android:textColor="@color/txt_middle" />
+
+</LinearLayout>

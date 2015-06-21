@@ -1,0 +1,92 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/unlogin_near" >
+
+    <ImageView
+        android:id="@+id/imgv_flush"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/near_sign_group_center" >
+    </ImageView>
+
+    <RelativeLayout
+        android:id="@+id/rel_imgv_un_login_sign"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/txtv_login" >
+
+        <com.deshang365.meeting.view.ImageViewButton
+            android:id="@+id/imgv_un_login_sign4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/imgv_un_login_sign1"
+            android:layout_alignLeft="@+id/imgv_un_login_sign3"
+            android:layout_marginBottom="45dp"
+            android:layout_marginLeft="21dp" >
+        </com.deshang365.meeting.view.ImageViewButton>
+
+        <com.deshang365.meeting.view.ImageViewButton
+            android:id="@+id/imgv_un_login_sign1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/imgv_un_login_sign3"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="23dp" >
+        </com.deshang365.meeting.view.ImageViewButton>
+
+        <com.deshang365.meeting.view.ImageViewButton
+            android:id="@+id/imgv_un_login_sign2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="18dp" >
+        </com.deshang365.meeting.view.ImageViewButton>
+
+        <com.deshang365.meeting.view.ImageViewButton
+            android:id="@+id/imgv_un_login_sign3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/imgv_un_login_sign1"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="46dp" >
+        </com.deshang365.meeting.view.ImageViewButton>
+
+        <com.deshang365.meeting.view.ImageViewButton
+            android:id="@+id/ImageViewButton01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/imgv_un_login_sign2"
+            android:layout_marginBottom="27dp"
+            android:layout_marginRight="21dp"
+            android:layout_toLeftOf="@+id/imgv_un_login_sign2" >
+        </com.deshang365.meeting.view.ImageViewButton>
+
+        <com.deshang365.meeting.view.ImageViewButton
+            android:id="@+id/imgv_un_login_sign5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/imgv_un_login_sign2"
+            android:layout_below="@+id/imgv_un_login_sign1"
+            android:layout_marginRight="24dp" >
+        </com.deshang365.meeting.view.ImageViewButton>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/txtv_login"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/login_rec"
+        android:gravity="center"
+        android:text="登陆"
+        android:textColor="@drawable/text_color_selector"
+        android:textSize="@dimen/text_size_20" />
+
+</RelativeLayout>

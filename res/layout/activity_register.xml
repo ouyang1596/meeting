@@ -1,0 +1,53 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <include
+        android:id="@+id/top_alert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/public_top_alert" />
+
+    <RelativeLayout
+        android:id="@+id/rel_createGroups"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top_alert"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp" >
+
+        <EditText
+            android:id="@+id/etv_register_phone_number"
+            style="@style/EditBg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_bg_selector"
+            android:hint="手机号码"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/etv_register_passward"
+            style="@style/EditBg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etv_register_phone_number"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/edit_bg_selector"
+            android:hint="密码"
+            android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/btn_register"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/etv_register_passward"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_blue_bg_radius_selector"
+            android:text="注册"
+            android:textColor="@drawable/text_color_selector"
+            android:textSize="@dimen/text_size_20" />
+    </RelativeLayout>
+
+</RelativeLayout>

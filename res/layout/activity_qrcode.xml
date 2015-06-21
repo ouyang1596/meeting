@@ -1,0 +1,79 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff" >
+
+    <include
+        android:id="@+id/top_alert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/public_top_alert" />
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/top_alert"
+        android:background="@color/white" />
+
+    <RelativeLayout
+        android:id="@+id/rel_group_head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top_alert"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:padding="15dp" >
+
+        <!-- com.deshang365.meeting.view.CircularImageView -->
+
+        <com.deshang365.meeting.view.CircularImageView
+            android:id="@+id/imgv_group_head"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/default_head_portrait" />
+
+        <TextView
+            android:id="@+id/txtv_group_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/imgv_group_head"
+            android:ellipsize="end"
+            android:maxWidth="140dp"
+            android:singleLine="true"
+            android:text="自行车俱乐部"
+            android:textColor="@color/new_black_one"
+            android:textSize="@dimen/text_size_20" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/imgv_QR_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rel_group_head"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp" />
+
+    <TextView
+        android:id="@+id/txtv_tag_qr_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imgv_QR_code"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="扫一扫上面的二维码，加入该群组。"
+        android:textColor="@color/new_black_one"
+        android:textSize="@dimen/text_size_16" />
+
+    <View
+        android:id="@+id/view_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#50000000"
+        android:visibility="gone" />
+
+</RelativeLayout>

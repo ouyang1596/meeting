@@ -1,0 +1,69 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray" >
+
+    <include
+        android:id="@+id/top_alert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/public_top_alert" />
+
+    <ListView
+        android:id="@+id/lv_showMessage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/rel_sendMessage"
+        android:layout_below="@+id/top_alert"
+        android:transcriptMode="normal" >
+    </ListView>
+
+    <RelativeLayout
+        android:id="@+id/rel_sendMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#EDEEF1" >
+
+        <EditText
+            android:id="@+id/etxt_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_toLeftOf="@+id/btn_send"
+            android:background="@drawable/edit_bac"
+            android:ems="9"
+            android:hint="请输入要发送的消息"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp" />
+
+        <ImageView
+            android:id="@+id/txtv_add"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@+id/etxt_message"
+            android:background="@drawable/add"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btn_send"
+            android:layout_width="45dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/btn_blue_bg_radius_selector"
+            android:gravity="center"
+            android:text="发送"
+            android:textColor="@drawable/text_color_selector"
+            android:textSize="@dimen/text_size_16" />
+    </RelativeLayout>
+
+</RelativeLayout>

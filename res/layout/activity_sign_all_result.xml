@@ -1,0 +1,82 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <include
+        android:id="@+id/top_alert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/public_top_alert" />
+
+    <RelativeLayout
+        android:id="@+id/rel_sign_all_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top_alert"
+        android:layout_marginBottom="10dp" >
+
+        <LinearLayout
+            android:id="@+id/ll_sign_count"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="本群组共发起"
+                android:textSize="@dimen/text_size_16" />
+
+            <TextView
+                android:id="@+id/txtv_sign_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="@color/new_blue_default"
+                android:textSize="@dimen/text_size_16" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="次签到  以下为缺席人员："
+                android:textSize="@dimen/text_size_16" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rel_exlist_un_signed_member"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/btn_export_result"
+            android:layout_below="@+id/ll_sign_count" >
+
+            <com.handmark.pulltorefresh.library.PullToRefreshListView
+                android:id="@+id/exlist_un_signed_member"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:divider="@color/new_gray"
+                android:dividerHeight="1px" >
+            </com.handmark.pulltorefresh.library.PullToRefreshListView>
+
+            <include layout="@layout/rel_progressbar" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btn_export_result"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:background="@drawable/new_orange_radius_bg"
+            android:text="导出结果"
+            android:textColor="@drawable/text_color_selector"
+            android:textSize="@dimen/text_size_16" />
+    </RelativeLayout>
+
+</RelativeLayout>

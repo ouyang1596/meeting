@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:id="@+id/rel_group"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/white" >
+
+        <TextView
+            android:id="@+id/txtv_group_showname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="14dp"
+            android:text="大熊"
+            android:textColor="@color/new_black_one"
+            android:textSize="@dimen/text_size_16" />
+
+        <TextView
+            android:id="@+id/txtv_group_un_signed_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="累计缺席2次"
+            android:textColor="@color/new_orange_yellow"
+            android:textSize="@dimen/text_size_14"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/imgv_up_down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+</RelativeLayout>

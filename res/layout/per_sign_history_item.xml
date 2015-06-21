@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:id="@+id/rel_pei_sign_history_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp" >
+
+        <RelativeLayout
+            android:id="@+id/rel_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/imgv_per_sig_history"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/btn_blue_bg_radius_selector" />
+
+            <TextView
+                android:id="@+id/txtv_item_per_sig_history"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="3"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_14" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/txtv_time_per_sig_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/rel_item"
+            android:text="2015-03-17 15:47:36"
+            android:textSize="@dimen/text_size_14" />
+
+        <TextView
+            android:id="@+id/txtv_time_tag_per_sig_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/txtv_time_per_sig_history"
+            android:text="签到"
+            android:textSize="@dimen/text_size_14" />
+
+        <TextView
+            android:id="@+id/txtv_state_per_sig_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="请假"
+            android:textSize="@dimen/text_size_14" />
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="txt_deep">#333333</color>
+    <color name="txt_unread">#24231a</color>
+    <color name="txt_readed">#757366</color>
+    <color name="txt_unselected">#333333</color>
+    <color name="txt_selecteded">#f05858</color>
+    <color name="txt_middle">#666666</color>
+    <color name="txt_light">#999999</color>
+    <color name="txt_red">#e50303</color>
+    <color name="txt_red2">#DA444F</color>
+    <color name="txt_normal">#434343</color>
+    <color name="txt_nodata">#d1d1d1</color>
+    <color name="txt_yellow">#E0A855</color>
+    <color name="txt_green">#78E28A</color>
+    <color name="bottom_bg">#FFF8F8F8</color>
+    <color name="blue">#FF0066FF</color>
+    <color name="green">#008000</color>
+    <color name="green_light">#ACCD3E</color>
+    <color name="seat_green">#92be09</color>
+    <color name="seat_brown">#954441</color>
+    <color name="seat_grey">#bcbcbc</color>
+    <color name="bt_red">#FFDA444F</color>
+    <color name="bt_blue">#FF3E9AE8</color>
+    <color name="no_color">#00000000</color>
+    <color name="bg_color">#ffeeeeee</color>
+    <color name="bg_color_deep">#E5E5E5</color>
+    <color name="bg_color_notifacation">#e3e3e3</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="black_half">#50000000</color>
+    <color name="top_alert_background">#FFDA444F</color>
+    <color name="tb_normal">#FF5C5C5C</color>
+    <color name="tb_selected">#FF3A3A3A</color>
+    <color name="question_type_green">#FF90F500</color>
+    <color name="question_type_blue">#FF48CDFF</color>
+    <color name="question_type_yellow">#FFF3C377</color>
+    <color name="question_type_purple">#FFA06BAD</color>
+    <color name="list_divider">#ffdcdcdc</color>
+    <color name="gray">#F3F3F4</color>
+    <color name="bg_blue">#0000FF</color>
+    <color name="black_overlay">#66000000</color>
+
+    <!-- BarCodeTest -->
+
+    <color name="contents_text">#ff000000</color>
+    <color name="encode_view">#ffffffff</color>
+    <color name="help_button_view">#ffcccccc</color>
+    <color name="help_view">#ff404040</color>
+    <color name="possible_result_points">#c0ffff00</color>
+    <color name="result_image_border">#ffffffff</color>
+    <color name="result_minor_text">#ffc0c0c0</color>
+    <color name="result_points">#c000ff00</color>
+    <color name="result_text">#ffffffff</color>
+    <color name="result_view">#b0000000</color>
+    <color name="sbc_header_text">#ff808080</color>
+    <color name="sbc_header_view">#ffffffff</color>
+    <color name="sbc_list_item">#fffff0e0</color>
+    <color name="sbc_layout_view">#ffffffff</color>
+    <color name="sbc_page_number_text">#ff000000</color>
+    <color name="sbc_snippet_text">#ff4b4b4b</color>
+    <color name="share_text">#ff000000</color>
+    <color name="share_view">#ffffffff</color>
+    <color name="status_view">#50000000</color>
+    <color name="status_text">#ffffffff</color>
+    <color name="transparent">#00000000</color>
+    <color name="viewfinder_frame">#ff000000</color>
+    <color name="viewfinder_laser">#ffff0000</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="header">#58567D</color>
+    <color name="grgray">#686868</color>
+    <!-- CustomColor -->
+    <color name="custom_black">#4A4A4A</color>
+
+    <!-- new -->
+    <color name="new_blue_default">#00b26d</color>
+    <color name="new_blue_press">#029f62</color>
+    <color name="new_really_blue">#17c3e5</color>
+    <color name="new_orange_yellow">#ff961d</color>
+    <color name="new_black_one">#454545</color>
+    <color name="new_black_two">#666666</color>
+    <color name="new_black_three">#999999</color>
+    <!-- 一般充当背景色 -->
+    <color name="new_gray">#ededed</color>
+    <!-- 一般充当分隔线 -->
+    <color name="new_gray2">#cccccc</color>
+    <color name="new_line_between">#ececec</color>
+
+</resources>

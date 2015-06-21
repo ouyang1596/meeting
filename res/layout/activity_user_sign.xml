@@ -1,0 +1,53 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <include
+        android:id="@+id/top_alert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/public_top_alert" />
+
+    <RelativeLayout
+        android:id="@+id/rel_user_sign"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top_alert"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp" >
+
+        <TextView
+            android:id="@+id/txtv_tag_user_sign"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="请输入签到发起人告知的签到码"
+            android:textSize="@dimen/text_size_14" />
+
+        <EditText
+            android:id="@+id/etv_user_sign"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtv_tag_user_sign"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/edit_bac"
+            android:gravity="center"
+            android:hint="请输入签到码"
+            android:inputType="number" />
+
+        <Button
+            android:id="@+id/btn_ensure"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etv_user_sign"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/btn_blue_bg_radius_selector"
+            android:padding="6dp"
+            android:text="确认"
+            android:textColor="@drawable/text_color_selector"
+            android:textSize="@dimen/text_size_16" />
+    </RelativeLayout>
+
+</RelativeLayout>

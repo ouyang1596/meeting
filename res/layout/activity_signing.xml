@@ -1,0 +1,150 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/new_gray" >
+
+    <include
+        android:id="@+id/top_alert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/public_top_alert" />
+
+    <RelativeLayout
+        android:id="@+id/rel_group_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top_alert"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:padding="10dp" >
+
+        <!-- com.deshang365.meeting.view.CircularImageView -->
+
+        <com.deshang365.meeting.view.CircularImageView
+            android:id="@+id/imgv_group_head"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginRight="24dp"
+            android:src="@drawable/default_head_portrait" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="0dp"
+            android:layout_height="4dp"
+            android:layout_alignTop="@+id/imgv_group_head"
+            android:layout_toRightOf="@+id/imgv_group_head" />
+
+        <TextView
+            android:id="@+id/txtv_group_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view"
+            android:layout_toRightOf="@+id/imgv_group_head"
+            android:text="自行车俱乐部"
+            android:textColor="@color/new_black_one"
+            android:textSize="@dimen/text_size_16" />
+
+        <LinearLayout
+            android:id="@+id/ll_sign_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/txtv_group_name"
+            android:layout_below="@+id/txtv_group_name"
+            android:layout_marginTop="12dp"
+            android:layout_toRightOf="@+id/imgv_group_head"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/txtv_group_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="10dp"
+                android:text="12345"
+                android:textColor="@color/new_black_three"
+                android:textSize="@dimen/text_size_14" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="签到码："
+                android:textColor="@color/new_blue_default"
+                android:textSize="@dimen/text_size_14" />
+
+            <TextView
+                android:id="@+id/txtv_signcode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="1234"
+                android:textColor="@color/new_black_three"
+                android:textSize="@dimen/text_size_14" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rel_sign_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_stop_sign"
+        android:layout_below="@+id/rel_group_data"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/white" >
+
+        <RadioGroup
+            android:id="@+id/rg_show_signlist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/rb_show_un_signed"
+                style="@style/radioButtonStyle"
+                android:checked="true"
+                android:text="未完成签到" />
+
+            <RadioButton
+                android:id="@+id/rb_show_signed"
+                style="@style/radioButtonStyle"
+                android:text="已完成签到" />
+        </RadioGroup>
+
+        <RelativeLayout
+            android:id="@+id/rel_exl_sign_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/rg_show_signlist" >
+
+            <com.deshang365.meeting.view.SignedView
+                android:id="@+id/rel_all_signed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+            </com.deshang365.meeting.view.SignedView>
+
+            <ExpandableListView
+                android:id="@+id/exl_sign_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white" >
+            </ExpandableListView>
+
+            <include layout="@layout/rel_progressbar" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_stop_sign"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/btn_blue_bg_radius_selector"
+        android:padding="6dp"
+        android:text="结束签到"
+        android:textColor="@drawable/text_color_selector"
+        android:textSize="@dimen/text_size_20" />
+
+</RelativeLayout>

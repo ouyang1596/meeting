@@ -1,0 +1,86 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <include
+        android:id="@+id/top_alert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/public_top_alert" />
+
+    <RelativeLayout
+        android:id="@+id/rel_identify_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top_alert"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginTop="40dp" >
+
+        <LinearLayout
+            android:id="@+id/ll_mobile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我们已将验证码发送至:"
+                android:textColor="@color/new_black_one"
+                android:textSize="@dimen/text_size_16" />
+
+            <TextView
+                android:id="@+id/txtv_mobile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="12345678901"
+                android:textColor="@color/new_orange_yellow"
+                android:textSize="@dimen/text_size_16" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/ll_identyfi_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/etv_identyfi_code"
+                android:layout_width="match_parent"
+                android:layout_height="34dp"
+                android:background="@drawable/edit_bg_selector"
+                android:hint="请输入验证码"
+                android:paddingRight="70dp"
+                android:textSize="@dimen/text_size_16" />
+
+            <Button
+                android:id="@+id/btn_resend"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="2dp"
+                android:background="@drawable/new_orange_radius_bg"
+                android:text="重新发送"
+                android:textColor="@drawable/text_color_selector"
+                android:textSize="@dimen/text_size_12" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btn_next"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/ll_identyfi_code"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_blue_bg_radius_selector"
+            android:text="下一步"
+            android:textColor="@drawable/text_color_selector"
+            android:textSize="@dimen/text_size_20" />
+    </RelativeLayout>
+
+</RelativeLayout>

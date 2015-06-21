@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/public_top_alert"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/new_blue_default"
+    android:visibility="visible" >
+
+    <LinearLayout
+        android:id="@+id/ll_top_alert_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/btn_blue_bg_selector"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="12dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="12dp" >
+
+        <ImageView
+            android:id="@+id/iv_top_alert"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/icon_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:text="返回"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_14" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_top_alert_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:ellipsize="end"
+        android:maxWidth="150dp"
+        android:singleLine="true"
+        android:text=""
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_20" />
+
+    <ImageView
+        android:id="@+id/tv_top_alert_groups"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/add"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/iv_group_members"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="7dp"
+        android:src="@drawable/groupmembers"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/txtv_what_need"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="5dp"
+        android:paddingBottom="10dp"
+        android:paddingRight="6dp"
+        android:paddingTop="10dp"
+        android:text="历史记录"
+        android:textColor="@drawable/text_color_selector"
+        android:textSize="@dimen/text_size_14"
+        android:visibility="gone" />
+
+</RelativeLayout>

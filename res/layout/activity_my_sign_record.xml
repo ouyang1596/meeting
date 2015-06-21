@@ -1,0 +1,52 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/new_gray" >
+
+    <include
+        android:id="@+id/top_alert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/public_top_alert" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/top_alert"
+        android:layout_marginTop="14dp"
+        android:background="@color/white"
+        android:orientation="vertical" >
+
+        <RadioGroup
+            android:id="@+id/rg_show_signlist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/rb_show_un_signed"
+                style="@style/radioButtonStyle"
+                android:checked="true"
+                android:text="未完成签到" />
+
+            <RadioButton
+                android:id="@+id/rb_show_signed"
+                style="@style/radioButtonStyle"
+                android:text="已完成签到" />
+        </RadioGroup>
+
+        <include layout="@layout/rel_progressbar" />
+
+        <com.handmark.pulltorefresh.library.PullToRefreshListView
+            android:id="@+id/plv_un_signed"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.handmark.pulltorefresh.library.PullToRefreshListView
+            android:id="@+id/plv_signed"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+</RelativeLayout>

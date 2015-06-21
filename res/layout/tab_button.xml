@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_tabButton"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/tb_normal"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingBottom="4dp"
+    android:paddingTop="4dp" >
+
+    <ImageView
+        android:id="@+id/tb_imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/tab_bar_assistant_normal" />
+
+    <TextView
+        android:id="@+id/tb_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="TabButton"
+        android:textColor="#FFC5C5C5"
+        android:textSize="@dimen/text_size_12" />
+
+</LinearLayout>

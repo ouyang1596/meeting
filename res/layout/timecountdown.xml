@@ -1,0 +1,67 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/timeCount"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal" >
+
+    <ImageView
+        android:id="@+id/imgv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/timecount" />
+
+    <TextView
+        android:id="@+id/txtv_tag_signtime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:text="签到时间：" />
+
+    <TextView
+        android:id="@+id/timesub"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginLeft="4dp"
+        android:background="@drawable/timebg"
+        android:gravity="center"
+        android:text="－"
+        android:textColor="@color/new_black_three"
+        android:textSize="@dimen/text_size_16" />
+
+    <TextView
+        android:id="@+id/time_number"
+        android:layout_width="40dp"
+        android:layout_height="24dp"
+        android:layout_marginLeft="4dp"
+        android:background="@drawable/timebg"
+        android:gravity="center"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
+        android:text="3"
+        android:textColor="@color/new_orange_yellow"
+        android:textSize="@dimen/text_size_16" />
+
+    <TextView
+        android:id="@+id/timeadd"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginLeft="4dp"
+        android:background="@drawable/timebg"
+        android:gravity="center"
+        android:text="+"
+        android:textColor="@color/new_black_three"
+        android:textSize="@dimen/text_size_16" />
+
+    <TextView
+        android:id="@+id/minute"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:gravity="center"
+        android:text="分钟"
+        android:textColor="@color/new_black_three"
+        android:textSize="@dimen/text_size_16" />
+
+</LinearLayout>

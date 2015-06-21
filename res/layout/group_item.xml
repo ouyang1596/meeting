@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:background="@drawable/btn_white_bg_radius_selector" >
+
+    <include
+        android:id="@+id/include_groupHead"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        layout="@layout/head_pic" />
+
+    <RelativeLayout
+        android:id="@+id/rel_group_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/include_groupHead" >
+
+        <TextView
+            android:id="@+id/txtv_group_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:ellipsize="end"
+            android:maxWidth="150dp"
+            android:singleLine="true"
+            android:text="item"
+            android:textColor="@color/new_black_one"
+            android:textSize="@dimen/text_size_18" />
+
+        <TextView
+            android:id="@+id/txtv_idcard_mtype"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtv_group_name"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="3dp"
+            android:ellipsize="end"
+            android:maxWidth="150dp"
+            android:singleLine="true"
+            android:text="item"
+            android:textColor="@color/new_black_three"
+            android:textSize="@dimen/text_size_14" />
+
+        <RelativeLayout
+            android:id="@+id/rel_unread_msg_number_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/txtv_idcard_mtype"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/txtv_group_name"
+            android:layout_marginRight="10dp" >
+
+            <TextView
+                android:id="@+id/txtv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:text="中午 12:00"
+                android:textColor="#4A4A4A"
+                android:textSize="@dimen/text_size_12" />
+
+            <TextView
+                android:id="@+id/txtv_unread_msg_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignRight="@+id/txtv_time"
+                android:layout_below="@+id/txtv_time"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/unread_count_bg"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_12" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/user_sign"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/btn_white_bg_radius_selector"
+        android:visibility="gone" />
+
+</RelativeLayout>

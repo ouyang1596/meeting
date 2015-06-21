@@ -1,0 +1,95 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/new_gray" >
+
+    <include
+        android:id="@+id/top_alert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/public_top_alert" />
+
+    <LinearLayout
+        android:id="@+id/logo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top_alert"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/logo2" />
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:src="@drawable/wolaiye" />
+
+        <ImageView
+            android:layout_width="180dp"
+            android:layout_height="30dp"
+            android:src="@drawable/easy_yeah" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rel_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/rel_version"
+        android:layout_below="@+id/logo"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp" >
+
+        <ListView
+            android:id="@+id/lv_about"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@color/new_gray2"
+            android:dividerHeight="1px" >
+        </ListView>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rel_version"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
+
+        <TextView
+            android:id="@+id/txtv_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:text="V1.1.4"
+            android:textColor="@color/new_black_one"
+            android:textSize="@dimen/text_size_14" />
+
+        <TextView
+            android:id="@+id/txtv_company"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtv_version"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:text="上海德上网络科技有限公司 版权所有"
+            android:textColor="@color/new_black_one"
+            android:textSize="@dimen/text_size_12" />
+
+        <TextView
+            android:id="@+id/txtv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtv_company"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="4dp"
+            android:text="Copyright ©2012-2015 Demshine.All Rights Reserved."
+            android:textColor="@color/new_black_two"
+            android:textSize="@dimen/text_size_12" />
+    </RelativeLayout>
+
+</RelativeLayout>

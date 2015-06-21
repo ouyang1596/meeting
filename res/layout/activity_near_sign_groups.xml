@@ -1,0 +1,93 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/unlogin_near" >
+
+    <ImageView
+        android:id="@+id/imgv_flush"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/near_sign_group_center" >
+    </ImageView>
+
+    <RelativeLayout
+        android:id="@+id/rel_login_near_sign_groups"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/txtv_login" >
+
+        <com.deshang365.meeting.view.ImageViewButton
+            android:id="@+id/imgv_login_near_sign_group6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/imgv_login_near_sign_group3"
+            android:layout_marginRight="19dp" >
+        </com.deshang365.meeting.view.ImageViewButton>
+
+        <com.deshang365.meeting.view.ImageViewButton
+            android:id="@+id/imgv_login_near_sign_group3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/imgv_login_near_sign_group5"
+            android:layout_alignTop="@+id/imgv_login_near_sign_group2"
+            android:layout_marginLeft="31dp"
+            android:layout_marginTop="46dp" >
+        </com.deshang365.meeting.view.ImageViewButton>
+
+        <com.deshang365.meeting.view.ImageViewButton
+            android:id="@+id/imgv_login_near_sign_group4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/imgv_login_near_sign_group1"
+            android:layout_alignLeft="@+id/imgv_login_near_sign_group2"
+            android:layout_marginBottom="24dp"
+            android:layout_marginLeft="16dp" >
+        </com.deshang365.meeting.view.ImageViewButton>
+
+        <com.deshang365.meeting.view.ImageViewButton
+            android:id="@+id/imgv_login_near_sign_group5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/imgv_login_near_sign_group4"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="14dp"
+            android:layout_marginLeft="16dp" >
+        </com.deshang365.meeting.view.ImageViewButton>
+
+        <com.deshang365.meeting.view.ImageViewButton
+            android:id="@+id/imgv_login_near_sign_group2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignRight="@+id/imgv_login_near_sign_group6"
+            android:layout_marginRight="36dp"
+            android:layout_marginTop="57dp" >
+        </com.deshang365.meeting.view.ImageViewButton>
+
+        <com.deshang365.meeting.view.ImageViewButton
+            android:id="@+id/imgv_login_near_sign_group1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/imgv_login_near_sign_group3"
+            android:layout_below="@+id/imgv_login_near_sign_group6"
+            android:layout_marginTop="47dp" >
+        </com.deshang365.meeting.view.ImageViewButton>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/txtv_exit"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/login_rec"
+        android:gravity="center"
+        android:text="返回"
+        android:textColor="@drawable/text_color_selector"
+        android:textSize="@dimen/text_size_20" />
+
+</RelativeLayout>

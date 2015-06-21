@@ -1,0 +1,42 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/top_alert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/public_top_alert" />
+
+    <LinearLayout
+        android:id="@+id/rel_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <EditText
+            android:id="@+id/etv_nickname"
+            style="@style/editStyle"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:drawableLeft="@drawable/default_name"
+            android:drawablePadding="14dp"
+            android:hint="请输入默认昵称"
+            android:paddingLeft="14dp" />
+
+        <EditText
+            android:id="@+id/etv_email"
+            style="@style/editStyle"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="14dp"
+            android:drawableLeft="@drawable/email"
+            android:drawablePadding="14dp"
+            android:hint="请输入邮箱用于导出结果"
+            android:paddingLeft="14dp" />
+    </LinearLayout>
+
+</LinearLayout>

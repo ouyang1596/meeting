@@ -1,0 +1,89 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_rel_signresult"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F2F2F2" >
+
+    <include
+        android:id="@+id/top_alert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/public_top_alert" />
+
+    <RelativeLayout
+        android:id="@+id/rel_sign_absent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/rel_export"
+        android:layout_below="@+id/top_alert"
+        android:layout_marginTop="10dp"
+        android:background="@color/white" >
+
+        <RadioGroup
+            android:id="@+id/rg_show_signlist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/rb_show_un_signed"
+                style="@style/radioButtonStyle"
+                android:checked="true"
+                android:text="未完成签到" />
+
+            <RadioButton
+                android:id="@+id/rb_show_signed"
+                style="@style/radioButtonStyle"
+                android:text="已完成签到" />
+        </RadioGroup>
+
+        <ExpandableListView
+            android:id="@+id/exl_sign_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/rg_show_signlist"
+            android:visibility="gone" >
+        </ExpandableListView>
+
+        <com.deshang365.meeting.view.SignedView
+            android:id="@+id/rel_all_signed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/exl_sign_list" >
+        </com.deshang365.meeting.view.SignedView>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rel_export"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:background="#F2F2F2" >
+
+        <TextView
+            android:id="@+id/txtv_tag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="注：选择相应补签状态后，点击下面确认修改提交结果"
+            android:textColor="@color/new_black_three"
+            android:textSize="@dimen/text_size_12" />
+
+        <Button
+            android:id="@+id/btn_export"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/btn_blue_bg_radius_selector"
+            android:padding="6dp"
+            android:text="确认修改"
+            android:textColor="@drawable/text_color_selector"
+            android:textSize="@dimen/text_size_20" />
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rel_all_signed"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white" >
+
+    <ImageView
+        android:id="@+id/imgv_signed"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/image_signed" />
+
+    <TextView
+        android:id="@+id/txtv_signed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imgv_signed"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="所有成员均已完成签到"
+        android:textColor="@color/new_black_three"
+        android:textSize="@dimen/text_size_16" />
+
+    <TextView
+        android:id="@+id/txtv_sign_member_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtv_signed"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="点击查看成员状态"
+        android:textColor="@color/new_orange_yellow"
+        android:textSize="@dimen/text_size_16"
+        android:visibility="gone" />
+
+</RelativeLayout>

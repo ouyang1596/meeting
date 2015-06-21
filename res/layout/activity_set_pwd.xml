@@ -1,0 +1,55 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <include
+        android:id="@+id/top_alert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/public_top_alert" />
+
+    <RelativeLayout
+        android:id="@+id/rel_reset_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top_alert"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
+        android:layout_marginTop="15dp" >
+
+        <TextView
+            android:id="@+id/txtv_phonenumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="手机号码："
+            android:textColor="@color/new_orange_yellow"
+            android:textSize="@dimen/text_size_16" />
+
+        <EditText
+            android:id="@+id/etxt_new_pwd"
+            style="@style/EditBg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtv_phonenumber"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/edit_bg_selector"
+            android:hint="请输入新密码"
+            android:inputType="phone" />
+
+        <Button
+            android:id="@+id/btn_ensure"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etxt_new_pwd"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/btn_blue_bg_radius_selector"
+            android:padding="6dp"
+            android:text="确定"
+            android:textColor="@drawable/text_color_selector"
+            android:textSize="@dimen/text_size_18" />
+    </RelativeLayout>
+
+</RelativeLayout>

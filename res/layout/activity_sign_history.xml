@@ -1,0 +1,216 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/new_gray" >
+
+    <include
+        android:id="@+id/top_alert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/public_top_alert" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/top_alert"
+        android:layout_marginTop="14dp"
+        android:background="@color/white" >
+
+        <LinearLayout
+            android:id="@+id/rel_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/txtv_tag_signcode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:text="群组码："
+                android:textColor="@color/new_black_three"
+                android:textSize="@dimen/text_size_14" />
+
+            <TextView
+                android:id="@+id/txtv_groupcode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12345"
+                android:textColor="@color/new_black_three"
+                android:textSize="@dimen/text_size_14" />
+
+            <TextView
+                android:id="@+id/txtv_grouptalk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:background="@drawable/grouptalk"
+                android:gravity="center"
+                android:paddingBottom="2dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="2dp"
+                android:text="群聊"
+                android:textColor="@drawable/text_color_selector"
+                android:textSize="@dimen/text_size_14"
+                android:visibility="gone" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/txtv_signrecord"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:background="@drawable/looksignrecord"
+                android:gravity="center"
+                android:paddingBottom="2dp"
+                android:paddingRight="20dp"
+                android:paddingTop="2dp"
+                android:text="查看签到记录"
+                android:textColor="@drawable/text_color_selector" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rel_tosign"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="90dp" >
+
+            <ImageView
+                android:id="@+id/imgv_tosign"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="14dp"
+                android:src="@drawable/tosign" />
+
+            <TextView
+                android:id="@+id/txtv_issigning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imgv_tosign"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="44dp"
+                android:text="【正在签到中...】"
+                android:textColor="@color/new_orange_yellow"
+                android:textSize="@dimen/text_size_16" />
+
+            <Button
+                android:id="@+id/btn_tosign"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_below="@+id/txtv_issigning"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/btn_blue_bg_radius_selector"
+                android:paddingLeft="50dp"
+                android:paddingRight="50dp"
+                android:text="立即签到"
+                android:textColor="@drawable/text_color_selector"
+                android:textSize="@dimen/text_size_20" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rel_user_sign"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top_alert"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp"
+        android:visibility="gone" >
+
+        <TextView
+            android:id="@+id/txtv_tag_is_signing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text=""
+            android:textSize="@dimen/text_size_14"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/btn_user_sign"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/orange_yellow_radius"
+            android:padding="6dp"
+            android:text="立即签到"
+            android:textColor="@drawable/text_color_selector"
+            android:textSize="@dimen/text_size_14" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/rel_user_sign"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="6dp"
+        android:background="#989898"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/rel_sign_history"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line1"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="6dp"
+        android:visibility="gone" >
+
+        <TextView
+            android:id="@+id/txtv_sign_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:id="@+id/line2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/txtv_sign_count"
+            android:layout_marginTop="6dp"
+            android:background="#989898" />
+
+        <TextView
+            android:id="@+id/txtv_sign_history"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line2"
+            android:layout_marginTop="6dp"
+            android:text="历史签到记录"
+            android:textSize="@dimen/text_size_14" />
+
+        <com.handmark.pulltorefresh.library.PullToRefreshListView
+            xmlns:ptr="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/lv_sign_history"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/txtv_sign_history"
+            android:layout_marginLeft="7dp"
+            android:layout_marginRight="7dp"
+            android:cacheColorHint="#00000000"
+            android:divider="@color/bg_color"
+            android:dividerHeight="4dp"
+            android:fadingEdge="none"
+            android:fastScrollEnabled="false"
+            android:footerDividersEnabled="false"
+            android:headerDividersEnabled="false"
+            android:listSelector="#00000000"
+            android:overScrollMode="never"
+            android:smoothScrollbar="true"
+            ptr:ptrShowIndicator="false" />
+    </RelativeLayout>
+
+</RelativeLayout>

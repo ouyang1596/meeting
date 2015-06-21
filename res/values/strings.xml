@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">我来也</string>
+    <string name="loading_text">加载中...</string>
+    <string name="refresh">点击刷新</string>
+    <string name="xlistview_header_hint_normal">下拉刷新</string>
+    <string name="xlistview_header_hint_ready">松开刷新数据</string>
+    <string name="xlistview_header_hint_loading">正在刷新...</string>
+    <string name="xlistview_last_time">上次更新时间：</string>
+    <string name="xlistview_footer_hint_normal">上拉加载更多</string>
+    <string name="xlistview_footer_hint_ready">松开载入更多</string>
+    <string name="xlistview_footer_hint_loading">正在加载...</string>
+    <string name="title_activity_talk_together">TalkTogetherActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_groups">GroupsActivity</string>
+    <string name="title_activity_group_member">GroupMemberActivity</string>
+    <string name="title_activity_default">我来也</string>
+    <string name="title_activity_un_login">UnLoginActivity</string>
+    <string name="title_activity_un_login_sign">UnLoginSignActivity</string>
+    <string name="title_activity_signed">SignedActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_complete_create">CompleteCreateActivity</string>
+    <string name="title_activity_sign_record_history">SignRecordHistoryActivity</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_identifying_code">IdentifyingCodeActivity</string>
+    <string name="title_activity_sign">SignActivity</string>
+    <string name="title_activity_user_sign">UserSignActivity</string>
+    <string name="title_activity_join_group">JoinGroupActivity</string>
+    <string name="title_activity_login_signed">LoginSignedActivity</string>
+    <string name="title_activity_signing">SigningActivity</string>
+    <string name="title_activity_sign_result">SignResultActivity</string>
+    <string name="title_activity_group_members">GroupMembersActivity</string>
+    <string name="title_activity_qrcode">QRCodeActivity</string>
+    <string name="title_activity_map">MapActivity</string>
+    <string name="title_activity_sign_all_result">SignAllResultActivity</string>
+    <string name="title_activity_near_sign_groups">NearSignGroupsActivity</string>
+    <string name="title_activity_edit_password">EditPasswordActivity</string>
+    <string name="title_activity_export">ExportActivity</string>
+    <string name="title_activity_reset_pwd">ResetPwdActivity</string>
+    <string name="title_activity_set_pwd">SetPwdActivity</string>
+    <string name="title_activity_change_name">ChangeNameActivity</string>
+    <string name="title_activity_change_show_name">ChangeShowNameActivity</string>
+    <string name="title_activity_change_email">ChangeEmailActivity</string>
+    <string name="title_activity_change_data">ChangeDataActivity</string>
+    <string name="title_activity_app_qr_code">AppQrCodeActivity</string>
+    <string name="title_activity_identify_code">IdentifyCodeActivity</string>
+    <string name="title_activity_wx_entry">WXEntryActivity</string>
+    <string name="title_activity_blue_sign">BlueSignActivity</string>
+    <string name="title_activity_user_blue_sign">UserBlueSignActivity</string>
+    <string name="title_activity_create_sign_record">CreateSignRecordActivity</string>
+    <string name="title_activity_sign_mode">SignModeActivity</string>
+    <string name="title_activity_feed_back">FeedBackActivity</string>
+    <string name="title_activity_my_sign_record">MySignRecordActivity</string>
+
+</resources>

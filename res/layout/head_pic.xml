@@ -1,0 +1,110 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res/com.deshang365.meeting"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <!-- innerRadius越大靠的越近 angleOffset角度 -->
+
+    <ru.biovamp.widget.CircleLayout
+        android:id="@+id/imgv_groupHead_five"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp"
+        android:visibility="gone"
+        app:innerRadius="18dp" >
+
+        <com.deshang365.meeting.view.CircularImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/default_head_portrait" />
+
+        <com.deshang365.meeting.view.CircularImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/default_head_portrait" />
+
+        <com.deshang365.meeting.view.CircularImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/default_head_portrait" />
+
+        <com.deshang365.meeting.view.CircularImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/default_head_portrait" />
+
+        <com.deshang365.meeting.view.CircularImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/default_head_portrait" />
+    </ru.biovamp.widget.CircleLayout>
+
+    <ru.biovamp.widget.CircleLayout
+        android:id="@+id/imgv_groupHead_four"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp"
+        android:visibility="gone"
+        app:innerRadius="20dp" >
+
+        <com.deshang365.meeting.view.CircularImageView
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:src="@drawable/default_head_portrait" />
+
+        <com.deshang365.meeting.view.CircularImageView
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:src="@drawable/default_head_portrait" />
+
+        <com.deshang365.meeting.view.CircularImageView
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:src="@drawable/default_head_portrait" />
+
+        <com.deshang365.meeting.view.CircularImageView
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:src="@drawable/default_head_portrait" />
+    </ru.biovamp.widget.CircleLayout>
+
+    <ru.biovamp.widget.CircleLayout
+        android:id="@+id/imgv_groupHead_two"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp"
+        android:visibility="gone"
+        app:angleOffset="135"
+        app:innerRadius="24dp" >
+
+        <com.deshang365.meeting.view.CircularImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/default_head_portrait" />
+
+        <com.deshang365.meeting.view.CircularImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/default_head_portrait" />
+    </ru.biovamp.widget.CircleLayout>
+
+    <ru.biovamp.widget.CircleLayout
+        android:id="@+id/imgv_groupHead_one"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp"
+        android:visibility="gone" >
+
+        <com.deshang365.meeting.view.CircularImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/default_head_portrait" />
+    </ru.biovamp.widget.CircleLayout>
+
+</RelativeLayout>

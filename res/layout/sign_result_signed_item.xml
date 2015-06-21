@@ -1,0 +1,50 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:id="@+id/rel_sign_result_unsigned"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" >
+
+        <!-- com.deshang365.meeting.view.CircularImageView -->
+
+        <com.deshang365.meeting.view.CircularImageView
+            android:id="@+id/imgv_sign_result_signed"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/default_head_portrait" />
+
+        <TextView
+            android:id="@+id/txtv_nickname_sign_result_signed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/imgv_sign_result_signed"
+            android:text="大熊"
+            android:textColor="@color/new_black_one"
+            android:textSize="@dimen/text_size_14" />
+
+        <ImageView
+            android:id="@+id/imgv_group_sign_state"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="4dp"
+            android:layout_toLeftOf="@+id/txtv_createtime_sign_result_signed" />
+
+        <TextView
+            android:id="@+id/txtv_createtime_sign_result_signed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:text="12:00" />
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="250dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="最新版本:"
+                    android:textColor="@color/txt_middle"
+                    android:textSize="@dimen/text_size_14"/>
+
+                <TextView
+                    android:id="@+id/updated_version_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="1.0.0"
+                    android:textColor="@color/txt_middle"
+                    android:textSize="@dimen/text_size_14"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="文件大小:"
+                    android:textColor="@color/txt_middle"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/updated_file_size"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="1.5M"
+                    android:textColor="@color/txt_middle"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="更新内容:"
+                    android:textColor="@color/txt_middle"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/updated_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="这里是更新的内容。"
+                android:textColor="@color/txt_middle"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

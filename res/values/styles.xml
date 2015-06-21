@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppTheme" parent="android:Theme.Light">
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="FullscreenTheme" parent="android:Theme.NoTitleBar">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@null</item>
+        <item name="metaButtonBarStyle">@style/ButtonBar</item>
+        <item name="metaButtonBarButtonStyle">@style/ButtonBarButton</item>
+    </style>
+
+    <style name="ButtonBar">
+        <item name="android:paddingLeft">2dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingRight">2dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:background">@android:drawable/bottom_bar</item>
+    </style>
+
+    <style name="ChangeState">
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:padding">6dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginTop">10dp</item>
+    </style>
+
+    <style name="EditBg">
+        <item name="android:paddingBottom">6dp</item>
+        <item name="android:paddingTop">6dp</item>
+    </style>
+
+    <style name="userInfo_txtv_item">
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textColor">@color/new_black_two</item>
+    </style>
+
+    <style name="ButtonBarButton" />
+
+    <style name="editStyle">
+        <item name="android:layout_marginLeft">14dp</item>
+        <item name="android:layout_marginRight">14dp</item>
+        <item name="android:background">@drawable/edit_bg_selector</item>
+        <item name="android:textColor">@color/new_black_three</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+    </style>
+
+    <style name="checkButtonStyle">
+        <item name="android:button">@null</item>
+        <item name="android:textColor">@drawable/unsigned_color_selector</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:layout_width">45dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="radioButtonStyle">
+        <item name="android:button">@null</item>
+        <item name="android:textColor">@drawable/text_color_selector2</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:background">@drawable/rb_bg_selector</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="relStyle">
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:paddingRight">15dp</item>
+    </style>
+
+    <style name="tvTimeCountDown">
+        <item name="android:textColor">@color/new_black_three</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginLeft">4dp</item>
+        <item name="android:background">@drawable/timebg</item>
+    </style>
+
+</resources>

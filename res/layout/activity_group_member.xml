@@ -1,0 +1,321 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F2F2F2"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/top_alert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/public_top_alert" />
+
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <RelativeLayout
+            android:id="@+id/rel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <com.deshang365.meeting.view.MembersGridView
+                android:id="@+id/gv_groupMember"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:cacheColorHint="#00000000"
+                android:listSelector="#00000000"
+                android:numColumns="4" >
+            </com.deshang365.meeting.view.MembersGridView>
+
+            <LinearLayout
+                android:id="@+id/ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/gv_groupMember"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/new_gray"
+                    android:orientation="vertical" >
+
+                    <RelativeLayout
+                        android:id="@+id/rel_group_name"
+                        style="@style/relStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="1dp"
+                        android:background="@color/white" >
+
+                        <TextView
+                            android:id="@+id/txtv_tag_group_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="群组名称"
+                            android:textSize="@dimen/text_size_14" />
+
+                        <TextView
+                            android:id="@+id/txtv_group_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="5dp"
+                            android:ellipsize="end"
+                            android:maxWidth="140dp"
+                            android:singleLine="true"
+                            android:text="自行车俱乐部"
+                            android:textSize="@dimen/text_size_14" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rel_QR_code"
+                        style="@style/relStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="1dp"
+                        android:background="@color/white" >
+
+                        <TextView
+                            android:id="@+id/txtv_tag_group_QR_code"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="群二维码"
+                            android:textSize="@dimen/text_size_14" />
+
+                        <ImageView
+                            android:id="@+id/imgv_next2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/next" />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="5dp"
+                            android:layout_toLeftOf="@+id/imgv_next2"
+                            android:background="@drawable/qr_code" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        style="@style/relStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="1dp"
+                        android:background="@color/white" >
+
+                        <TextView
+                            android:id="@+id/txtv_tag_group_code"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="群组码"
+                            android:textSize="@dimen/text_size_14" />
+
+                        <TextView
+                            android:id="@+id/txtv_group_code"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="5dp"
+                            android:text="254371"
+                            android:textSize="@dimen/text_size_14" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rel_nickname"
+                        style="@style/relStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="1dp"
+                        android:background="@color/white" >
+
+                        <TextView
+                            android:id="@+id/txtv_tag_group_nickname"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="我在本群昵称"
+                            android:textSize="@dimen/text_size_14" />
+
+                        <TextView
+                            android:id="@+id/txtv_nickname"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="5dp"
+                            android:ellipsize="end"
+                            android:maxWidth="140dp"
+                            android:singleLine="true"
+                            android:text="三毛"
+                            android:textSize="@dimen/text_size_14" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rel_signrecord"
+                        style="@style/relStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/white" >
+
+                        <TextView
+                            android:id="@+id/txtv_signrecord"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="查看签到记录"
+                            android:textSize="@dimen/text_size_14" />
+
+                        <ImageView
+                            android:id="@+id/imgv_next3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/next" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rel_all_signresult"
+                        style="@style/relStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="1dp"
+                        android:background="@color/white" >
+
+                        <TextView
+                            android:id="@+id/txtv_all_signresult"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="查看统计结果"
+                            android:textSize="@dimen/text_size_14" />
+
+                        <ImageView
+                            android:id="@+id/imgv_next4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/next" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rel_export_signresult"
+                        style="@style/relStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="1dp"
+                        android:background="@color/white" >
+
+                        <TextView
+                            android:id="@+id/txtv_export_signresult"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="导出签到结果"
+                            android:textSize="@dimen/text_size_14" />
+
+                        <ImageView
+                            android:id="@+id/imgv_next5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/next" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rel_forbid_join"
+                        style="@style/relStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/white" >
+
+                        <TextView
+                            android:id="@+id/txtv_forbid_join"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="禁止新成员加入"
+                            android:textSize="@dimen/text_size_14" />
+
+                        <TextView
+                            android:id="@+id/txtv_allow_forbid_add_mmeber"
+                            android:layout_width="40dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginRight="5dp"
+                            android:background="@drawable/turn_off" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rel_report"
+                        style="@style/relStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="1dp"
+                        android:background="@color/white"
+                        android:visibility="gone" >
+
+                        <TextView
+                            android:id="@+id/txtv_report"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text=" 举报"
+                            android:textSize="@dimen/text_size_14" />
+
+                        <ImageView
+                            android:id="@+id/imgv_next6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/next" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rel_btn"
+                        style="@style/relStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:paddingBottom="10dp" >
+
+                        <Button
+                            android:id="@+id/btn_dismissOrExit"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="30dp"
+                            android:background="@drawable/btn_red_bg"
+                            android:text="删除并退出"
+                            android:textColor="@drawable/text_color_selector"
+                            android:textSize="@dimen/text_size_16" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+</LinearLayout>

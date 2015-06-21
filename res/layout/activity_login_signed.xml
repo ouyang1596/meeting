@@ -1,0 +1,95 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/new_gray" >
+
+    <include
+        android:id="@+id/top_alert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/public_top_alert" />
+
+    <RelativeLayout
+        android:id="@+id/rel_login_signed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_back"
+        android:layout_below="@+id/top_alert"
+        android:layout_marginTop="14dp" >
+
+        <RelativeLayout
+            android:id="@+id/rel_sign_complete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white" >
+
+            <ImageView
+                android:id="@+id/imgv_sign_complete"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="14dp"
+                android:src="@drawable/imgvsigned" />
+
+            <TextView
+                android:id="@+id/txtv_tag_signed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imgv_sign_complete"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="14dp"
+                android:paddingBottom="14dp"
+                android:text="恭喜你完成签到"
+                android:textColor="@color/new_orange_yellow"
+                android:textSize="@dimen/text_size_16" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/rel_signed_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rel_sign_complete"
+            android:layout_marginTop="14dp"
+            android:background="@color/new_blue_default"
+            android:orientation="vertical" >
+
+            <RadioGroup
+                android:id="@+id/rg_show_signlist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/rb_show_un_signed"
+                    style="@style/radioButtonStyle"
+                    android:checked="true"
+                    android:text="未完成签到" />
+
+                <RadioButton
+                    android:id="@+id/rb_show_signed"
+                    style="@style/radioButtonStyle"
+                    android:text="已完成签到" />
+            </RadioGroup>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <com.deshang365.meeting.view.SignedView
+                    android:id="@+id/rel_all_signed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+                </com.deshang365.meeting.view.SignedView>
+
+                <ExpandableListView
+                    android:id="@+id/lv_signed"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white" >
+                </ExpandableListView>
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

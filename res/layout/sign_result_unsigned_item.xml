@@ -1,0 +1,63 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:id="@+id/rel_sign_result_unsigned"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" >
+
+        <!-- com.deshang365.meeting.view.CircularImageView -->
+
+        <com.deshang365.meeting.view.CircularImageView
+            android:id="@+id/imgv_sign_result_unsigned"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/default_head_portrait" />
+
+        <TextView
+            android:id="@+id/txtv_nickname_sign_result_unsigned"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/imgv_sign_result_unsigned"
+            android:text="大熊"
+            android:textColor="@color/new_black_one"
+            android:textSize="@dimen/text_size_14" />
+
+        <LinearLayout
+            android:id="@+id/radiogroup_change_sign_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:orientation="horizontal" >
+
+            <CheckBox
+                android:id="@+id/radiobutton_late"
+                style="@style/checkButtonStyle"
+                android:background="@drawable/radiobutton_selector_rec_blue"
+                android:text="迟到" />
+
+            <CheckBox
+                android:id="@+id/radiobutton_leave"
+                style="@style/checkButtonStyle"
+                android:layout_marginLeft="12dp"
+                android:background="@drawable/radiobutton_selector_rec_green"
+                android:text="请假" />
+
+            <CheckBox
+                android:id="@+id/radiobutton_signed_supplement"
+                style="@style/checkButtonStyle"
+                android:layout_marginLeft="12dp"
+                android:background="@drawable/radiobutton_selector_rec_yellow"
+                android:text="补签" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,158 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <include
+        android:id="@+id/top_alert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/public_top_alert" />
+
+    <RelativeLayout
+        android:id="@+id/rel_word_sign"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top_alert"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp" >
+
+        <ImageView
+            android:id="@+id/imgv_word_sign"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/word_sign" />
+
+        <TextView
+            android:id="@+id/txtv_word_tag_sign"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imgv_word_sign"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="口令签到"
+            android:textColor="@color/new_blue_default"
+            android:textSize="@dimen/text_size_16" />
+
+        <RelativeLayout
+            android:id="@+id/rel_etv_word_sign"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtv_word_tag_sign"
+            android:layout_marginTop="20dp" >
+
+            <EditText
+                android:id="@+id/etv_sign"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/edit_bac"
+                android:hint="请输入四位数口令，或点击骰子"
+                android:inputType="number"
+                android:paddingRight="40dp"
+                android:textSize="@dimen/text_size_16" />
+
+            <ImageView
+                android:id="@+id/imgv_etv_word_sign"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/dick" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_wordsign_timecount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rel_etv_word_sign" >
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btn_ensure"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/layout_wordsign_timecount"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_blue_bg_radius_selector"
+            android:text="确定"
+            android:textColor="@drawable/text_color_selector"
+            android:textSize="@dimen/text_size_20" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rel_bluetooth_sign"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rel_word_sign"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp"
+        android:visibility="gone" >
+
+        <ImageView
+            android:id="@+id/imgv_bluetooth_sign"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/bluetooth_sign" />
+
+        <TextView
+            android:id="@+id/txtv_bluetooth_tag_sign1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imgv_bluetooth_sign"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="蓝牙签到"
+            android:textColor="@color/new_blue_default"
+            android:textSize="@dimen/text_size_16" />
+
+        <TextView
+            android:id="@+id/txtv_bluetooth_tag_sign2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtv_bluetooth_tag_sign1"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="请告知参与者打开蓝牙以便完成签到"
+            android:textColor="@color/new_black_three"
+            android:textSize="@dimen/text_size_12" />
+
+        <RelativeLayout
+            android:id="@+id/layout_bluetooth_timecount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtv_bluetooth_tag_sign2" >
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btn_bluetooth_ensure"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/layout_bluetooth_timecount"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_blue_bg_radius_selector"
+            android:text="确定"
+            android:textColor="@drawable/text_color_selector"
+            android:textSize="@dimen/text_size_20" />
+
+        <TextView
+            android:id="@+id/txtv_bluetooth_tag_sign3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn_bluetooth_ensure"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="蓝牙签到适合近距离签到，无需签到码"
+            android:textColor="@color/new_orange_yellow"
+            android:textSize="@dimen/text_size_12" />
+    </RelativeLayout>
+
+</RelativeLayout>
