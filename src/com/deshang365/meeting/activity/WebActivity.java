@@ -1,6 +1,5 @@
 package com.deshang365.meeting.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,39 +21,6 @@ public class WebActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_web);
 		initView();
-		// Intent intent = getIntent();
-		// mWebView = (WebView) findViewById(R.id.wv_web);
-		// mWebView.getSettings().setJavaScriptEnabled(true);
-		// // mWebView.getSettings().setPluginState(true);
-		// mWebView.setWebViewClient(new WebViewClient() {
-		// @Override
-		// public boolean shouldOverrideUrlLoading(WebView view, String url) {
-		// view.loadUrl(url);
-		// return true;
-		// }
-		// });
-		// mWebView.loadUrl(intent.getStringExtra(Constants.KEY_WEB_URL));
-		//
-		// View backView = findViewById(R.id.ll_top_alert_back);
-		// backView.setVisibility(View.VISIBLE);
-		// backView.setOnClickListener(new OnClickListener() {
-		// @Override
-		// public void onClick(View v) {
-		// if (!AppData.hasLogin) {
-		// Intent intent = new Intent();
-		// intent.setClass(mContext, LoginActivity.class);
-		// mContext.startActivity(intent);
-		// } else {
-		// if (AppData.isFromLaunch) {
-		// Intent intent = new Intent();
-		// intent.setClass(mContext, MainActivity.class);
-		// mContext.startActivity(intent);
-		// AppData.isFromLaunch = false;
-		// }
-		// }
-		// finish();
-		// }
-		// });
 	}
 
 	private void initView() {

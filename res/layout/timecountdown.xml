@@ -40,7 +40,7 @@
         android:paddingLeft="2dp"
         android:paddingRight="2dp"
         android:text="3"
-        android:textColor="@color/new_orange_yellow"
+        android:textColor="@color/new_orange_default"
         android:textSize="@dimen/text_size_16" />
 
     <TextView

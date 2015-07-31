@@ -50,7 +50,6 @@ public class BaseActivity extends Activity {
 						intent.setClass(mContext, WebActivity.class);
 						mContext.startActivity(intent);
 					}
-
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
@@ -72,6 +71,7 @@ public class BaseActivity extends Activity {
 		if (mDialog == null) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
 			mDialog = builder.create();
+			mDialog.setCancelable(false);
 		}
 	}
 

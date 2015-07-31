@@ -1,24 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/white" >
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
 
     <RelativeLayout
         android:id="@+id/rel_pei_sign_history_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:background="@drawable/btn_white_bg_selector"
+        android:paddingBottom="10dp"
         android:paddingLeft="7dp"
         android:paddingRight="7dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp">
+        android:paddingTop="10dp" >
 
         <RelativeLayout
             android:id="@+id/rel_item"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:background="@drawable/bg_sign_history_left" >
+            android:background="@drawable/bg_sign_history_left"
+            android:visibility="gone" >
 
             <TextView
                 android:id="@+id/txtv_item_per_sig_history"
@@ -78,4 +80,125 @@
         </RelativeLayout>
     </RelativeLayout>
 
-</RelativeLayout>
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/new_gray2" />
+
+    <LinearLayout
+        android:id="@+id/ll_sign_state_count"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/new_gray2" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/new_gray2"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/new_gray"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/txtv_late_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="@color/new_black_three"
+                    android:textSize="@dimen/text_size_16" />
+
+                <TextView
+                    style="@style/tvSignStateStyle"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/rec_blue"
+                    android:text="迟到" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1px"
+                android:layout_weight="1"
+                android:background="@color/new_gray"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/txtv_leave_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="@color/new_black_three"
+                    android:textSize="@dimen/text_size_16" />
+
+                <TextView
+                    style="@style/tvSignStateStyle"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/rec_green"
+                    android:text="请假" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1px"
+                android:layout_weight="1"
+                android:background="@color/new_gray"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/txtv_signed_supplement_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="@color/new_black_three"
+                    android:textSize="@dimen/text_size_16" />
+
+                <TextView
+                    style="@style/tvSignStateStyle"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/rec_yellow"
+                    android:text="补签" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_sign_detail"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1px"
+                android:layout_weight="1"
+                android:background="@color/new_gray"
+                android:gravity="center"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="详情"
+                    android:textColor="@color/new_black_three"
+                    android:textSize="@dimen/text_size_16" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:src="@drawable/next" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

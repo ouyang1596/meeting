@@ -32,7 +32,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:text="点击查看成员状态"
-        android:textColor="@color/new_orange_yellow"
+        android:textColor="@color/new_orange_default"
         android:textSize="@dimen/text_size_16"
         android:visibility="gone" />
 

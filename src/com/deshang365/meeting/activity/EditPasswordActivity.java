@@ -3,7 +3,6 @@ package com.deshang365.meeting.activity;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 import android.annotation.SuppressLint;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,8 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.deshang365.meeting.R;
-import com.deshang365.meeting.model.Network;
-import com.deshang365.meeting.model.NetworkReturnBase;
 import com.deshang365.meeting.network.NetworkReturn;
 import com.deshang365.meeting.network.NewNetwork;
 import com.deshang365.meeting.network.OnResponse;

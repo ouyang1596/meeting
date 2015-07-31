@@ -4,10 +4,8 @@ import java.io.File;
 
 import retrofit.RetrofitError;
 import retrofit.client.Response;
-import android.R.integer;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,8 +13,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.provider.MediaStore;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -24,18 +20,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.deshang365.meeting.R;
 import com.deshang365.meeting.activity.AboutActivity;
 import com.deshang365.meeting.activity.ChangeDataActivity;
-import com.deshang365.meeting.activity.MySignRecordActivity;
-import com.deshang365.meeting.activity.SetActivity;
 import com.deshang365.meeting.activity.EditPasswordActivity;
 import com.deshang365.meeting.activity.LoginActivity;
 import com.deshang365.meeting.activity.MainActivity;
+import com.deshang365.meeting.activity.MySignRecordActivity;
+import com.deshang365.meeting.activity.SetActivity;
 import com.deshang365.meeting.baselib.MeetingApp;
 import com.deshang365.meeting.model.Constants;
 import com.deshang365.meeting.model.Network;
@@ -87,8 +82,8 @@ public class MainTabUserInfo extends MainTabViewBase {
 	private String mImageTakephotoPathString;
 
 	private void init() {
-		mOptions = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.default_head_portrait)
-				.showImageForEmptyUri(R.drawable.default_head_portrait).showImageOnFail(R.drawable.default_head_portrait)
+		mOptions = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.user_info_default_avatar)
+				.showImageForEmptyUri(R.drawable.user_info_default_avatar).showImageOnFail(R.drawable.user_info_default_avatar)
 				.cacheInMemory(true).cacheOnDisk(true).bitmapConfig(Bitmap.Config.RGB_565) // 设置图片的解码类型
 				.build();
 		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(mContext).build();
@@ -212,7 +207,7 @@ public class MainTabUserInfo extends MainTabViewBase {
 				initDialog();
 				View mExitView = View.inflate(mContext, R.layout.exit_dialog, null);
 				Button btnExit = (Button) mExitView.findViewById(R.id.btn_exit);
-				TextView tvExit = (TextView) mExitView.findViewById(R.id.txtv_exit);
+				TextView tvExit = (TextView) mExitView.findViewById(R.id.tv_exit);
 				tvExit.setText("退出登录？");
 				tvExit.setVisibility(View.VISIBLE);
 				btnExit.setOnClickListener(new OnClickListener() {

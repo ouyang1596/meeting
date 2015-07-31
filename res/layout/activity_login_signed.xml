@@ -41,7 +41,7 @@
                 android:layout_marginTop="14dp"
                 android:paddingBottom="14dp"
                 android:text="恭喜你完成签到"
-                android:textColor="@color/new_orange_yellow"
+                android:textColor="@color/new_orange_default"
                 android:textSize="@dimen/text_size_16" />
         </RelativeLayout>
 

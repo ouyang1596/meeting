@@ -20,7 +20,7 @@
                 android:id="@+id/txtv_signcode"
                 android:layout_width="wrap_content"
                 android:layout_height="44dp"
-                android:layout_marginLeft="14dp"
+                android:layout_marginLeft="7dp"
                 android:gravity="center_vertical"
                 android:text="签到码"
                 android:textColor="@color/new_blue_default"
@@ -34,7 +34,8 @@
             <RelativeLayout
                 android:id="@+id/rel_signcode"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" >
 
                 <EditText
                     android:id="@+id/etv_signcode"
@@ -43,6 +44,7 @@
                     android:background="@drawable/inputtext"
                     android:hint="请设置签到码（4位）"
                     android:inputType="number"
+                    android:paddingLeft="7dp"
                     android:paddingRight="30dp" />
 
                 <ImageView
@@ -61,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/rel_exit"
             android:layout_marginTop="30dp"
-            android:background="@drawable/new_blue_radius2"
+            android:background="@drawable/btn_blue_radius2_default"
             android:orientation="horizontal" >
 
             <Button
@@ -69,7 +71,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/new_blue_radius2"
+                android:background="@drawable/btn_blue_bg_radius2_selector"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
                 android:text="确定"

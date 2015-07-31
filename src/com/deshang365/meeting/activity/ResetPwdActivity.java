@@ -21,8 +21,6 @@ import com.deshang365.meeting.model.UserInfo;
 import com.deshang365.meeting.network.NetworkReturn;
 import com.deshang365.meeting.network.NewNetwork;
 import com.deshang365.meeting.network.OnResponse;
-import com.deshang365.meeting.util.SendToSMSAsyn;
-import com.deshang365.meeting.util.SendToSMSAsyn.onPostExecuteListener;
 
 public class ResetPwdActivity extends BaseActivity {
 	private LinearLayout mLlBack;

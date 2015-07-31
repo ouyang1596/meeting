@@ -1,18 +1,30 @@
 package com.zxing.activity;
 
 import java.io.IOException;
+import java.util.Hashtable;
 import java.util.Vector;
 
-import android.app.Activity;
+import org.codehaus.jackson.JsonNode;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Vibrator;
+import android.text.TextUtils;
 import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
@@ -24,8 +36,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.deshang365.meeting.R;
+import com.deshang365.meeting.activity.BaseActivity;
+import com.deshang365.meeting.activity.JoinGroupActivity;
+import com.deshang365.meeting.model.GroupMemberInfo;
+import com.deshang365.meeting.network.NetworkReturn;
+import com.deshang365.meeting.network.NewNetwork;
+import com.deshang365.meeting.network.OnResponse;
+import com.deshang365.meeting.util.MeetingUtils;
+import com.deshang365.meeting.util.RGBLuminanceSource;
 import com.google.zxing.BarcodeFormat;
+import com.google.zxing.BinaryBitmap;
+import com.google.zxing.ChecksumException;
+import com.google.zxing.DecodeHintType;
+import com.google.zxing.FormatException;
+import com.google.zxing.NotFoundException;
 import com.google.zxing.Result;
+import com.google.zxing.common.HybridBinarizer;
+import com.google.zxing.qrcode.QRCodeReader;
+import com.tencent.stat.StatService;
 import com.zxing.camera.CameraManager;
 import com.zxing.decoding.CaptureActivityHandler;
 import com.zxing.decoding.InactivityTimer;
@@ -36,7 +64,7 @@ import com.zxing.view.ViewfinderView;
  * 
  * @author Ryan.Tang
  */
-public class CaptureActivity extends Activity implements Callback {
+public class CaptureActivity extends BaseActivity implements Callback {
 
 	private CaptureActivityHandler handler;
 	private ViewfinderView viewfinderView;
@@ -49,8 +77,9 @@ public class CaptureActivity extends Activity implements Callback {
 	private static final float BEEP_VOLUME = 0.10f;
 	private boolean vibrate;
 	private Button cancelScanButton;
-	private TextView mTvTopical;
+	private TextView mTvTopical, mQrcodePic;
 	private LinearLayout mLlBack;
+	private int REQUESTCODE_ALBUM = 1;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -78,6 +107,19 @@ public class CaptureActivity extends Activity implements Callback {
 		cancelScanButton = (Button) this.findViewById(R.id.btn_cancel_scan);
 		hasSurface = false;
 		inactivityTimer = new InactivityTimer(this);
+		mQrcodePic = (TextView) findViewById(R.id.txtv_what_need);
+		mQrcodePic.setVisibility(View.VISIBLE);
+		mQrcodePic.setText("相册二维码");
+		mQrcodePic.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				StatService.trackCustomEvent(mContext, "2code", "OK");
+				Intent picIntent = new Intent(Intent.ACTION_GET_CONTENT);
+				picIntent.setType("image/*");
+				startActivityForResult(picIntent, REQUESTCODE_ALBUM);
+			}
+		});
 	}
 
 	@Override
@@ -241,4 +283,127 @@ public class CaptureActivity extends Activity implements Callback {
 		}
 	};
 
+	@SuppressLint("NewApi")
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == REQUESTCODE_ALBUM) {
+			if (data == null) {
+				return;
+			}
+			Uri photoUri = data.getData();
+			String absolutePath = MeetingUtils.getRealFilePath(this, photoUri);
+			if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.GINGERBREAD_MR1) {
+				new ScanningImageAsyn().execute(absolutePath);
+			} else {
+				new ScanningImageAsyn().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, absolutePath);
+			}
+		}
+	};
+
+	class ScanningImageAsyn extends AsyncTask<String, Void, Result> {
+
+		@Override
+		protected Result doInBackground(String... params) {
+			return scanningImage(params[0]);
+		}
+
+		@Override
+		protected void onPostExecute(Result result) {
+			super.onPostExecute(result);
+			if (result != null) {
+				String resulString = result.toString();
+				jsonUtil(resulString);
+			} else {
+				Toast.makeText(mContext, "扫面失败", Toast.LENGTH_SHORT).show();
+			}
+		}
+
+	}
+
+	private Bitmap mScanBitmap;
+
+	/**
+	 * 扫描相册二维码
+	 * */
+	private Result scanningImage(String path) {
+		if (TextUtils.isEmpty(path)) {
+			return null;
+
+		}
+		// DecodeHintType 和EncodeHintType
+		Hashtable<DecodeHintType, String> hints = new Hashtable<DecodeHintType, String>();
+		hints.put(DecodeHintType.CHARACTER_SET, "utf-8"); // 设置二维码内容的编码
+		BitmapFactory.Options options = new BitmapFactory.Options();
+		options.inJustDecodeBounds = true; // 先获取原大小
+		mScanBitmap = BitmapFactory.decodeFile(path, options);
+		options.inJustDecodeBounds = false; // 获取新的大小
+
+		int sampleSize = (int) (options.outHeight / (float) 200);
+
+		if (sampleSize <= 0)
+			sampleSize = 1;
+		options.inSampleSize = sampleSize;
+		mScanBitmap = BitmapFactory.decodeFile(path, options);
+
+		RGBLuminanceSource source = new RGBLuminanceSource(mScanBitmap);
+		BinaryBitmap bitmap1 = new BinaryBitmap(new HybridBinarizer(source));
+		QRCodeReader reader = new QRCodeReader();
+		try {
+			return reader.decode(bitmap1, hints);
+		} catch (NotFoundException e) {
+		} catch (ChecksumException e) {
+		} catch (FormatException e) {
+		}
+
+		return null;
+
+	}
+
+	@SuppressLint("NewApi")
+	private void jsonUtil(String resulString) {
+		try {
+			String substring = resulString.substring(8);
+			JSONObject object = new JSONObject(substring);
+			String groupcode = object.getString("data");
+			showWaitingDialog();
+			getGroupInfo(groupcode);
+		} catch (JSONException e) {
+			Toast.makeText(mContext, "扫面失败", Toast.LENGTH_SHORT).show();
+			return;
+		}
+	}
+
+	public void getGroupInfo(final String idcard) {
+		NewNetwork.getGroupInfo(idcard, new OnResponse<NetworkReturn>("groupinfo_byidcard_Android") {
+			@Override
+			public void success(NetworkReturn result, Response response) {
+				super.success(result, response);
+				hideWaitingDialog();
+				if (result.result != 1) {
+					Toast.makeText(mContext, result.msg, 0).show();
+					return;
+				}
+				GroupMemberInfo groupInfo = new GroupMemberInfo();
+				JsonNode object = result.data;
+				groupInfo.name = object.get("name").getValueAsText();
+				groupInfo.group_id = object.get("id").getValueAsText();
+				groupInfo.hxgroupid = object.get("mob_code").getValueAsText();
+				groupInfo.uid = object.get("uid").getValueAsInt();
+				Intent intent = new Intent(mContext, JoinGroupActivity.class);
+				intent.putExtra("groupid", groupInfo.group_id);
+				intent.putExtra("groupname", groupInfo.name);
+				intent.putExtra("hxgroupid", groupInfo.hxgroupid);
+				intent.putExtra("uid", groupInfo.uid);
+				intent.putExtra("groupcode", idcard);
+				startActivity(intent);
+				finish();
+			}
+
+			@Override
+			public void failure(RetrofitError error) {
+				super.failure(error);
+				hideWaitingDialog();
+				Toast.makeText(mContext, "获取信息失败", 0).show();
+			}
+		});
+	}
 }

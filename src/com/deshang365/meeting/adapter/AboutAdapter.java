@@ -10,7 +10,10 @@ import com.deshang365.meeting.R;
 
 public class AboutAdapter extends BaseAdapter {
 	private Context mContext;
-	private String[] mAboutStrings = { "功能介绍", "常见问题", "应用评分", "应用二维码", "意见反馈", "浏览官网" };
+	private String[] mAboutStrings = { "功能介绍", "常见问题", "应用评分", "应用二维码", "意见反馈"/*
+																			 * ,
+																			 * "浏览官网"
+																			 */};
 
 	public AboutAdapter(Context mContext) {
 		super();
@@ -19,7 +22,6 @@ public class AboutAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
 		return mAboutStrings == null ? 0 : mAboutStrings.length;
 	}
 

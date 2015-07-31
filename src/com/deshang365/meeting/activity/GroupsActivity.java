@@ -1,6 +1,5 @@
 package com.deshang365.meeting.activity;
 
-import java.util.Hashtable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -11,46 +10,30 @@ import org.json.JSONObject;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.deshang365.meeting.R;
 import com.deshang365.meeting.baselib.MeetingApp;
 import com.deshang365.meeting.model.GroupMemberInfo;
-import com.deshang365.meeting.model.Network;
 import com.deshang365.meeting.network.NetworkReturn;
 import com.deshang365.meeting.network.NewNetwork;
 import com.deshang365.meeting.network.OnResponse;
 import com.deshang365.meeting.util.MeetingUtils;
-import com.deshang365.meeting.util.RGBLuminanceSource;
 import com.easemob.chat.EMGroup;
 import com.easemob.chat.EMGroupManager;
 import com.easemob.exceptions.EaseMobException;
-import com.google.zxing.BinaryBitmap;
-import com.google.zxing.ChecksumException;
-import com.google.zxing.DecodeHintType;
-import com.google.zxing.FormatException;
-import com.google.zxing.NotFoundException;
-import com.google.zxing.Result;
-import com.google.zxing.common.HybridBinarizer;
-import com.google.zxing.qrcode.QRCodeReader;
 import com.tencent.stat.StatAppMonitor;
 import com.tencent.stat.StatService;
 import com.zxing.activity.CaptureActivity;
@@ -58,15 +41,13 @@ import com.zxing.activity.CaptureActivity;
 public class GroupsActivity extends BaseActivity {
 	private EditText mEtvCreateGroupName, mEtvCreateGroupNickname, mEtvJoinGroupcode;
 	private Button mBtnCreatGroup, mBtnJoinGroup;
-	private RelativeLayout mRelCreateGroups;
+	private LinearLayout mRelCreateGroups;
 	private LinearLayout mLlJoinGroups, mLlScan, mLlNearSignGroups;
-	private TextView mTvTopical, mQrcodePic;
+	private TextView mTvTopical;
 	private LinearLayout mLlBack;
 	private String mHxGroupId;
-	private Bitmap mScanBitmap;
-	private int mIsScanOrGroupcode = -1;// 0 群组码加群 1扫描加群
+	// private int mIsScanOrGroupcode = -1;// 0 群组码加群 1扫描加群
 	private int REQUESTCODE_SCAN = 0;
-	private int REQUESTCODE_ALBUM = 1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +79,7 @@ public class GroupsActivity extends BaseActivity {
 			}
 		});
 		mTvTopical = (TextView) findViewById(R.id.tv_top_alert_text);
-		mRelCreateGroups = (RelativeLayout) findViewById(R.id.rel_createGroups);
+		mRelCreateGroups = (LinearLayout) findViewById(R.id.rel_createGroups);
 		mEtvCreateGroupName = (EditText) findViewById(R.id.etv_groupName);
 		mEtvCreateGroupName.addTextChangedListener(new TextWatcher() {
 
@@ -115,13 +96,11 @@ public class GroupsActivity extends BaseActivity {
 
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void afterTextChanged(Editable s) {
-				// TODO Auto-generated method stub
 
 			}
 		});
@@ -144,13 +123,11 @@ public class GroupsActivity extends BaseActivity {
 
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void afterTextChanged(Editable s) {
-				// TODO Auto-generated method stub
 
 			}
 		});
@@ -211,7 +188,7 @@ public class GroupsActivity extends BaseActivity {
 			@Override
 			public void onClick(View v) {
 				StatService.trackCustomEvent(mContext, "Scan", "OK");
-				mIsScanOrGroupcode = 1;
+				// mIsScanOrGroupcode = 1;
 				Intent intent = new Intent(GroupsActivity.this, CaptureActivity.class);
 				startActivityForResult(intent, 0);
 			}
@@ -222,14 +199,14 @@ public class GroupsActivity extends BaseActivity {
 			@Override
 			public void onClick(View v) {
 				StatService.trackCustomEvent(mContext, "JusedNumber", "OK");
-				String idcard = mEtvJoinGroupcode.getText().toString();
-				if ("".equals(idcard)) {
+				String groupcode = mEtvJoinGroupcode.getText().toString();
+				if ("".equals(groupcode)) {
 					Toast.makeText(getApplication(), "请输入群组码", 0).show();
 					return;
 				}
-				mIsScanOrGroupcode = 0;
+				// mIsScanOrGroupcode = 0;
 				showWaitingDialog();
-				getGroupInfo(idcard);
+				getGroupInfo(groupcode);
 			}
 		});
 		int value = getIntent().getIntExtra("groups", 0);
@@ -242,19 +219,7 @@ public class GroupsActivity extends BaseActivity {
 			mLlJoinGroups.setVisibility(View.VISIBLE);
 			mTvTopical.setText("加入群组");
 		}
-		mQrcodePic = (TextView) findViewById(R.id.txtv_what_need);
-		mQrcodePic.setVisibility(View.VISIBLE);
-		mQrcodePic.setText("相册二维码");
-		mQrcodePic.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				StatService.trackCustomEvent(mContext, "2code", "OK");
-				Intent picIntent = new Intent(Intent.ACTION_GET_CONTENT);
-				picIntent.setType("image/*");
-				startActivityForResult(picIntent, REQUESTCODE_ALBUM);
-			}
-		});
 	}
 
 	@SuppressLint("NewApi")
@@ -269,38 +234,7 @@ public class GroupsActivity extends BaseActivity {
 			Bundle bundle = data.getExtras();
 			String resulString = bundle.getString("result");
 			jsonUtil(resulString);
-		} else if (requestCode == REQUESTCODE_ALBUM) {
-			if (data == null) {
-				return;
-			}
-			Uri photoUri = data.getData();
-			String absolutePath = MeetingUtils.getRealFilePath(this, photoUri);
-			if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.GINGERBREAD_MR1) {
-				new ScanningImageAsyn().execute(absolutePath);
-			} else {
-				new ScanningImageAsyn().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, absolutePath);
-			}
 		}
-	}
-
-	class ScanningImageAsyn extends AsyncTask<String, Void, Result> {
-
-		@Override
-		protected Result doInBackground(String... params) {
-			return scanningImage(params[0]);
-		}
-
-		@Override
-		protected void onPostExecute(Result result) {
-			super.onPostExecute(result);
-			if (result != null) {
-				String resulString = result.toString();
-				jsonUtil(resulString);
-			} else {
-				Toast.makeText(mContext, "扫面失败", Toast.LENGTH_SHORT).show();
-			}
-		}
-
 	}
 
 	@SuppressLint("NewApi")
@@ -308,18 +242,9 @@ public class GroupsActivity extends BaseActivity {
 		try {
 			String substring = resulString.substring(8);
 			JSONObject object = new JSONObject(substring);
-			String groupid = object.getString("data");
+			String groupcode = object.getString("data");
 			showWaitingDialog();
-			getGroupInfo(groupid);
-			// if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.GINGERBREAD_MR1)
-			// {
-			// new GetGroupInfoTask().execute(groupid);
-			// } else {
-			// new
-			// GetGroupInfoTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
-			// groupid);
-			// }
-
+			getGroupInfo(groupcode);
 		} catch (JSONException e) {
 			Toast.makeText(mContext, "扫面失败", Toast.LENGTH_SHORT).show();
 			return;
@@ -366,7 +291,7 @@ public class GroupsActivity extends BaseActivity {
 
 			} else {
 				hideWaitingDialog();
-				Toast.makeText(GroupsActivity.this, "创建失败！", 1).show();
+				Toast.makeText(GroupsActivity.this, "创建失败", 1).show();
 			}
 		}
 	}
@@ -380,7 +305,6 @@ public class GroupsActivity extends BaseActivity {
 				if (result.result != 1) {
 					Toast.makeText(GroupsActivity.this, result.msg, 0).show();
 					return;
-
 				}
 				JsonNode object = result.data;
 				GroupMemberInfo groupInfo = new GroupMemberInfo();
@@ -411,15 +335,15 @@ public class GroupsActivity extends BaseActivity {
 					} else {
 						new DeleteHXGroupAsyn().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mHxGroupId);
 					}
-
 				}
 				Toast.makeText(GroupsActivity.this, "创建失败！", 0).show();
 			}
 		});
 	}
 
-	public void getGroupInfo(final String idcard) {
-		NewNetwork.getGroupInfo(idcard, new OnResponse<NetworkReturn>("groupinfo_byidcard_Android") {
+	// 一律使用群组码加群
+	public void getGroupInfo(final String groupcode) {
+		NewNetwork.getGroupInfo(groupcode, new OnResponse<NetworkReturn>("groupinfo_byidcard_Android") {
 			@Override
 			public void success(NetworkReturn result, Response response) {
 				super.success(result, response);
@@ -430,7 +354,6 @@ public class GroupsActivity extends BaseActivity {
 				}
 				GroupMemberInfo groupInfo = new GroupMemberInfo();
 				JsonNode object = result.data;
-				// JSONObject object = jsonObject.getJSONObject("data");
 				groupInfo.name = object.get("name").getValueAsText();
 				groupInfo.group_id = object.get("id").getValueAsText();
 				groupInfo.hxgroupid = object.get("mob_code").getValueAsText();
@@ -440,12 +363,7 @@ public class GroupsActivity extends BaseActivity {
 				intent.putExtra("groupname", groupInfo.name);
 				intent.putExtra("hxgroupid", groupInfo.hxgroupid);
 				intent.putExtra("uid", groupInfo.uid);
-				if (mIsScanOrGroupcode == 0) {
-					intent.putExtra("groupcode", mEtvJoinGroupcode.getText().toString());
-				} else if (mIsScanOrGroupcode == 1) {
-					intent.putExtra("groupcode", idcard);
-				}
-
+				intent.putExtra("groupcode", groupcode);
 				startActivity(intent);
 				finish();
 			}
@@ -492,43 +410,6 @@ public class GroupsActivity extends BaseActivity {
 		Pattern p = Pattern.compile(regEx);
 		Matcher m = p.matcher(str);
 		return m.replaceAll("").trim();
-	}
-
-	/**
-	 * 扫描相册二维码
-	 * */
-	private Result scanningImage(String path) {
-		if (TextUtils.isEmpty(path)) {
-			return null;
-
-		}
-		// DecodeHintType 和EncodeHintType
-		Hashtable<DecodeHintType, String> hints = new Hashtable<DecodeHintType, String>();
-		hints.put(DecodeHintType.CHARACTER_SET, "utf-8"); // 设置二维码内容的编码
-		BitmapFactory.Options options = new BitmapFactory.Options();
-		options.inJustDecodeBounds = true; // 先获取原大小
-		mScanBitmap = BitmapFactory.decodeFile(path, options);
-		options.inJustDecodeBounds = false; // 获取新的大小
-
-		int sampleSize = (int) (options.outHeight / (float) 200);
-
-		if (sampleSize <= 0)
-			sampleSize = 1;
-		options.inSampleSize = sampleSize;
-		mScanBitmap = BitmapFactory.decodeFile(path, options);
-
-		RGBLuminanceSource source = new RGBLuminanceSource(mScanBitmap);
-		BinaryBitmap bitmap1 = new BinaryBitmap(new HybridBinarizer(source));
-		QRCodeReader reader = new QRCodeReader();
-		try {
-			return reader.decode(bitmap1, hints);
-		} catch (NotFoundException e) {
-		} catch (ChecksumException e) {
-		} catch (FormatException e) {
-		}
-
-		return null;
-
 	}
 
 	@Override

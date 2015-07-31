@@ -12,7 +12,6 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.Resources;
@@ -24,6 +23,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -50,10 +50,11 @@ public class GroupDetailsActivity extends BaseActivity {
 	private MembersGridView mGvMember;
 	private Button mBtnGroupDismissOrExit;
 	private TextView mTvTopical, mTvGroupName, mTvGroupcode, mTvShowname, mTvShare, mTvAllowForbidMemberJoin;
-	private LinearLayout mLlBack;
-	private RelativeLayout mRelQRCode, mRelGroupName, mRelNickName, mRelSignRecord, mRelAllSignRecord, mRelExportAllSignResult;
+	private LinearLayout mLlBack, mRelGroupName, mRelNickName, mRelQRCode;
+	private ImageView mImgvNext;
+	private RelativeLayout mRelSignRecord, mRelAllSignRecord, mRelExportAllSignResult;
+	private View mExportView;
 	private RelativeLayout mRelForbidJoin, mRelReport;
-	private AlertDialog mExportDialog;
 	private String mGroupid;
 	private String mHxgroupid;
 	private int mUid;
@@ -76,7 +77,6 @@ public class GroupDetailsActivity extends BaseActivity {
 
 	@SuppressLint("NewApi")
 	private void initView() {
-		setExportDialog();
 		mAllow_join = getIntent().getIntExtra("allow_join", -1);
 		mIsAllowjoin = mAllow_join;
 		final String groupname = getIntent().getStringExtra("groupname");
@@ -86,6 +86,7 @@ public class GroupDetailsActivity extends BaseActivity {
 		mType = getIntent().getIntExtra("mtype", -1);
 		mHxgroupid = getIntent().getStringExtra("hxgroupid");
 		mRelSignRecord = (RelativeLayout) findViewById(R.id.rel_signrecord);
+		mImgvNext = (ImageView) findViewById(R.id.group_name_next);
 		mRelSignRecord.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -119,7 +120,8 @@ public class GroupDetailsActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				mExportDialog.show();
+				initExportDialog();
+				showExportDialog();
 			}
 		});
 		mRelForbidJoin = (RelativeLayout) findViewById(R.id.rel_forbid_join);
@@ -135,24 +137,23 @@ public class GroupDetailsActivity extends BaseActivity {
 					return;
 				}
 				showWaitingDialog();
-				isCanJoinGroup(mGroupid, mAllow_join, MeetingApp.mVersionName);
+				isCanJoinGroup(mGroupid, mAllow_join, MeetingApp.mVersionCode);
 			}
 		});
-		mRelQRCode = (RelativeLayout) findViewById(R.id.rel_QR_code);
+		mRelQRCode = (LinearLayout) findViewById(R.id.rel_QR_code);
 		mRelQRCode.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(GroupDetailsActivity.this, QRCodeActivity.class);
-				intent.putExtra("groupid", mGroupcode);
 				intent.putExtra("groupname", groupname);
 				intent.putExtra("uid", mUid);
 				intent.putExtra("groupcode", mGroupcode);
 				startActivity(intent);
 			}
 		});
-		mRelGroupName = (RelativeLayout) findViewById(R.id.rel_group_name);
-		mRelNickName = (RelativeLayout) findViewById(R.id.rel_nickname);
+		mRelGroupName = (LinearLayout) findViewById(R.id.rel_group_name);
+		mRelNickName = (LinearLayout) findViewById(R.id.rel_nickname);
 		mRelNickName.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -191,11 +192,13 @@ public class GroupDetailsActivity extends BaseActivity {
 			mRelExportAllSignResult.setVisibility(View.VISIBLE);
 			mRelAllSignRecord.setVisibility(View.VISIBLE);
 			mRelForbidJoin.setVisibility(View.VISIBLE);
+			mImgvNext.setVisibility(View.VISIBLE);
 		} else if (mType == 1) {
 			mBtnGroupDismissOrExit.setText("退出群组");
 			mRelExportAllSignResult.setVisibility(View.GONE);
 			mRelAllSignRecord.setVisibility(View.GONE);
 			mRelForbidJoin.setVisibility(View.GONE);
+			mImgvNext.setVisibility(View.GONE);
 		}
 
 		mBtnGroupDismissOrExit.setOnClickListener(new OnClickListener() {
@@ -208,14 +211,14 @@ public class GroupDetailsActivity extends BaseActivity {
 						deleteExit();
 						return;
 					}
-					mDialog.show();
+					mExitOrDeleteDialog.show();
 				} else if ("退出群组".equals(mBtnGroupDismissOrExit.getText().toString())) {
 					StatService.trackCustomEvent(mContext, "QuitGroup", "OK");
 					if (mExitView == null) {
 						exitGroup();
 						return;
 					}
-					mDialog.show();
+					mExitOrDeleteDialog.show();
 				}
 			}
 		});
@@ -274,7 +277,7 @@ public class GroupDetailsActivity extends BaseActivity {
 		protected void onPostExecute(String result) {
 			super.onPostExecute(result);
 			if (result == null) {
-				Toast.makeText(mContext, "没有找到图片储存路径！", Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContext, "没有找到图片储存路径", Toast.LENGTH_SHORT).show();
 				return;
 			}
 			showShare(mGroupcode, result);
@@ -345,10 +348,10 @@ public class GroupDetailsActivity extends BaseActivity {
 	}
 
 	private void deleteExit() {
-		showDialog();
+		initExitOrDeleteDialog();
 		mDeleteExitView = View.inflate(mContext, R.layout.exit_dialog, null);
 		Button btnDeleteExit = (Button) mDeleteExitView.findViewById(R.id.btn_exit);
-		TextView tvDeleteExit = (TextView) mDeleteExitView.findViewById(R.id.txtv_exit);
+		TextView tvDeleteExit = (TextView) mDeleteExitView.findViewById(R.id.tv_exit);
 		tvDeleteExit.setText("解散群组？");
 		tvDeleteExit.setVisibility(View.VISIBLE);
 		btnDeleteExit.setOnClickListener(new OnClickListener() {
@@ -356,7 +359,7 @@ public class GroupDetailsActivity extends BaseActivity {
 			@Override
 			public void onClick(View v) {
 				StatService.trackCustomEvent(mContext, "DSQconfirm", "OK");
-				mDialog.cancel();
+				mExitOrDeleteDialog.cancel();
 				new HXGroupDismissAsyn().execute(mHxgroupid);
 				showWaitingDialog();
 				groupDismiss(mGroupid);
@@ -367,15 +370,15 @@ public class GroupDetailsActivity extends BaseActivity {
 			@Override
 			public void onClick(View v) {
 				StatService.trackCustomEvent(mContext, "DSQcancel", "OK");
-				mDialog.cancel();
+				mExitOrDeleteDialog.cancel();
 			}
 		});
-		mDialog.show();
-		mDialog.getWindow().setContentView(mDeleteExitView);
+		mExitOrDeleteDialog.show();
+		mExitOrDeleteDialog.getWindow().setContentView(mDeleteExitView);
 	}
 
 	private void exitGroup() {
-		showDialog();
+		initExitOrDeleteDialog();
 		mExitView = View.inflate(mContext, R.layout.exit_dialog, null);
 		Button btnExit = (Button) mExitView.findViewById(R.id.btn_exit);
 		LinearLayout llExit = (LinearLayout) mExitView.findViewById(R.id.ll_delete_exit_group);
@@ -389,7 +392,7 @@ public class GroupDetailsActivity extends BaseActivity {
 			@Override
 			public void onClick(View v) {
 				StatService.trackCustomEvent(mContext, "ConfirmLoginOut", "OK");
-				mDialog.cancel();
+				mExitOrDeleteDialog.cancel();
 				new HXGroupExitAsyn().execute(mHxgroupid);
 				showWaitingDialog();
 				groupExit(mGroupid);
@@ -401,11 +404,11 @@ public class GroupDetailsActivity extends BaseActivity {
 			@Override
 			public void onClick(View v) {
 				StatService.trackCustomEvent(mContext, "CancelLoginOut", "OK");
-				mDialog.cancel();
+				mExitOrDeleteDialog.cancel();
 			}
 		});
-		mDialog.show();
-		mDialog.getWindow().setContentView(mExitView);
+		mExitOrDeleteDialog.show();
+		mExitOrDeleteDialog.getWindow().setContentView(mExitView);
 	}
 
 	public void getGroupMember(String groupid) {
@@ -457,7 +460,7 @@ public class GroupDetailsActivity extends BaseActivity {
 				super.success(result, response);
 				hideWaitingDialog();
 				if (result.result == 1) {
-					Toast.makeText(getApplication(), "群已解散！", Toast.LENGTH_SHORT).show();
+					Toast.makeText(getApplication(), "群已解散", Toast.LENGTH_SHORT).show();
 					startActivity(new Intent(GroupDetailsActivity.this, MainActivity.class));
 					finish();
 				} else {
@@ -469,7 +472,7 @@ public class GroupDetailsActivity extends BaseActivity {
 			public void failure(RetrofitError error) {
 				super.failure(error);
 				hideWaitingDialog();
-				Toast.makeText(getApplication(), "群未能成功解散！", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplication(), "群未能成功解散", Toast.LENGTH_SHORT).show();
 			}
 		});
 	}
@@ -511,7 +514,7 @@ public class GroupDetailsActivity extends BaseActivity {
 				super.success(result, response);
 				hideWaitingDialog();
 				if (result.result == 1) {
-					Toast.makeText(getApplication(), "已退群！", Toast.LENGTH_SHORT).show();
+					Toast.makeText(getApplication(), "已退群", Toast.LENGTH_SHORT).show();
 					startActivity(new Intent(GroupDetailsActivity.this, MainActivity.class));
 					finish();
 				} else {
@@ -560,50 +563,13 @@ public class GroupDetailsActivity extends BaseActivity {
 
 	}
 
-	private AlertDialog mDialog;
+	private AlertDialog mExitOrDeleteDialog;
 
-	private void showDialog() {
-		if (mDialog == null) {
+	private void initExitOrDeleteDialog() {
+		if (mExitOrDeleteDialog == null) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-			mDialog = builder.create();
+			mExitOrDeleteDialog = builder.create();
 		}
-	}
-
-	private View mView;
-
-	private void setExportDialog() {
-		if (mView == null) {
-			mView = View.inflate(mContext, R.layout.dialog_email_item, null);
-		}
-		final EditText eTvEmail = (EditText) mView.findViewById(R.id.etv_email);
-		eTvEmail.setText(MeetingApp.userInfo.email);
-		eTvEmail.setSelection(eTvEmail.length());
-		AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-		builder.setTitle("请输入要导出的邮箱");
-		builder.setView(mView).setPositiveButton("确定", new DialogInterface.OnClickListener() {
-
-			@SuppressLint("NewApi")
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				StatService.trackCustomEvent(mContext, "Outputtomail", "OK");
-				String email = eTvEmail.getText().toString();
-				if (email.length() <= 0) {
-					Toast.makeText(mContext, "邮箱地址不能为空！", 0).show();
-					return;
-				}
-				showWaitingDialog();
-				exportAllSignResult(mGroupid, email);
-
-			}
-		}).setNegativeButton("取消", new DialogInterface.OnClickListener() {
-
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				StatService.trackCustomEvent(mContext, "OutputtomailCancel", "OK");
-			}
-		});
-		mExportDialog = builder.create();
-
 	}
 
 	public void exportAllSignResult(String groupid, String email) {
@@ -622,7 +588,6 @@ public class GroupDetailsActivity extends BaseActivity {
 				Toast.makeText(getApplication(), "导出失败", Toast.LENGTH_SHORT).show();
 			}
 		});
-
 	}
 
 	private void isCanJoinGroup(String group_id, int is_allow, String app_version) {
@@ -652,9 +617,57 @@ public class GroupDetailsActivity extends BaseActivity {
 				return super.onKeyDown(keyCode, event);
 			}
 			showWaitingDialog();
-			isCanJoinGroup(mGroupid, mAllow_join, MeetingApp.mVersionName);
+			isCanJoinGroup(mGroupid, mAllow_join, MeetingApp.mVersionCode);
 		}
 		return super.onKeyDown(keyCode, event);
+	}
+
+	private AlertDialog mExportDialog;
+
+	private void initExportDialog() {
+		if (mExportDialog == null) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+			mExportDialog = builder.create();
+			mExportDialog.setCanceledOnTouchOutside(true);
+		}
+	}
+
+	private void showExportDialog() {
+		if (mExportView == null) {
+			mExportView = View.inflate(mContext, R.layout.export_dialog, null);
+
+			final EditText eTvEmail = (EditText) mExportView.findViewById(R.id.etv_email);
+			eTvEmail.setText(MeetingApp.userInfo.email);
+			Button btnEnsure = (Button) mExportView.findViewById(R.id.btn_ensure);
+			btnEnsure.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					StatService.trackCustomEvent(mContext, "Outputtomail", "OK");
+					String email = eTvEmail.getText().toString();
+					if (email.length() <= 0) {
+						Toast.makeText(mContext, "邮箱地址不能为空", 0).show();
+						return;
+					}
+					mExportDialog.cancel();
+					showWaitingDialog();
+					exportAllSignResult(mGroupid, email);
+				}
+			});
+			Button btnCancel = (Button) mExportView.findViewById(R.id.btn_cancel);
+			btnCancel.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					mExportDialog.cancel();
+					StatService.trackCustomEvent(mContext, "OutputtomailCancel", "OK");
+				}
+			});
+			// 为了能显示输入法
+			mExportDialog.setView(new EditText(mContext));
+		}
+		mExportDialog.show();
+		mExportDialog.getWindow().setContentView(mExportView);
 	}
 
 	@Override

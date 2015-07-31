@@ -1,5 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rel_whole"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray" >
@@ -16,20 +17,23 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/rel_sendMessage"
         android:layout_below="@+id/top_alert"
+        android:layout_marginTop="15dp"
         android:transcriptMode="normal" >
     </ListView>
 
     <RelativeLayout
         android:id="@+id/rel_sendMessage"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
-        android:background="#EDEEF1" >
+        android:background="#EDEEF1"
+        android:focusable="true"
+        android:focusableInTouchMode="true" >
 
         <EditText
             android:id="@+id/etxt_message"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_centerVertical="true"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="15dp"
@@ -48,13 +52,13 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="5dp"
             android:layout_toLeftOf="@+id/etxt_message"
-            android:background="@drawable/add"
+            android:background="@drawable/add_default"
             android:visibility="gone" />
 
         <Button
             android:id="@+id/btn_send"
             android:layout_width="45dp"
-            android:layout_height="30dp"
+            android:layout_height="40dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"

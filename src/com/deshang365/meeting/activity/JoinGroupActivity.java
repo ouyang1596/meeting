@@ -5,11 +5,9 @@ import java.util.regex.Pattern;
 
 import retrofit.RetrofitError;
 import retrofit.client.Response;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -24,8 +22,6 @@ import android.widget.Toast;
 
 import com.deshang365.meeting.R;
 import com.deshang365.meeting.baselib.MeetingApp;
-import com.deshang365.meeting.model.Network;
-import com.deshang365.meeting.model.NetworkReturnBase;
 import com.deshang365.meeting.network.NetworkReturn;
 import com.deshang365.meeting.network.NewNetwork;
 import com.deshang365.meeting.network.OnResponse;
@@ -137,7 +133,6 @@ public class JoinGroupActivity extends ImageloaderBaseActivity {
 				Toast.makeText(mContext, "登录失败！", 0).show();
 			}
 		}
-
 	}
 
 	/**

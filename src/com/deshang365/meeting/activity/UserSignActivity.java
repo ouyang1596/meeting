@@ -6,7 +6,6 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;

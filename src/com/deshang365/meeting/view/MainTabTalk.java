@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,9 +41,9 @@ public class MainTabTalk extends MainTabViewBase {
 	private PullToRefreshListView mLvGroups;
 	private MainActivity mMainActivity;
 	private TalkGroupAdapter2 mAdapter;
-	private PopupWindow mPop;
 	private RelativeLayout mRelProBar;
 	private NewMessageBroadcastReceiver msgReceiver;
+	long mLastRefreshTime = 0;
 
 	public MainTabTalk(Context context) {
 		super(context);
@@ -160,6 +159,13 @@ public class MainTabTalk extends MainTabViewBase {
 				mLvGroups.onRefreshComplete();
 			}
 			getGroupList();
+			sendHideLoadingBroadcast();
+		}
+
+		private void sendHideLoadingBroadcast() {
+			Intent hideLoadingIntent = new Intent();
+			hideLoadingIntent.setAction("show_loading");
+			mContext.sendBroadcast(hideLoadingIntent);
 		}
 	};
 
@@ -169,7 +175,6 @@ public class MainTabTalk extends MainTabViewBase {
 		IntentFilter intentFilter = new IntentFilter(EMChatManager.getInstance().getNewMessageBroadcastAction());
 		intentFilter.setPriority(3);
 		mContext.registerReceiver(msgReceiver, intentFilter);
-
 	}
 
 	@Override
@@ -207,7 +212,8 @@ public class MainTabTalk extends MainTabViewBase {
 				intent.putExtra("allow_join", info.allow_join);
 				mContext.startActivity(intent);
 				EMChatManager.getInstance().getConversation(info.hxgroupid).resetUnreadMsgCount();
-				mMainActivity.updataUnreadTv();
+				// mAdapter.notifyDataSetChanged();
+				// mMainActivity.updataUnreadTv();
 			}
 		});
 		// MeetingApp.mGroupListAdapters.add(mAdapter);
@@ -265,7 +271,7 @@ public class MainTabTalk extends MainTabViewBase {
 			if (result == 1) {
 				setNotifyDataSetChanged();
 			} else {
-				Toast.makeText(mContext, "获取群组列表失败！", 0).show();
+				Toast.makeText(mContext, "获取群组列表失败", 0).show();
 				MeetingApp.mHxHasLogin = false;
 				setNotifyDataSetChanged();
 			}
@@ -286,6 +292,12 @@ public class MainTabTalk extends MainTabViewBase {
 	}
 
 	public void setNotifyDataSetChanged() {
+		// 小于5秒，就不要刷新
+		long curTime = System.currentTimeMillis();
+		if (curTime - mLastRefreshTime < 5 * 1000) {
+			return;
+		}
+		mLastRefreshTime = curTime;
 		if (MeetingApp.userInfo != null && mAdapter != null && mLvGroups != null && MeetingApp.getGroupList() != null) {
 			mAdapter.lruCacheRemoveKey("" + MeetingApp.userInfo.uid);
 			mAdapter.notifyDataSetChanged();

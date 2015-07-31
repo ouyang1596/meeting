@@ -2,11 +2,7 @@ package cn.sharesdk.onekeyshare.theme.classic;
 
 import static cn.sharesdk.framework.utils.R.getBitmapRes;
 import static cn.sharesdk.framework.utils.R.getStringRes;
-import android.graphics.Color;
 import android.view.Gravity;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 import cn.sharesdk.framework.TitleLayout;
 import cn.sharesdk.framework.authorize.AuthorizeAdapter;
 

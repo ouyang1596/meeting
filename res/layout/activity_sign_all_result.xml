@@ -29,7 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="本群组共发起"
-                android:textSize="@dimen/text_size_16" />
+                android:textSize="@dimen/text_size_14" />
 
             <TextView
                 android:id="@+id/txtv_sign_count"
@@ -37,13 +37,13 @@
                 android:layout_height="wrap_content"
                 android:text="0"
                 android:textColor="@color/new_blue_default"
-                android:textSize="@dimen/text_size_16" />
+                android:textSize="@dimen/text_size_14" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="次签到  以下为缺席人员："
-                android:textSize="@dimen/text_size_16" />
+                android:textSize="@dimen/text_size_14" />
         </LinearLayout>
 
         <RelativeLayout
@@ -60,10 +60,8 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp"
                 android:divider="@color/new_gray"
-                android:dividerHeight="1px" >
-            </com.handmark.pulltorefresh.library.PullToRefreshListView>
-
-            <include layout="@layout/rel_progressbar" />
+                android:dividerHeight="1px" />
+            <include layout="@layout/rel_progressbar" />
         </RelativeLayout>
 
         <Button
@@ -73,7 +71,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="14dp"
             android:layout_marginRight="14dp"
-            android:background="@drawable/new_orange_radius_bg"
+            android:background="@drawable/btn_orange_bg_radius_selector"
             android:text="导出结果"
             android:textColor="@drawable/text_color_selector"
             android:textSize="@dimen/text_size_16" />

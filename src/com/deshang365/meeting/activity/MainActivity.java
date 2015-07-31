@@ -13,9 +13,11 @@ import retrofit.client.Response;
 import ru.biovamp.widget.CircleLayout;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
@@ -38,6 +40,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.PopupWindow;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -80,16 +83,22 @@ public class MainActivity extends BaseActivity implements EMConnectionListener {
 	public View mBackView;
 	public TextView mTitle, mTvUnreadMsgCount;
 	private CustomViewPager mViewPager;
+	private PackageInfo mPackageInfo;
 	private TabButton[] mBottomTabs;
+	private IsShowLoadingReceive mIsShowLoadingReceive;
+	/**
+	 * 环信未登录时显示
+	 * */
+	private ProgressBar mPbLoading;
+	private ImageView mImgvGroupsAdd, mImgvTipCancel;
 	private long mExitTime = 0;
 	private int mCurPage;
 	private PopupWindow mPop;
 	public ArrayList<MainTabViewBase> mPageViews = new ArrayList<MainTabViewBase>();
 	public static MainActivity mMainActivityInstance;
-	private RelativeLayout mRelTopAlert;
+	private RelativeLayout mRelTopAlert, mRelTip;
 	private View mView;
 	private CircleLayout mCirlay;
-	private ImageView mImgvGroupsAdd;
 	private boolean mIsConflictDialogShow;
 	public String mPhotoPathToRemember;
 	private String mDeshxPwd;
@@ -97,6 +106,8 @@ public class MainActivity extends BaseActivity implements EMConnectionListener {
 	private MainTabUserInfo mMainTabUserInfo;
 	private final int REQUESTCODE_TAKEPHOTOS = 1;
 	private final int REQUESTCODE_ALBUM = 2;
+
+	// private boolean isFirstGetList = true;// 避免重复刷新列表，导致crash
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -122,7 +133,6 @@ public class MainActivity extends BaseActivity implements EMConnectionListener {
 		initView();
 	}
 
-	@SuppressLint("NewApi")
 	private void checkToUpdata() {
 		try {
 			mPackageInfo = mContext.getPackageManager().getPackageInfo(mContext.getPackageName(), 0);
@@ -133,6 +143,7 @@ public class MainActivity extends BaseActivity implements EMConnectionListener {
 	}
 
 	private void initView() {
+		registerLoading();
 		mView = findViewById(R.id.view_shadow);
 		mView.setOnClickListener(new OnClickListener() {
 
@@ -141,7 +152,23 @@ public class MainActivity extends BaseActivity implements EMConnectionListener {
 				mView.setVisibility(View.GONE);
 			}
 		});
+		mRelTip = (RelativeLayout) findViewById(R.id.rel_tip);
+		mImgvTipCancel = (ImageView) findViewById(R.id.imgv_tip_cancel);
+		if (MeetingUtils.getParams(Constants.KEY_TIP_SHOW) == 0) {
+			mRelTip.setVisibility(View.VISIBLE);
+			// 设置点击事件，避免被覆盖的事件获取焦点
+			mRelTip.setOnClickListener(null);
+			MeetingUtils.saveParams(Constants.KEY_TIP_SHOW, 1);
+		} else {
+			mRelTip.setVisibility(View.GONE);
+		}
+		mImgvTipCancel.setOnClickListener(new OnClickListener() {
 
+			@Override
+			public void onClick(View v) {
+				mRelTip.setVisibility(View.GONE);
+			}
+		});
 		mRelTopAlert = (RelativeLayout) findViewById(R.id.public_top_alert);
 		mMainActivityInstance = this;
 		mTvUnreadMsgCount = (TextView) findViewById(R.id.txtv_tb_unread_msg_number);
@@ -170,7 +197,9 @@ public class MainActivity extends BaseActivity implements EMConnectionListener {
 		mViewPager = (CustomViewPager) findViewById(R.id.vp_main);
 		mBackView = findViewById(R.id.ll_top_alert_back);
 		mTitle = (TextView) findViewById(R.id.tv_top_alert_text);
-		mImgvGroupsAdd = (ImageView) findViewById(R.id.tv_top_alert_groups);
+		mPbLoading = (ProgressBar) findViewById(R.id.pb_loading);
+		mImgvGroupsAdd = (ImageView) findViewById(R.id.imgv_what_need);
+		mImgvGroupsAdd.setImageResource(R.drawable.btn_add_imgv_selector);
 		mImgvGroupsAdd.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -186,6 +215,7 @@ public class MainActivity extends BaseActivity implements EMConnectionListener {
 				mView.setVisibility(View.VISIBLE);
 			}
 		});
+		isShowGroupImgv();
 		// 添加MainTab，MainTab必须继承自MainTabViewBase
 		mPageViews.add(new MainTabMeeting(this));
 		mPageViews.add(new MainTabTalk(this));
@@ -198,7 +228,8 @@ public class MainActivity extends BaseActivity implements EMConnectionListener {
 
 			@Override
 			public void onClick(View v) {
-				mImgvGroupsAdd.setVisibility(View.VISIBLE);
+				// mImgvGroupsAdd.setVisibility(View.VISIBLE);
+				isShowGroupImgv();
 				goTo(0);
 				for (TabButton button : mBottomTabs) {
 					if (button.getId() != v.getId()) {
@@ -216,6 +247,7 @@ public class MainActivity extends BaseActivity implements EMConnectionListener {
 			@Override
 			public void onClick(View v) {
 				mImgvGroupsAdd.setVisibility(View.GONE);
+				mPbLoading.setVisibility(View.GONE);
 				goTo(1);
 				for (TabButton button : mBottomTabs) {
 					if (button.getId() != v.getId()) {
@@ -234,6 +266,7 @@ public class MainActivity extends BaseActivity implements EMConnectionListener {
 			@Override
 			public void onClick(View v) {
 				mImgvGroupsAdd.setVisibility(View.GONE);
+				mPbLoading.setVisibility(View.GONE);
 				goTo(2);
 				for (TabButton button : mBottomTabs) {
 					if (button.getId() != v.getId()) {
@@ -250,18 +283,39 @@ public class MainActivity extends BaseActivity implements EMConnectionListener {
 			mBottomTabs[i].setSelected(false);
 		}
 		mBottomTabs[0].setSelected(true);
-		mImgvGroupsAdd.setVisibility(View.VISIBLE);
+		// mImgvGroupsAdd.setVisibility(View.VISIBLE);
+		isShowGroupImgv();
 		goTo(0);
 		int code = getIntent().getIntExtra("code", -1);
 		if (code == 1) {
 			mBottomTabs[1].setSelected(true);
 			mImgvGroupsAdd.setVisibility(View.GONE);
+			mPbLoading.setVisibility(View.GONE);
 			goTo(1);
 		}
 		EMChatManager.getInstance().addConnectionListener(this);
 	}
 
+	private void registerLoading() {
+		mIsShowLoadingReceive = new IsShowLoadingReceive();
+		IntentFilter intentFilter = new IntentFilter("show_loading");
+		registerReceiver(mIsShowLoadingReceive, intentFilter);
+	}
+
+	private void isShowGroupImgv() {
+		if (MeetingApp.mHxHasLogin) {
+			mPbLoading.setVisibility(View.GONE);
+			mImgvGroupsAdd.setVisibility(View.VISIBLE);
+		} else {
+			mPbLoading.setVisibility(View.VISIBLE);
+			mImgvGroupsAdd.setVisibility(View.GONE);
+		}
+	}
+
+	private int curBtn;
+
 	public void goTo(int index) {
+		curBtn = index;
 		mViewPager.setCurrentItem(index);
 		mBackView.setVisibility(View.INVISIBLE);
 		switch (mViewPager.getCurrentItem()) {
@@ -349,6 +403,9 @@ public class MainActivity extends BaseActivity implements EMConnectionListener {
 		}
 	};
 
+	/**
+	 * 刷新未读消息总数
+	 * */
 	public void updataUnreadTv() {
 		int unreadMsgsCountTotal = 0;
 		// EMChatManager.getInstance().getUnreadMsgsCount();
@@ -463,6 +520,9 @@ public class MainActivity extends BaseActivity implements EMConnectionListener {
 		MeetingApp.mHxHasLogin = false;
 
 		BluetoothManager.unInit(mContext);
+		if (mIsShowLoadingReceive != null) {
+			unregisterReceiver(mIsShowLoadingReceive);
+		}
 	}
 
 	class UpLoadFileAsyn extends AsyncTask<File, Void, String> {
@@ -657,7 +717,6 @@ public class MainActivity extends BaseActivity implements EMConnectionListener {
 		private void login(LoginUser user) {
 			MeetingApp.username = user.loginName;
 			MeetingApp.password = user.loginPwd;
-
 			NewNetwork.login(user.loginName, user.loginPwd, new OnResponse<NetworkReturn>("login_android") {
 				@Override
 				public void success(NetworkReturn result, Response arg1) {
@@ -707,7 +766,6 @@ public class MainActivity extends BaseActivity implements EMConnectionListener {
 		private void hxLogin(String hxid) {
 			if (hxid != null) {
 				mHxid = hxid;
-
 				if (!"".equals(mHxid)) {
 					mDeshxPwd = MeetingUtils.getDESHXPwd(mHxid);
 				}
@@ -727,14 +785,12 @@ public class MainActivity extends BaseActivity implements EMConnectionListener {
 		public void hxLogin(String userName, String userPassward) {
 			final StatAppMonitor monitor = new StatAppMonitor("hxcreatePublicGroup_Android");
 			final long startTime = System.currentTimeMillis();
-			Log.e("hx", "hx111:::" + System.currentTimeMillis());
 			EMChatManager.getInstance().login(userName, userPassward, new EMCallBack() {
 
 				@Override
 				public void onSuccess() {
 					EMGroupManager.getInstance().loadAllGroups();
 					EMChatManager.getInstance().loadAllConversations();
-
 					runOnUiThread(new Runnable() {
 
 						@Override
@@ -747,7 +803,6 @@ public class MainActivity extends BaseActivity implements EMConnectionListener {
 							monitor.setReturnCode(StatAppMonitor.SUCCESS_RESULT_TYPE);
 						}
 					});
-
 				}
 
 				@Override
@@ -770,6 +825,14 @@ public class MainActivity extends BaseActivity implements EMConnectionListener {
 		}
 	}
 
-	private PackageInfo mPackageInfo;
+	private class IsShowLoadingReceive extends BroadcastReceiver {
 
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			if (curBtn == 0) {
+				mImgvGroupsAdd.setVisibility(View.VISIBLE);
+				mPbLoading.setVisibility(View.GONE);
+			}
+		}
+	}
 }

@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/rel_exit"
             android:layout_marginTop="60dp"
-            android:background="@drawable/new_blue_radius2"
+            android:background="@drawable/btn_blue_radius2_default"
             android:orientation="horizontal" >
 
             <Button
@@ -38,7 +38,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/new_blue_radius2"
+                android:background="@drawable/btn_blue_radius2_default"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
                 android:text="确定"

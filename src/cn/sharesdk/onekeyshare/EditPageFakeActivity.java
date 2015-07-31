@@ -8,23 +8,22 @@
 
 package cn.sharesdk.onekeyshare;
 
-import android.graphics.Bitmap;
-import android.os.AsyncTask;
-import android.text.TextUtils;
-import android.view.View;
-import android.widget.Toast;
+import static cn.sharesdk.framework.utils.R.getStringRes;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.Toast;
 import cn.sharesdk.framework.FakeActivity;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.framework.utils.BitmapHelper;
-
-import static cn.sharesdk.framework.utils.R.getStringRes;
 
 public class EditPageFakeActivity extends FakeActivity {
 

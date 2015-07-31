@@ -1,11 +1,11 @@
 package com.deshang365.meeting.view;
 
-import com.deshang365.meeting.R;
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.RelativeLayout;
+
+import com.deshang365.meeting.R;
 
 public class SignedView extends RelativeLayout {
 

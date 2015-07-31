@@ -62,10 +62,11 @@
         android:id="@+id/txtv_tag_qr_code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_below="@+id/imgv_QR_code"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:text="扫一扫上面的二维码，加入该群组。"
+        android:layout_marginBottom="10dp"
+        android:text="扫一扫上面的二维码，加入该群组"
         android:textColor="@color/new_black_one"
         android:textSize="@dimen/text_size_16" />
 

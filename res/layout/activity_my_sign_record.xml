@@ -41,12 +41,14 @@
         <com.handmark.pulltorefresh.library.PullToRefreshListView
             android:id="@+id/plv_un_signed"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:headerDividersEnabled="false" />
 
         <com.handmark.pulltorefresh.library.PullToRefreshListView
             android:id="@+id/plv_signed"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:headerDividersEnabled="false" />
     </LinearLayout>
 
 </RelativeLayout>

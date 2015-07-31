@@ -1,14 +1,13 @@
 package cn.sharesdk.onekeyshare;
 
-import android.content.Context;
-import android.content.Intent;
-import android.view.KeyEvent;
-import android.view.View;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import android.content.Context;
+import android.content.Intent;
+import android.view.KeyEvent;
+import android.view.View;
 import cn.sharesdk.framework.FakeActivity;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.ShareSDK;

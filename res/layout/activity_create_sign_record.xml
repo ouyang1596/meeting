@@ -2,50 +2,98 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/new_gray" >
-
-    <include
-        android:id="@+id/top_alert"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/public_top_alert" />
+    android:background="@color/new_gray"
+    android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/top_alert"
-        android:layout_marginTop="14dp"
-        android:background="@color/white"
+        android:layout_above="@+id/rel_export"
         android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/txtv_tag_histroysignrecord"
+        <include
+            android:id="@+id/top_alert"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/public_top_alert" />
+
+        <RadioGroup
+            android:id="@+id/rg_time"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:gravity="center_vertical"
-            android:paddingLeft="14dp"
-            android:text="历史签到纪录:"
-            android:textColor="@color/new_black_one"
-            android:textSize="@dimen/text_size_16" />
+            android:orientation="horizontal" >
 
-        <com.handmark.pulltorefresh.library.PullToRefreshListView
-            xmlns:ptr="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/lv_sign_history"
+            <RadioButton
+                android:id="@+id/rb_week"
+                style="@style/rbTime"
+                android:checked="true"
+                android:text="一周内" />
+
+            <RadioButton
+                android:id="@+id/rb_month"
+                style="@style/rbTime"
+                android:layout_marginLeft="1dp"
+                android:text="一个月内" />
+
+            <RadioButton
+                android:id="@+id/rb_half_year"
+                style="@style/rbTime"
+                android:layout_marginLeft="1dp"
+                android:text="半年内" />
+
+            <RadioButton
+                android:id="@+id/rb_all"
+                style="@style/rbTime"
+                android:layout_marginLeft="1dp"
+                android:text="全部" />
+        </RadioGroup>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:cacheColorHint="#00000000"
-            android:divider="@color/bg_color"
-            android:dividerHeight="1px"
-            android:fadingEdge="none"
-            android:fastScrollEnabled="false"
-            android:footerDividersEnabled="false"
-            android:headerDividersEnabled="false"
-            android:listSelector="#00000000"
-            android:overScrollMode="never"
-            android:smoothScrollbar="true"
-            ptr:ptrShowIndicator="false" />
+            android:background="@color/white"
+            android:orientation="vertical" >
+
+            <com.handmark.pulltorefresh.library.PullToRefreshListView
+                xmlns:ptr="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/plv_sign_history"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:cacheColorHint="#00000000"
+                android:divider="@null"
+                android:dividerHeight="0dp"
+                android:fadingEdge="none"
+                android:fastScrollEnabled="false"
+                android:footerDividersEnabled="false"
+                android:headerDividersEnabled="false"
+                android:listSelector="#00000000"
+                android:overScrollMode="never"
+                android:smoothScrollbar="true"
+                ptr:ptrShowIndicator="false" />
+        </LinearLayout>
+
+        <include layout="@layout/rel_progressbar" />
     </LinearLayout>
 
-    <include layout="@layout/rel_progressbar" />
+    <RelativeLayout
+        android:id="@+id/rel_export"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/new_gray"
+        android:paddingBottom="14dp"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
+        android:paddingTop="28dp" >
+
+        <Button
+            android:id="@+id/btn_export"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/btn_blue_bg_radius_selector"
+            android:text="导出一周记录"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_16" />
+    </RelativeLayout>
 
 </RelativeLayout>

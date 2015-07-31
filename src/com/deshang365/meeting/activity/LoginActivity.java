@@ -1,15 +1,12 @@
 package com.deshang365.meeting.activity;
 
 import org.codehaus.jackson.JsonNode;
-import org.json.JSONObject;
 
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,7 +22,6 @@ import com.deshang365.meeting.R;
 import com.deshang365.meeting.baselib.MeetingApp;
 import com.deshang365.meeting.model.Constants;
 import com.deshang365.meeting.model.GroupMemberInfo;
-import com.deshang365.meeting.model.Network;
 import com.deshang365.meeting.model.UserInfo;
 import com.deshang365.meeting.network.NetworkReturn;
 import com.deshang365.meeting.network.NewNetwork;
@@ -160,7 +156,6 @@ public class LoginActivity extends BaseActivity {
 	private void login(LoginUser user) {
 		MeetingApp.username = user.loginName;
 		MeetingApp.password = user.loginPwd;
-
 		NewNetwork.login(user.loginName, user.loginPwd, new OnResponse<NetworkReturn>("login_android") {
 			@Override
 			public void success(NetworkReturn result, Response arg1) {
@@ -171,7 +166,7 @@ public class LoginActivity extends BaseActivity {
 					RetrofitUtils.setCookies(arg1);
 					JsonNode rsData = result.data;
 					MeetingApp.userInfo = new UserInfo();
-
+					Log.i("bm", "url==" + arg1.getUrl());
 					try {
 						MeetingApp.userInfo.uid = rsData.get("uid").getValueAsInt();
 						Log.i("bm", "uid==" + MeetingApp.userInfo.uid);

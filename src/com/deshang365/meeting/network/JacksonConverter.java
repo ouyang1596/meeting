@@ -1,14 +1,11 @@
 package com.deshang365.meeting.network;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Type;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.JavaType;
-
-import android.R.string;
 
 import retrofit.converter.ConversionException;
 import retrofit.converter.Converter;

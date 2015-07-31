@@ -4,8 +4,6 @@ import java.util.List;
 
 import retrofit.RetrofitError;
 import retrofit.client.Response;
-
-import android.R.integer;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.view.View;
@@ -18,8 +16,6 @@ import android.widget.Toast;
 
 import com.deshang365.meeting.R;
 import com.deshang365.meeting.model.GroupMemberInfo;
-import com.deshang365.meeting.model.Network;
-import com.deshang365.meeting.model.NetworkReturnBase;
 import com.deshang365.meeting.network.NetworkReturn;
 import com.deshang365.meeting.network.NewNetwork;
 import com.deshang365.meeting.network.OnResponse;
@@ -124,10 +120,6 @@ public class GridGroupsAdapter extends ImageLoaderAdapterBase {
 
 		return con;
 	}
-
-	// public boolean isDelete() {
-	// return mIsDelete;
-	// }
 
 	public void setDeleteFlag(boolean isDelete) {
 		this.mIsDelete = isDelete;

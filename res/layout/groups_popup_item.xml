@@ -10,6 +10,7 @@
         android:id="@+id/ll_create_groups"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/btn_white_bg_selector"
         android:gravity="center_vertical"
         android:paddingBottom="9dp"
         android:paddingLeft="20dp"
@@ -17,6 +18,7 @@
         android:paddingTop="9dp" >
 
         <ImageView
+            android:id="@+id/imgv_create"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/create_group" />
@@ -41,6 +43,7 @@
         android:id="@+id/ll_join_groups"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/btn_white_bg_selector"
         android:gravity="center_vertical"
         android:paddingBottom="9dp"
         android:paddingLeft="20dp"
@@ -48,6 +51,7 @@
         android:paddingTop="9dp" >
 
         <ImageView
+            android:id="@+id/imgv_join_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/join_group" />

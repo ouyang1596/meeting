@@ -12,12 +12,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.alibaba.fastjson.JSON;
 import com.deshang365.meeting.R;
 import com.deshang365.meeting.adapter.MyRecSignedAdapter;
@@ -29,6 +28,7 @@ import com.deshang365.meeting.network.NetworkReturn;
 import com.deshang365.meeting.network.NewNetwork;
 import com.deshang365.meeting.network.OnResponse;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
@@ -103,7 +103,7 @@ public class MySignRecordActivity extends BaseActivity {
 			@Override
 			public void onPullUpToRefresh(PullToRefreshBase refreshView) {
 				mPageSigned += 1;
-				myRecSigned(MeetingApp.mVersionName, mPageSigned);
+				myRecSigned(MeetingApp.mVersionCode, mPageSigned);
 			}
 		});
 		mLvUnSigned.setOnRefreshListener(new OnRefreshListener2() {
@@ -116,7 +116,7 @@ public class MySignRecordActivity extends BaseActivity {
 			@Override
 			public void onPullUpToRefresh(@SuppressWarnings("rawtypes") PullToRefreshBase refreshView) {
 				mPageUnSigned += 1;
-				myRecUnSigned(MeetingApp.mVersionName, mPageUnSigned);
+				myRecUnSigned(MeetingApp.mVersionCode, mPageUnSigned);
 			}
 		});
 		initUnSignedRecord();
@@ -128,14 +128,14 @@ public class MySignRecordActivity extends BaseActivity {
 		mRec_type = 1;
 		mPageUnSigned = 1;
 		mRecSignedList.clear();
-		myRecSigned(MeetingApp.mVersionName, mPageUnSigned);
+		myRecSigned(MeetingApp.mVersionCode, mPageUnSigned);
 	}
 
 	private void initUnSignedRecord() {
 		mRec_type = 0;
 		mPageUnSigned = 1;
 		mRecUnSignedList.clear();
-		myRecUnSigned(MeetingApp.mVersionName, mPageUnSigned);
+		myRecUnSigned(MeetingApp.mVersionCode, mPageUnSigned);
 	}
 
 	private MyRecUnSignedAdapter mUnSignedAdapter;

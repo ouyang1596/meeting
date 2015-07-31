@@ -5,13 +5,11 @@ import java.util.List;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.deshang365.meeting.R;
 import com.deshang365.meeting.model.GroupMemberInfo;
-import com.deshang365.meeting.network.NewNetwork;
 
 /**
  * 继承ExlImageLoaderAdapterBase下载图片会比较快
@@ -98,9 +96,9 @@ public class ExlAllUnSignedAdapter extends ExlImageLoaderAdapterBase {
 		if (con == null) {
 			con = View.inflate(mContext, R.layout.group_un_signed_child_item, null);
 			cvh = new ChildViewHolder();
-			cvh.mTvCreatetimeData = (TextView) con.findViewById(R.id.txtv_child_createtime_data);
-			cvh.mTvCause = (TextView) con.findViewById(R.id.txtv_child_cause);
-			cvh.mTvCreatetimeHour = (TextView) con.findViewById(R.id.txtv_child_createtime_hour);
+			cvh.mTvCreatetimeData = (TextView) con.findViewById(R.id.item_txtv_date);
+			cvh.mTvCause = (TextView) con.findViewById(R.id.item_txtv_state);
+			cvh.mTvCreatetimeHour = (TextView) con.findViewById(R.id.item_txtv_time);
 			con.setTag(cvh);
 		} else {
 			cvh = (ChildViewHolder) con.getTag();

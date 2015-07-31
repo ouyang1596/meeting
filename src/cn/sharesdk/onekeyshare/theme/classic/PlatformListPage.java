@@ -8,8 +8,8 @@
 
 package cn.sharesdk.onekeyshare.theme.classic;
 
-import static cn.sharesdk.framework.utils.R.getStringRes;
 import static cn.sharesdk.framework.utils.R.getBitmapRes;
+import static cn.sharesdk.framework.utils.R.getStringRes;
 
 import java.util.ArrayList;
 

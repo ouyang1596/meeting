@@ -132,7 +132,7 @@ public class IdentifyCodeActivity extends BaseActivity {
 		@Override
 		public void onFinish() {// 计时完毕时触发
 			mBtnResend.setText("重新发送");
-			mBtnResend.setBackgroundResource(R.drawable.new_orange_radius_bg);
+			mBtnResend.setBackgroundResource(R.drawable.btn_orange_default);
 			mBtnResend.setEnabled(true);
 		}
 

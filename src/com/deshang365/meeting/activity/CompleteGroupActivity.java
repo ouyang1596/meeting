@@ -2,16 +2,12 @@ package com.deshang365.meeting.activity;
 
 import java.io.File;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import cn.sharesdk.framework.ShareSDK;
@@ -21,7 +17,6 @@ import com.deshang365.meeting.R;
 import com.deshang365.meeting.baselib.ImageHandle;
 import com.deshang365.meeting.baselib.MeetingApp;
 import com.deshang365.meeting.model.Constants;
-import com.deshang365.meeting.model.Network;
 import com.deshang365.meeting.network.NewNetwork;
 import com.deshang365.meeting.view.CircularImageView;
 

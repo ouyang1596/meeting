@@ -3,8 +3,6 @@ package com.deshang365.meeting.activity;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.codehaus.jackson.JsonNode;
-
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 import android.annotation.SuppressLint;
@@ -47,6 +45,9 @@ public class ChangeDataActivity extends BaseActivity {
 			}
 		});
 		mEtvEmail = (EditText) findViewById(R.id.etv_email);
+		if (MeetingApp.userInfo != null) {
+			mEtvEmail.setText(MeetingApp.userInfo.email);
+		}
 		mEtvDefaultNickname = (EditText) findViewById(R.id.etv_nickname);
 		mEtvDefaultNickname.setText(MeetingApp.userInfo.name);
 		mEtvDefaultNickname.setSelection(mEtvDefaultNickname.length());
@@ -69,10 +70,11 @@ public class ChangeDataActivity extends BaseActivity {
 					Toast.makeText(mContext, "邮箱地址不能为空", Toast.LENGTH_SHORT).show();
 					return;
 				}
-				if (!isMatches(email)) {
-					Toast.makeText(mContext, "请输入正确邮箱！", Toast.LENGTH_SHORT).show();
-					return;
-				}
+				// if (!isMatches(email)) {
+				// Toast.makeText(mContext, "请输入正确邮箱！",
+				// Toast.LENGTH_SHORT).show();
+				// return;
+				// }
 				showWaitingDialog();
 				changeUserInfo(nickname, email);
 			}
@@ -107,57 +109,6 @@ public class ChangeDataActivity extends BaseActivity {
 
 	}
 
-	// public void SetDefaultNicknameAsyn(final String nickName) {
-	// NewNetwork.setDefaultNickname(nickName, new
-	// OnResponse<NetworkReturn>("ChangeUserName_Android") {
-	// @Override
-	// public void success(NetworkReturn networkReturn, Response arg1) {
-	// super.success(networkReturn, arg1);
-	// hideWaitingDialog();
-	// if (networkReturn.result != 1) {
-	// Toast.makeText(mContext, networkReturn.msg, Toast.LENGTH_SHORT).show();
-	// return;
-	// }
-	// if (MeetingApp.userInfo != null) {
-	// MeetingApp.userInfo.name = nickName;
-	// }
-	// Toast.makeText(mContext, networkReturn.msg, Toast.LENGTH_SHORT).show();
-	// finish();
-	// }
-	//
-	// @Override
-	// public void failure(RetrofitError error) {
-	// super.failure(error);
-	// hideWaitingDialog();
-	// Toast.makeText(mContext, "修改昵称失败", Toast.LENGTH_SHORT).show();
-	// }
-	// });
-	// }
-
-	// class SetDefaultNicknameAsyn extends AsyncTask<String, Void,
-	// NetworkReturnBase> {
-	//
-	// @Override
-	// protected NetworkReturnBase doInBackground(String... params) {
-	// return Network.setDefaultNickname(params[0]);
-	// }
-	//
-	// @Override
-	// protected void onPostExecute(NetworkReturnBase result) {
-	// super.onPostExecute(result);
-	// hideWaitingDialog();
-	// if (result == null) {
-	// Toast.makeText(mContext, "修改昵称失败！", Toast.LENGTH_SHORT).show();
-	// return;
-	// }
-	// if (result.rescode == 1) {
-	// Toast.makeText(mContext, result.message, Toast.LENGTH_SHORT).show();
-	// finish();
-	// } else {
-	// Toast.makeText(mContext, result.message, Toast.LENGTH_SHORT).show();
-	// }
-	// }
-	// }
 	public boolean isMatches(String str) {
 		// 邮箱匹配
 		String check = "^([a-z0-9A-Z]+[-_|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";

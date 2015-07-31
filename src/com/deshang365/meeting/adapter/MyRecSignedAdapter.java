@@ -2,14 +2,14 @@ package com.deshang365.meeting.adapter;
 
 import java.util.List;
 
-import com.deshang365.meeting.R;
-import com.deshang365.meeting.model.MeetingRecordsItem;
-
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.deshang365.meeting.R;
+import com.deshang365.meeting.model.MeetingRecordsItem;
 
 public class MyRecSignedAdapter extends BaseAdapter {
 	private Context mContext;

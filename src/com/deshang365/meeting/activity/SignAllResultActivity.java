@@ -9,10 +9,11 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -20,9 +21,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
 import com.deshang365.meeting.R;
+import com.deshang365.meeting.adapter.AbsentDetailAdapter;
 import com.deshang365.meeting.adapter.AllUnSignedAdapter;
+import com.deshang365.meeting.adapter.AllUnSignedAdapter.VH;
 import com.deshang365.meeting.baselib.MeetingApp;
+import com.deshang365.meeting.model.AbsentDetail;
 import com.deshang365.meeting.model.GroupMemberInfo;
 import com.deshang365.meeting.model.GroupMemberInfoList;
 import com.deshang365.meeting.network.NetworkReturn;
@@ -45,6 +50,7 @@ public class SignAllResultActivity extends BaseActivity {
 	private AllUnSignedAdapter mAdapter;
 	private int mPageCount;
 	private List<GroupMemberInfo> mListGroupMemberInfos;
+	private View mExportView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +62,9 @@ public class SignAllResultActivity extends BaseActivity {
 	@SuppressWarnings("unchecked")
 	@SuppressLint("NewApi")
 	private void initView() {
-		setExportDialog();
 		mListGroupMemberInfos = new ArrayList<GroupMemberInfo>();
-		// final int signcount = getIntent().getIntExtra("signcount", 0);
 		mGroupid = getIntent().getStringExtra("groupid");
 		mSignCount = (TextView) findViewById(R.id.txtv_sign_count);
-		// mSignCount.setText("本群组共发起" + signcount + "次签到");
 		mTvTopical = (TextView) findViewById(R.id.tv_top_alert_text);
 		mTvTopical.setText("签到结果");
 		mLlBack = (LinearLayout) findViewById(R.id.ll_top_alert_back);
@@ -78,40 +81,98 @@ public class SignAllResultActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				mExportDialog.show();
+				initDialog();
+				showExportDialog();
 			}
 
 		});
 		mExListUnSigned = (PullToRefreshListView) findViewById(R.id.exlist_un_signed_member);
+		mExListUnSigned.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				position = position - 1;
+				if (mAdapter == null) {
+					return;
+				}
+				int uid = mAdapter.getItem(position).uid;
+				VH vh = (VH) view.getTag();
+				AbsentDetailAdapter adapter = (AbsentDetailAdapter) vh.mLvAbsentDetail.getAdapter();
+				if (adapter != null) {
+					setExpand(position);
+					mAdapter.notifyDataSetChanged();
+					return;
+				}
+				showWaitingDialog();
+				getAbsentDetail(position, mGroupid, uid, MeetingApp.mVersionCode);
+			}
+		});
 		mExListUnSigned.setOnRefreshListener(new OnRefreshListener2() {
 
 			@Override
 			public void onPullDownToRefresh(PullToRefreshBase refreshView) {
+				if (mAdapter != null) {
+					mAdapter.clear();
+				}
 				initList();
-
 			}
 
 			@Override
 			public void onPullUpToRefresh(PullToRefreshBase refreshView) {
 				mPageCount += 1;
-				getAbsentResult(mGroupid, MeetingApp.mVersionName, "" + mPageCount);
-
+				getAbsentResult(mGroupid, MeetingApp.mVersionCode, "" + mPageCount);
 			}
 		});
-		// mExListUnSigned.setGroupIndicator(null);
 		mRelProBar.setVisibility(View.VISIBLE);
 		mExListUnSigned.setMode(Mode.DISABLED);
 		initList();
 	}
 
+	private void getAbsentDetail(final int position, String groupid, int uid, String app_Version) {
+		NewNetwork.getAbsentDetail(groupid, uid, app_Version, new OnResponse<NetworkReturn>("check_absent_details_Android") {
+			@Override
+			public void success(NetworkReturn result, Response arg1) {
+				super.success(result, arg1);
+				hideWaitingDialog();
+				if (result.result != 1) {
+					Toast.makeText(getApplication(), result.msg, Toast.LENGTH_SHORT).show();
+					return;
+				}
+				JsonNode data = result.data;
+				AbsentDetail absentDetail = JSON.parseObject(data.toString(), AbsentDetail.class);
+				AbsentDetailAdapter adapter = new AbsentDetailAdapter(mContext, absentDetail.getAbsent_list());
+				setExpand(position);
+				mAdapter.setAdpater(position, adapter);
+				mAdapter.notifyDataSetChanged();
+			}
+
+			@Override
+			public void failure(RetrofitError error) {
+				super.failure(error);
+				hideWaitingDialog();
+				Toast.makeText(getApplication(), "请求失败", Toast.LENGTH_SHORT).show();
+			}
+		});
+	}
+
+	/**
+	 * 设置是否展开列表
+	 * */
+	private void setExpand(int position) {
+		Integer isExpanded = mAdapter.get(position);
+		if (isExpanded != null) {
+			if (isExpanded == 0) {
+				mAdapter.set(position, 1);
+			} else {
+				mAdapter.set(position, 0);
+			}
+		}
+	}
+
 	private void initList() {
 		mListGroupMemberInfos.clear();
-		if (MeetingApp.mVersionName != null) {
-			mPageCount = 1;
-			getAbsentResult(mGroupid, MeetingApp.mVersionName, "" + mPageCount);
-		} else {
-			getAbsentResult(mGroupid, "-1", "" + mPageCount);
-		}
+		mPageCount = 1;
+		getAbsentResult(mGroupid, MeetingApp.mVersionCode, "" + mPageCount);
 	}
 
 	private void setView() {
@@ -126,42 +187,6 @@ public class SignAllResultActivity extends BaseActivity {
 		}
 	}
 
-	private View mView;
-
-	private void setExportDialog() {
-		if (mView == null) {
-			mView = View.inflate(SignAllResultActivity.this, R.layout.dialog_email_item, null);
-		}
-		final EditText eTvEmail = (EditText) mView.findViewById(R.id.etv_email);
-		eTvEmail.setText(MeetingApp.userInfo.email);
-		eTvEmail.setSelection(eTvEmail.length());
-		AlertDialog.Builder builder = new AlertDialog.Builder(SignAllResultActivity.this);
-		builder.setTitle("请输入要导出的邮箱");
-		builder.setView(mView).setPositiveButton("确定", new DialogInterface.OnClickListener() {
-
-			@SuppressLint("NewApi")
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				StatService.trackCustomEvent(mContext, "Outputtomail", "OK");
-				String email = eTvEmail.getText().toString();
-				if (email.length() <= 0) {
-					Toast.makeText(SignAllResultActivity.this, "邮箱地址不能为空！", 0).show();
-					return;
-				}
-				showWaitingDialog();
-				exportAllSignResult(mGroupid, email);
-
-			}
-		}).setNegativeButton("取消", new DialogInterface.OnClickListener() {
-
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				StatService.trackCustomEvent(mContext, "OutputtomailCancel", "OK");
-			}
-		});
-		mExportDialog = builder.create();
-	}
-
 	public void getAbsentResult(String groupid, String appVersion, String pageCount) {
 		NewNetwork.getAbsentResult(groupid, appVersion, pageCount, new OnResponse<NetworkReturn>("absent_results_Android") {
 			@Override
@@ -169,7 +194,7 @@ public class SignAllResultActivity extends BaseActivity {
 				super.success(result, response);
 				setView();
 				if (result.result != 1) {
-					Toast.makeText(mContext, result.msg, Toast.LENGTH_SHORT).show();
+					Toast.makeText(SignAllResultActivity.this, result.msg, Toast.LENGTH_SHORT).show();
 					return;
 				}
 				GroupMemberInfoList groupMemberInfoList = new GroupMemberInfoList();
@@ -192,23 +217,18 @@ public class SignAllResultActivity extends BaseActivity {
 				}
 				mListGroupMemberInfos.addAll(groupMemberInfoList.mGroupMemberInfosList);
 				if (mAdapter == null) {
-					mAdapter = new AllUnSignedAdapter(mContext, mListGroupMemberInfos);
+					mAdapter = new AllUnSignedAdapter(SignAllResultActivity.this, mListGroupMemberInfos);
 					mExListUnSigned.setAdapter(mAdapter);
 				} else {
 					mAdapter.notifyDataSetChanged();
 				}
-
-				// ExlAllUnSignedAdapter adapter = new
-				// ExlAllUnSignedAdapter(SignAllResultActivity.this,
-				// groupMemberInfoList.mGroupMemberSignInfosList);
-				// mExListUnSigned.setAdapter(adapter);
 			}
 
 			@Override
 			public void failure(RetrofitError error) {
 				super.failure(error);
 				setView();
-				Toast.makeText(mContext, "获取信息失败！", Toast.LENGTH_SHORT).show();
+				Toast.makeText(SignAllResultActivity.this, "获取信息失败", Toast.LENGTH_SHORT).show();
 			}
 		});
 
@@ -231,6 +251,54 @@ public class SignAllResultActivity extends BaseActivity {
 			}
 		});
 
+	}
+
+	private AlertDialog mDialog;
+
+	private void initDialog() {
+		if (mDialog == null) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+			mDialog = builder.create();
+			mDialog.setCanceledOnTouchOutside(true);
+		}
+	}
+
+	private void showExportDialog() {
+		if (mExportView == null) {
+			mExportView = View.inflate(mContext, R.layout.export_dialog, null);
+
+			final EditText eTvEmail = (EditText) mExportView.findViewById(R.id.etv_email);
+			eTvEmail.setText(MeetingApp.userInfo.email);
+			Button btnEnsure = (Button) mExportView.findViewById(R.id.btn_ensure);
+			btnEnsure.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					StatService.trackCustomEvent(SignAllResultActivity.this, "Outputtomail", "OK");
+					String email = eTvEmail.getText().toString();
+					if (email.length() <= 0) {
+						Toast.makeText(mContext, "邮箱地址不能为空！", 0).show();
+						return;
+					}
+					mDialog.cancel();
+					showWaitingDialog();
+					exportAllSignResult(mGroupid, email);
+				}
+			});
+			Button btnCancel = (Button) mExportView.findViewById(R.id.btn_cancel);
+			btnCancel.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					mDialog.cancel();
+					StatService.trackCustomEvent(mContext, "OutputtomailCancel", "OK");
+				}
+			});
+			// 为了能显示输入法
+			mDialog.setView(new EditText(mContext));
+		}
+		mDialog.show();
+		mDialog.getWindow().setContentView(mExportView);
 	}
 
 	@Override

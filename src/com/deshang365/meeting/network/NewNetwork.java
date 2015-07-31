@@ -41,6 +41,17 @@ public class NewNetwork {
 		}
 	}
 
+	public static boolean feedBack(String message, OnResponse<NetworkReturn> cb) {
+		String param = String.format("{\"mobile_type\":%d,\"app_version\":\"%s\",\"message\":\"%s\"}", 0, MeetingApp.mVersionCode, message);
+		try {
+			String data = "p=" + URLEncoder.encode(Encrypt.encrypt(param, Constants.KEY_NETWORK_OUT));
+			sNetworkService.feedBack(data, cb);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
 	public static boolean setNewPwd(String mobile, String password, OnResponse<NetworkReturn> cb) {
 		String param = String.format("{\"mobile\":\"%s\",\"password\":\"%s\"}", mobile, password);
 		try {
@@ -65,8 +76,8 @@ public class NewNetwork {
 
 	public static boolean createSign(String groupId, String signCode, double lat, double lng, int meeting_time, OnResponse<NetworkReturn> cb) {
 		String param = String.format(
-				"{\"groupname\":\"\",\"group_id\":\"%s\",\"answer\":\"%s\",\"lat\":\"%f\",\"lng\":\"%f\",\"meeting_time\":\"%d\"}",
-				groupId, signCode, lat, lng, meeting_time);
+				"{\"groupname\":\"\",\"group_id\":\"%s\",\"answer\":\"%s\",\"lat\":\"%f\",\"lng\":\"%f\",\"meeting_time\":%d}", groupId,
+				signCode, lat, lng, meeting_time);
 		try {
 			String data = "p=" + URLEncoder.encode(Encrypt.encrypt(param, Constants.KEY_NETWORK_OUT));
 			sNetworkService.createSign(data, cb);
@@ -121,7 +132,7 @@ public class NewNetwork {
 	}
 
 	public static boolean createBlueSign(String groupId, int meeting_time, OnResponse<NetworkReturn> cb) {
-		String param = String.format("{\"group_id\":\"%s\",\"mobile_type\":\"%d\",\"meeting_time\":\"%d\"}", groupId, 0, meeting_time);// 0表示Android
+		String param = String.format("{\"group_id\":\"%s\",\"mobile_type\":\"%d\",\"meeting_time\":%d}", groupId, 0, meeting_time);// 0表示Android
 		try {
 			String data = "p=" + URLEncoder.encode(Encrypt.encrypt(param, Constants.KEY_NETWORK_OUT));
 			sNetworkService.createBlueSign(data, cb);
@@ -283,9 +294,9 @@ public class NewNetwork {
 		sNetworkService.checkUpdate(MeetingApp.userInfo.uid, MeetingApp.username, "school", Installation.id(context), cb);
 	}
 
-	public static boolean getGroupSignRecord(String groupid, String appversion, String page, OnResponse<NetworkReturn> cb) {
-		String data = String.format("{\"group_id\":\"%s\",\"mobile_type\":\"%s\",\"app_version\":\"%s\",\"page\":\"%s\"}", groupid, "0",
-				appversion, page);
+	public static boolean getGroupSignRecord(String groupid, String appversion, String page, int date_type, OnResponse<NetworkReturn> cb) {
+		String data = String.format("{\"group_id\":\"%s\",\"mobile_type\":\"%s\",\"app_version\":\"%s\",\"page\":\"%s\",\"date_type\":%d}",
+				groupid, "0", appversion, page, date_type);
 		try {
 			data = URLEncoder.encode(Encrypt.encrypt(data, Constants.KEY_NETWORK_OUT));
 			sNetworkService.getGroupSignRecord(data, cb);
@@ -473,6 +484,41 @@ public class NewNetwork {
 		try {
 			data = URLEncoder.encode(Encrypt.encrypt(data, Constants.KEY_NETWORK_OUT));
 			sNetworkService.myRecSigned(data, cb);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	public static boolean getAbsentDetail(String groupid, int uid, String app_Version, OnResponse<NetworkReturn> cb) {
+		String data = String.format("{\"group_id\":\"%s\",\"user_id\":%d,\"app_version\":\"%s\",\"mobile_type\":%d}", groupid, uid,
+				app_Version, 0);
+		try {
+			data = URLEncoder.encode(Encrypt.encrypt(data, Constants.KEY_NETWORK_OUT));
+			sNetworkService.getAbsentDetail(data, cb);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	public static boolean exportMeetingRecBytime(String groupid, int date_type, String email, OnResponse<NetworkReturn> cb) {
+		String data = String.format("{\"group_id\":\"%s\",\"date_type\":%d,\"email\":\"%s\",\"app_version\":\"%s\",\"mobile_type\":%d}",
+				groupid, date_type, email, MeetingApp.mVersionCode, 0);
+		try {
+			data = URLEncoder.encode(Encrypt.encrypt(data, Constants.KEY_NETWORK_OUT));
+			sNetworkService.exportMeetingRecBytime(data, cb);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	public static boolean getMeetingCountDetail(String app_version, String meeting_id, OnResponse<NetworkReturn> cb) {
+		String data = String.format("{\"mobile_type\":%d,\"app_version\":\"%s\",\"meeting_id\":\"%s\"}", 0, app_version, meeting_id);
+		try {
+			data = URLEncoder.encode(Encrypt.encrypt(data, Constants.KEY_NETWORK_OUT));
+			sNetworkService.getMeetingCountDetail(data, cb);
 			return true;
 		} catch (Exception e) {
 			return false;

@@ -145,11 +145,6 @@
                         android:textSize="@dimen/text_size_14" />
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:background="@color/new_gray2" />
-
                 <LinearLayout
                     android:id="@+id/ll_my_qrcode"
                     android:layout_width="match_parent"
@@ -266,11 +261,6 @@
                         android:src="@drawable/next" />
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:background="@color/new_gray2" />
-
                 <LinearLayout
                     android:id="@+id/rel_edit_email"
                     android:layout_width="match_parent"
@@ -279,7 +269,8 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingLeft="14dp"
-                    android:paddingRight="14dp" >
+                    android:paddingRight="14dp"
+                    android:visibility="gone" >
 
                     <ImageView
                         android:id="@+id/imgv_email"
@@ -393,7 +384,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="30dp"
-                android:background="@drawable/btn_blue_bg_radius_selector"
+                android:background="@drawable/btn_red_bg_selector"
                 android:padding="6dp"
                 android:text="退出登录"
                 android:textColor="@drawable/text_color_selector"

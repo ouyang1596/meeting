@@ -14,7 +14,7 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="5dp"
         android:visibility="gone"
-        app:innerRadius="18dp" >
+        app:innerRadius="21dp" >
 
         <com.deshang365.meeting.view.CircularImageView
             android:layout_width="20dp"

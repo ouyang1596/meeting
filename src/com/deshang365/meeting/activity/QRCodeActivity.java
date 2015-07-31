@@ -40,7 +40,7 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import com.tencent.stat.StatService;
 
 public class QRCodeActivity extends ImageloaderBaseActivity {
-	private ImageView mImgvQRCode, mShare;
+	private ImageView mImgvQRCode, mImgvShare;
 	private LinearLayout mLlBack;
 	private TextView mTvTopical, mTvGroupName;
 	private CircularImageView mImgvGroupHead;
@@ -49,7 +49,6 @@ public class QRCodeActivity extends ImageloaderBaseActivity {
 	private View mViewLine;
 	private View mViewShadow;
 	private String mGroupcode;
-	private String mGroupid;
 	private String mQrcodeImgPath;
 	private final int QR_WIDTH = 450;
 	private final int QR_HEIGHT = 450;
@@ -75,7 +74,6 @@ public class QRCodeActivity extends ImageloaderBaseActivity {
 			}
 		});
 		mGroupcode = getIntent().getStringExtra("groupcode");
-		mGroupid = getIntent().getStringExtra("groupid");
 		String groupname = getIntent().getStringExtra("groupname");
 		mUid = getIntent().getIntExtra("uid", -1);
 		mViewLine = findViewById(R.id.view_line);
@@ -94,7 +92,7 @@ public class QRCodeActivity extends ImageloaderBaseActivity {
 			}
 		});
 		mImgvQRCode = (ImageView) findViewById(R.id.imgv_QR_code);
-		createQRImage("meeting:{\"ctype\":1,\"data\":\"" + mGroupid + "\"}");
+		createQRImage("meeting:{\"ctype\":1,\"data\":\"" + mGroupcode + "\"}");
 		share();
 	}
 
@@ -102,9 +100,14 @@ public class QRCodeActivity extends ImageloaderBaseActivity {
 
 	private void share() {
 		mView = View.inflate(mContext, R.layout.groups_popup_item, null);
+		ImageView imgvShare = (ImageView) mView.findViewById(R.id.imgv_create);
+		imgvShare.setVisibility(View.GONE);
+		ImageView imgvSave = (ImageView) mView.findViewById(R.id.imgv_join_group);
+		imgvSave.setVisibility(View.GONE);
+		LinearLayout llShare = (LinearLayout) mView.findViewById(R.id.ll_create_groups);
 		TextView share = (TextView) mView.findViewById(R.id.groups_tv_creatGroups);
 		share.setText("分享二维码");
-		share.setOnClickListener(new OnClickListener() {
+		llShare.setOnClickListener(new OnClickListener() {
 
 			@SuppressLint("NewApi")
 			@Override
@@ -122,9 +125,10 @@ public class QRCodeActivity extends ImageloaderBaseActivity {
 			}
 
 		});
+		LinearLayout llSaveImage = (LinearLayout) mView.findViewById(R.id.ll_join_groups);
 		TextView saveImage = (TextView) mView.findViewById(R.id.groups_tv_joinGroups);
 		saveImage.setText("保存到手机");
-		saveImage.setOnClickListener(new OnClickListener() {
+		llSaveImage.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -137,10 +141,10 @@ public class QRCodeActivity extends ImageloaderBaseActivity {
 				}
 			}
 		});
-		mShare = (ImageView) findViewById(R.id.tv_top_alert_groups);
-		mShare.setImageResource(R.drawable.share_save);
-		mShare.setVisibility(View.VISIBLE);
-		mShare.setOnClickListener(new OnClickListener() {
+		mImgvShare = (ImageView) findViewById(R.id.imgv_what_need);
+		mImgvShare.setImageResource(R.drawable.btn_share_save_imgv_selector);
+		mImgvShare.setVisibility(View.VISIBLE);
+		mImgvShare.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -191,7 +195,7 @@ public class QRCodeActivity extends ImageloaderBaseActivity {
 	}
 
 	private String saveBitmap() {
-		mQrcodeImgPath = Constants.QRCODE_PATH + mGroupid + ".png";
+		mQrcodeImgPath = Constants.QRCODE_PATH + mGroupcode + ".png";
 		File file = new File(Constants.QRCODE_PATH);
 		if (!file.exists()) {
 			file.mkdirs();

@@ -1,6 +1,5 @@
 package com.deshang365.meeting.adapter;
 
-import java.io.File;
 import java.util.Date;
 
 import android.app.Activity;
@@ -11,16 +10,13 @@ import android.content.DialogInterface.OnClickListener;
 import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.deshang365.meeting.R;
-import com.deshang365.meeting.baselib.ImageHandle;
 import com.deshang365.meeting.baselib.MeetingApp;
-import com.deshang365.meeting.model.Constants;
 import com.deshang365.meeting.model.GroupMemberInfo;
 import com.deshang365.meeting.network.NewNetwork;
 import com.deshang365.meeting.util.MeetingUtils;
@@ -64,7 +60,6 @@ public class TalkAdapter extends ImageLoaderAdapterBase {
 
 	@Override
 	public View getView(int position, View con, ViewGroup parent) {
-
 		final ViewHolder vh;
 		if (con == null) {
 			con = View.inflate(mContext, R.layout.group_talk_item, null);
@@ -112,15 +107,20 @@ public class TalkAdapter extends ImageLoaderAdapterBase {
 				}
 			});
 			GroupMemberInfo groupMemberInfo = MeetingApp.sMapGroupMemberInfo.get(mGroupId).get(mEMMessage.getFrom());
-			File file = new File(Constants.AVATAR_PATH, "" + groupMemberInfo.uid);
-			if (file.exists()) {
-				vh.mImgvHeadRight.setImageBitmap(ImageHandle.getLoacalBitmap(Constants.AVATAR_PATH + groupMemberInfo.uid));
+			// File file = new File(Constants.AVATAR_PATH, "" +
+			// groupMemberInfo.uid);
+			// if (file.exists()) {
+			// vh.mImgvHeadRight.setImageBitmap(ImageHandle.getLoacalBitmap(Constants.AVATAR_PATH
+			// + groupMemberInfo.uid));
+			// }
+			if (groupMemberInfo != null) {
+				mImageLoader.displayImage(NewNetwork.getAvatarUrl(groupMemberInfo.uid), vh.mImgvHeadRight, mOptions);
+			} else {
+				vh.mImgvHeadLeft.setImageResource(R.drawable.default_head_portrait);
 			}
 		} else {
 			vh.relGroupItemLeft.setVisibility(View.VISIBLE);
 			vh.relGroupItemRight.setVisibility(View.GONE);
-			// new String[] { DBHelper.PRO_MOBILE } 查询的对象 DBHelper.PRO_HXID+
-			// "=?", new String[] { mEMMessage.getFrom() } 查询的条件，有多个
 			GroupMemberInfo info = MeetingApp.sMapGroupMemberInfo.get(mGroupId).get(mEMMessage.getFrom());
 			if (info != null) {
 				vh.mTvGroupNameLeft.setText(info.mobile);

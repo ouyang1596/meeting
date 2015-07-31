@@ -3,7 +3,6 @@ package com.deshang365.meeting.network;
 import retrofit.http.Body;
 import retrofit.http.GET;
 import retrofit.http.POST;
-import retrofit.http.Path;
 import retrofit.http.Query;
 
 import com.deshang365.meeting.model.VersionInfo;
@@ -16,7 +15,7 @@ public interface NetworkService {
 	@POST(Config.API_REGISTER)
 	public void register(@Body String data, OnResponse<NetworkReturn> cb);
 
-	@POST(Config.API_CREATEGROUP)
+	@POST(Config.API_CREATE_GROUP)
 	public void createGroup(@Body String data, OnResponse<NetworkReturn> cb);
 
 	@GET(Config.API_GROUPLIST)
@@ -26,73 +25,76 @@ public interface NetworkService {
 	public void checkUpdate(@Query("userId") int userId, @Query("userName") String userName, @Query("schoolId") String schoolId,
 			@Query("deviceId") String deviceId, OnResponse<VersionInfo> cb);
 
-	@GET(Config.API_GROUPPAGETOPERSONALMEETINGLIST)
+	@GET(Config.API_GROUP_PAGE_TO_PERSONAL_MEETINGLIST)
 	public void getGroupSignRecord(@Query("p") String data, OnResponse<NetworkReturn> cb);
 
-	@POST(Config.API_USERSIGN)
+	@POST(Config.API_USER_SIGN)
 	public void userSign(@Body String data, OnResponse<NetworkReturn> cb);
 
-	@POST(Config.API_BLUETOOTHJOINSIGN)
+	@POST(Config.API_BLUETOOTH_JOIN_SIGN)
 	public void bluetoothJoinSign(@Body String data, OnResponse<NetworkReturn> cb);
 
-	@GET(Config.API_PERSONALPAGETOPERSONALMEETINGLIST)
+	@GET(Config.API_PERSONAL_PAGE_TO_PERSONAL_MEETINGLIST)
 	public void getPersonalSignRecord(@Query("p") String data, OnResponse<NetworkReturn> cb);
 
-	@POST(Config.API_STARTBLUETOOTHSIGN)
+	@POST(Config.API_START_BLUETOOTH_SIGN)
 	public void createBlueSign(@Body String data, OnResponse<NetworkReturn> cb);
 
 	@POST(Config.API_CREATE_SIGN)
 	public void createSign(@Body String data, OnResponse<NetworkReturn> cb);
 
-	@POST(Config.API_UPLOADBLUETOOTHINFO)
+	@POST(Config.API_UPLOAD_BLUETOOTH_INFO)
 	public void uploadBlueToothInfo(@Body String data, OnResponse<NetworkReturn> cb);
 
-	@POST(Config.API_SETDEFAULTNICKNAME)
+	@POST(Config.API_SET_DEFAULT_NICKNAME)
 	public void setDefaultNickname(@Body String data, OnResponse<NetworkReturn> cb);
 
-	@POST(Config.API_SETEMAIL)
+	@POST(Config.API_SET_EMAIL)
 	public void setEmail(@Body String data, OnResponse<NetworkReturn> cb);
+
+	@POST(Config.API_FEED_BACK)
+	public void feedBack(@Body String data, OnResponse<NetworkReturn> cb);
 
 	@POST(Config.API_IS_CAN_JOIN_GROUP)
 	public void isCanJoinGroup(@Body String data, OnResponse<NetworkReturn> cb);
 
-	@POST(Config.API_SETPASSWORD)
+	@POST(Config.API_SET_PASSWORD)
 	public void setPassword(@Body String data, OnResponse<NetworkReturn> cb);
 
-	@POST(Config.API_UPDATEGROUPNAME)
+	@POST(Config.API_UPDATE_GROUPNAME)
 	public void setGroupName(@Body String data, OnResponse<NetworkReturn> cb);
 
-	@POST(Config.API_UPDATESHOWNAME)
+	@POST(Config.API_UPDATE_SHOWNAME)
 	public void setShowName(@Body String data, OnResponse<NetworkReturn> cb);
 
-	@POST(Config.API_GROUPEXIT)
+	@POST(Config.API_GROUP_EXIT)
 	public void groupExit(@Body String data, OnResponse<NetworkReturn> cb);
 
-	@POST(Config.API_GROUPDISMISS)
+	@POST(Config.API_GROUP_DISMISS)
 	public void groupDismiss(@Body String data, OnResponse<NetworkReturn> cb);
 
-	@POST(Config.API_JOINGROUP)
+	@POST(Config.API_JOIN_GROUP)
 	public void joinGroup(@Body String data, OnResponse<NetworkReturn> cb);
 
-	@POST(Config.API_STOPSIGN)
+	@POST(Config.API_STOP_SIGN)
 	public void stopSign(@Body String data, OnResponse<NetworkReturn> cb);
 
 	@POST(Config.API_DELETE)
 	public void deleteMember(@Body String data, OnResponse<NetworkReturn> cb);
 
-	@POST(Config.API_SETNEWPWD)
+	@POST(Config.API_SET_NEWPWD)
 	public void setNewPwd(@Body String data, OnResponse<NetworkReturn> cb);
 
-	@POST(Config.API_UPLOADDATA)
+	@POST(Config.API_UPLOAD_DATA)
 	public void uploadMessage(@Body String data, OnResponse<NetworkReturn> cb);
 
 	@POST(Config.API_CHANGE_USERINFO)
 	public void changeUserInfo(@Body String data, OnResponse<NetworkReturn> cb);
 
-	@POST(Config.API_CHANGESTATES)
+	@POST(Config.API_CHANGE_STATES)
 	public void changeState(@Body String data, OnResponse<NetworkReturn> cb);
 
-	@GET(Config.API_ALLSIGNRESULT)
+	@GET(Config.API_ALL_SIGN_RESULT)
 	public void exportAllSignResult(@Query("p") String data, OnResponse<NetworkReturn> cb);
 
 	@GET(Config.API_GROUPMEMBERS)
@@ -104,31 +106,31 @@ public interface NetworkService {
 	@GET(Config.API_SIGNLIST)
 	public void getSignList(@Query("p") String data, OnResponse<NetworkReturn> cb);
 
-	@GET(Config.API_GROUPINFOBYMOB)
+	@GET(Config.API_GROUPINFO_BY_MOB)
 	public void getGroupInfoByHxGroupId(@Query("p") String data, OnResponse<NetworkReturn> cb);
 
-	@GET(Config.API_ABSENTRESULT)
+	@GET(Config.API_ABSENT_RESULT)
 	public void getAbsentResult(@Query("p") String data, OnResponse<NetworkReturn> cb);
 
-	@GET(Config.API_ISSIGNING)
+	@GET(Config.API_IS_SIGNING)
 	public void isSigning(@Query("p") String data, OnResponse<NetworkReturn> cb);
 
-	@GET(Config.API_UIDINGROUP)
+	@GET(Config.API_UID_IN_GROUP)
 	public void uidInGroup(@Query("p") String data, OnResponse<NetworkReturn> cb);
 
-	@GET(Config.API_GETNEARSIGNGROUPS)
+	@GET(Config.API_GET_NEAR_SIGNGROUPS)
 	public void getNearSignGroups(@Query("p") String data, OnResponse<NetworkReturn> cb);
 
-	@GET(Config.API_ISREGISTER)
+	@GET(Config.API_IS_REGISTER)
 	public void isRegister(@Query("p") String data, OnResponse<NetworkReturn> cb);
 
-	@GET(Config.API_GETGROUPMEMBERSBYHXID)
+	@GET(Config.API_GET_GROUPMEMBERS_BY_HXID)
 	public void getMembersByHxGroupId(@Query("p") String data, OnResponse<NetworkReturn> cb);
 
-	@GET(Config.API_SINGLERESULT)
+	@GET(Config.API_SINGLE_RESULT)
 	public void exportSingleResult(@Query("p") String data, OnResponse<NetworkReturn> cb);
 
-	@GET(Config.API_SENDTOSMS)
+	@GET(Config.API_SEND_TO_SMS)
 	public void sendToSMS(@Query("p") String data, OnResponse<NetworkReturn> cb);
 
 	@GET(Config.API_MY_SIGNRECORD)
@@ -137,4 +139,12 @@ public interface NetworkService {
 	@GET(Config.API_MY_SIGNRECORD)
 	public void myRecSigned(@Query("p") String data, OnResponse<NetworkReturn> cb);
 
+	@GET(Config.API_MEETING_COUNT_DETAIL)
+	public void getMeetingCountDetail(@Query("p") String data, OnResponse<NetworkReturn> cb);
+
+	@GET(Config.API_ABSENT_DETAILS)
+	public void getAbsentDetail(@Query("p") String data, OnResponse<NetworkReturn> cb);
+
+	@GET(Config.API_EXPORT_MEETINGREC_BYTIME)
+	public void exportMeetingRecBytime(@Query("p") String data, OnResponse<NetworkReturn> cb);
 }

@@ -29,7 +29,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 public class JoinerSignRecordActivity extends BaseActivity {
 	private LinearLayout mLlBack;
-	private TextView mTvTopical, mTvSignCount, mTvSignAbsenceTimes, mTvSignLeaveTimes;
+	private TextView mTvTopical, mTvSignCount, mTvSignAbsenceTimes, mTvSignLeaveTimes, mTvSignLate, mTvSignSupplement, mTvSignNormal;
 	private PullToRefreshListView mLvSignRecord;
 	private String mGroupname;
 	private String mGroupid;
@@ -65,7 +65,10 @@ public class JoinerSignRecordActivity extends BaseActivity {
 				finish();
 			}
 		});
-		mLvSignRecord = (PullToRefreshListView) findViewById(R.id.lv_sign_history);
+		mTvSignNormal = (TextView) findViewById(R.id.txtv_complete_sign);
+		mTvSignSupplement = (TextView) findViewById(R.id.txtv_sign_supplement);
+		mTvSignLate = (TextView) findViewById(R.id.txtv_sign_late);
+		mLvSignRecord = (PullToRefreshListView) findViewById(R.id.plv_sign_history);
 		mLvSignRecord.setOnRefreshListener(new OnRefreshListener2() {
 
 			@Override
@@ -75,9 +78,9 @@ public class JoinerSignRecordActivity extends BaseActivity {
 
 			@Override
 			public void onPullUpToRefresh(PullToRefreshBase refreshView) {
-				if (MeetingApp.mVersionName != null) {
+				if (MeetingApp.mVersionCode != null) {
 					mPageCount += 1;
-					getPersonalSignRecord(mGroupid, MeetingApp.mVersionName, "" + mPageCount);
+					getPersonalSignRecord(mGroupid, MeetingApp.mVersionCode, "" + mPageCount);
 				}
 			}
 		});
@@ -88,9 +91,9 @@ public class JoinerSignRecordActivity extends BaseActivity {
 
 	private void initPerSignrecord() {
 		mListGroupMemberInfos.clear();
-		if (MeetingApp.mVersionName != null) {
+		if (MeetingApp.mVersionCode != null) {
 			mPageCount = 1;
-			getPersonalSignRecord(mGroupid, MeetingApp.mVersionName, "" + mPageCount);
+			getPersonalSignRecord(mGroupid, MeetingApp.mVersionCode, "" + mPageCount);
 		} else {
 			setView();
 		}
@@ -108,10 +111,19 @@ public class JoinerSignRecordActivity extends BaseActivity {
 				if (result.result == 1) {
 					JsonNode data = result.data;
 					JsonNode meetinglist = data.get("meetinglist");
-					int signCount, signNormal = 0, signLeave = 0, signAbsence = 0;
+					int signCount, signNormal = 0, signLeave = 0, signAbsence = 0, signLate = 0, signSupplement = 0;
 					signCount = data.get("my_meeting_count").getValueAsInt();// 成员加入群组后发生的签到次数
 					signAbsence = data.get("absent_count").getValueAsInt();// 缺席次数
 					signLeave = data.get("leave_count").getValueAsInt();// 请假次数
+					if (data.has("normal_count")) {
+						signNormal = data.get("normal_count").getValueAsInt();
+					}
+					if (data.has("late_count")) {
+						signLate = data.get("late_count").getValueAsInt();
+					}
+					if (data.has("retry_count")) {
+						signSupplement = data.get("retry_count").getValueAsInt();
+					}
 					for (int i = 0; i < meetinglist.size(); i++) {
 						GroupMemberInfo groupInfo = new GroupMemberInfo();
 						JsonNode item = meetinglist.get(i);
@@ -121,7 +133,7 @@ public class JoinerSignRecordActivity extends BaseActivity {
 						groupInfo.createtime = item.get("createtime").getValueAsText();
 						mListGroupMemberInfos.add(groupInfo);
 					}
-					setText(signCount, signLeave, signAbsence);
+					setText(signCount, signLeave, signAbsence, signLate, signSupplement, signNormal);
 					if (mAdapter == null) {
 						mAdapter = new SignHistoryAdapter(getApplication(), mListGroupMemberInfos);
 						mLvSignRecord.setAdapter(mAdapter);
@@ -141,16 +153,19 @@ public class JoinerSignRecordActivity extends BaseActivity {
 			public void failure(RetrofitError arg0) {
 				super.failure(arg0);
 				setView();
-				setText(0, 0, 0);
+				setText(0, 0, 0, 0, 0, 0);
 				Toast.makeText(mContext, "获得签到记录失败", Toast.LENGTH_SHORT).show();
 			}
 		});
 	}
 
-	private void setText(int signCount, int signLeave, int signAbsence) {
+	private void setText(int signCount, int signLeave, int signAbsence, int signLate, int signSupplement, int signNormal) {
 		mTvSignCount.setText("" + signCount);
 		mTvSignAbsenceTimes.setText("" + signAbsence);
 		mTvSignLeaveTimes.setText("" + signLeave);
+		mTvSignNormal.setText("" + signNormal);
+		mTvSignSupplement.setText("" + signSupplement);
+		mTvSignLate.setText("" + signLate);
 	}
 
 	private void setView() {

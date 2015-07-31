@@ -75,9 +75,17 @@
 
     <!-- new -->
     <color name="new_blue_default">#00b26d</color>
+    <color name="new_blue2_default">#40d99b</color>
+    <color name="new_blue2_press">#30c186</color>
+    <color name="new_gray_default">#f2f2f2</color>
     <color name="new_blue_press">#029f62</color>
+    <color name="new_red_press">#dc4949</color>
+    <color name="new_red_default">#ec5050</color>
     <color name="new_really_blue">#17c3e5</color>
-    <color name="new_orange_yellow">#ff961d</color>
+    <color name="new_really_blue2_default">#64c8fc</color>
+    <color name="new_really_blue2_press">#3a9acc</color>
+    <color name="new_orange_default">#ff961d</color>
+    <color name="new_orange_press">#e3861b</color>
     <color name="new_black_one">#454545</color>
     <color name="new_black_two">#666666</color>
     <color name="new_black_three">#999999</color>
@@ -85,6 +93,7 @@
     <color name="new_gray">#ededed</color>
     <!-- 一般充当分隔线 -->
     <color name="new_gray2">#cccccc</color>
+    <color name="new_gray3">#7e8995</color>
     <color name="new_line_between">#ececec</color>
 
 </resources>

@@ -4,7 +4,6 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,8 +14,6 @@ import android.widget.Toast;
 
 import com.deshang365.meeting.R;
 import com.deshang365.meeting.baselib.MeetingApp;
-import com.deshang365.meeting.model.Network;
-import com.deshang365.meeting.model.NetworkReturnBase;
 import com.deshang365.meeting.network.NetworkReturn;
 import com.deshang365.meeting.network.NewNetwork;
 import com.deshang365.meeting.network.OnResponse;
@@ -52,24 +49,15 @@ public class ChangeShowNameActivity extends BaseActivity {
 			public void onClick(View v) {
 				String name = mEtvNewName.getText().toString().trim();
 				if (name.length() <= 0) {
-					Toast.makeText(ChangeShowNameActivity.this, "名称不能为空！", Toast.LENGTH_SHORT).show();
+					Toast.makeText(ChangeShowNameActivity.this, "请输入名称", Toast.LENGTH_SHORT).show();
 					return;
 				}
 				if (mShowname.equals(name)) {
-					Toast.makeText(ChangeShowNameActivity.this, "名称与原来相同！", Toast.LENGTH_SHORT).show();
+					Toast.makeText(ChangeShowNameActivity.this, "名称与原来相同", Toast.LENGTH_SHORT).show();
 					return;
 				}
 				showWaitingDialog();
 				setShowName(groupid, "" + MeetingApp.userInfo.uid, name);
-				// if (Build.VERSION.SDK_INT <=
-				// Build.VERSION_CODES.GINGERBREAD_MR1) {
-				// new UpdateShowNameAsyn().execute(groupid, "" +
-				// MeetingApp.userInfo.uid, name);
-				// } else {
-				// new
-				// UpdateShowNameAsyn().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
-				// groupid, "" + MeetingApp.userInfo.uid, name);
-				// }
 
 			}
 		});
@@ -107,33 +95,6 @@ public class ChangeShowNameActivity extends BaseActivity {
 		});
 
 	}
-
-	// class UpdateShowNameAsyn extends AsyncTask<String, Void,
-	// NetworkReturnBase> {
-	//
-	// @Override
-	// protected NetworkReturnBase doInBackground(String... params) {
-	// return Network.updateShowName(params[0], params[1], params[2]);
-	// }
-	//
-	// @Override
-	// protected void onPostExecute(NetworkReturnBase result) {
-	// super.onPostExecute(result);
-	// hideWaitingDialog();
-	// if (result == null) {
-	// Toast.makeText(mContext, "修改失败！", Toast.LENGTH_SHORT).show();
-	// return;
-	// }
-	// if (result.rescode == 1) {
-	// startActivity(new Intent(ChangeShowNameActivity.this,
-	// MainActivity.class));
-	// } else {
-	// Toast.makeText(ChangeShowNameActivity.this, result.message,
-	// Toast.LENGTH_SHORT).show();
-	// }
-	//
-	// }
-	// }
 
 	@Override
 	protected void onResume() {

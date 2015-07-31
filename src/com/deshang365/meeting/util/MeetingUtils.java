@@ -14,21 +14,14 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
-import android.R.integer;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore.Images.ImageColumns;
-import android.provider.Settings.Secure;
-
-import cn.sharesdk.framework.p;
 
 import com.deshang365.meeting.baselib.Encrypt;
 import com.deshang365.meeting.baselib.MeetingApp;
@@ -152,7 +145,6 @@ public class MeetingUtils {
 		} catch (IOException e) {
 			return null;
 		}
-
 	}
 
 	public static int computeSampleSize(BitmapFactory.Options options, int minSideLength, int maxNumOfPixels) {
@@ -193,10 +185,8 @@ public class MeetingUtils {
 		BitmapFactory.Options opts = new BitmapFactory.Options();
 		opts.inJustDecodeBounds = true;
 		BitmapFactory.decodeFile(filePath, opts);
-
 		opts.inSampleSize = computeSampleSize(opts, -1, 128 * 128);
 		opts.inJustDecodeBounds = false;
-
 		try {
 			bitmap = BitmapFactory.decodeFile(filePath, opts);
 		} catch (Exception e) {
@@ -206,7 +196,6 @@ public class MeetingUtils {
 
 	/** 计算文件大小 */
 	public static int fileLength(String absolutePath) {
-
 		int len = 0;
 		try {
 			File file = new File(absolutePath);
@@ -325,13 +314,13 @@ public class MeetingUtils {
 		return Installation.id(context);
 	}
 
-	public static void saveParams(int params) {
+	public static void saveParams(String key, int params) {
 		Editor edit = MeetingApp.mParamsSharePrefreces.edit();
-		edit.putInt(Constants.KEY_SIGN_MODE, params);
+		edit.putInt(key, params);
 		edit.commit();
 	}
 
-	public static int getParams() {
-		return MeetingApp.mParamsSharePrefreces.getInt(Constants.KEY_SIGN_MODE, 0);
+	public static int getParams(String key) {
+		return MeetingApp.mParamsSharePrefreces.getInt(key, 0);
 	}
 }

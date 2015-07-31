@@ -4,16 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.codehaus.jackson.JsonNode;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import retrofit.RetrofitError;
 import retrofit.client.Response;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -28,8 +23,6 @@ import com.deshang365.meeting.R;
 import com.deshang365.meeting.adapter.ExlSignListAdapter;
 import com.deshang365.meeting.baselib.MeetingApp;
 import com.deshang365.meeting.model.GroupMemberInfo;
-import com.deshang365.meeting.model.GroupMemberInfoList;
-import com.deshang365.meeting.model.Network;
 import com.deshang365.meeting.network.NetworkReturn;
 import com.deshang365.meeting.network.NewNetwork;
 import com.deshang365.meeting.network.OnResponse;

@@ -27,16 +27,36 @@
             android:hint="请输入默认昵称"
             android:paddingLeft="14dp" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginTop="5dp"
+            android:text="将作为加入群组时的默认名字，可在群组资料里修改"
+            android:textColor="@color/new_black_three"
+            android:textSize="@dimen/text_size_12" />
+
         <EditText
             android:id="@+id/etv_email"
             style="@style/editStyle"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="20dp"
             android:drawableLeft="@drawable/email"
             android:drawablePadding="14dp"
             android:hint="请输入邮箱用于导出结果"
             android:paddingLeft="14dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginTop="5dp"
+            android:text="将作为导出签到记录的默认邮箱，导出时也可修改为其他邮箱"
+            android:textColor="@color/new_black_three"
+            android:textSize="@dimen/text_size_12" />
     </LinearLayout>
 
 </LinearLayout>

@@ -2,7 +2,6 @@ package com.deshang365.meeting.model;
 
 import java.io.File;
 
-import com.deshang365.meeting.util.MeetingUtils;
 import com.deshang365.util.FileUtils;
 
 public class Constants {
@@ -41,6 +40,7 @@ public class Constants {
 	public static final String KEY_NETWORK_IN = "d!#@]e$VSshW%an^g[";
 	public static final String KEY_BLUETOOTH = "*$%@dj&*j!@oz*^&no*";
 	public static final String NET_WRONG = "网络错误";
+	public static final String KEY_TIP_SHOW = "tip";
 
 	static {
 		File scaleFile = new File(Constants.SCALE_IMAGE);

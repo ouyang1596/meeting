@@ -48,36 +48,37 @@
         android:textColor="@color/white"
         android:textSize="@dimen/text_size_20" />
 
+    <ProgressBar
+        android:id="@+id/pb_loading"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="12dp"
+        android:visibility="gone" />
+
     <ImageView
-        android:id="@+id/tv_top_alert_groups"
+        android:id="@+id/imgv_what_need"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="10dp"
-        android:src="@drawable/add"
-        android:visibility="gone" />
-
-    <ImageView
-        android:id="@+id/iv_group_members"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="7dp"
-        android:src="@drawable/groupmembers"
+        android:src="@drawable/btn_groupmembers_imgv_selector"
         android:visibility="invisible" />
 
     <TextView
         android:id="@+id/txtv_what_need"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/ll_top_alert_back"
         android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/ll_top_alert_back"
         android:layout_centerVertical="true"
-        android:layout_marginRight="5dp"
-        android:paddingBottom="10dp"
-        android:paddingRight="6dp"
-        android:paddingTop="10dp"
+        android:background="@drawable/btn_blue_bg_selector"
+        android:gravity="center_vertical"
+        android:paddingLeft="8dp"
+        android:paddingRight="12dp"
         android:text="历史记录"
         android:textColor="@drawable/text_color_selector"
         android:textSize="@dimen/text_size_14"

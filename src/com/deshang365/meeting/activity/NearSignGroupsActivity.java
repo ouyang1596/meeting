@@ -6,17 +6,12 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import org.codehaus.jackson.JsonNode;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import retrofit.RetrofitError;
 import retrofit.client.Response;
-
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Build;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -30,8 +25,6 @@ import android.widget.Toast;
 import com.deshang365.meeting.R;
 import com.deshang365.meeting.baselib.MeetingApp;
 import com.deshang365.meeting.model.GroupMemberInfo;
-import com.deshang365.meeting.model.GroupMemberInfoList;
-import com.deshang365.meeting.model.Network;
 import com.deshang365.meeting.network.NetworkReturn;
 import com.deshang365.meeting.network.NewNetwork;
 import com.deshang365.meeting.network.OnResponse;
@@ -44,7 +37,9 @@ public class NearSignGroupsActivity extends ImageloaderBaseActivity {
 	private Handler mHandler;
 	private Timer mTimer;
 	private TimerTask mTask;
-	private ImageView mImgvFlush;
+	private ImageView mImgvFlush, mImgvAnimation;
+
+	private AnimationDrawable mAnimationDrawable;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +49,7 @@ public class NearSignGroupsActivity extends ImageloaderBaseActivity {
 	}
 
 	private void initView() {
-		mTvExit = (TextView) findViewById(R.id.txtv_exit);
+		mTvExit = (TextView) findViewById(R.id.tv_exit);
 		mTvExit.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -64,6 +59,7 @@ public class NearSignGroupsActivity extends ImageloaderBaseActivity {
 		});
 		mRelNearSignGroups = (RelativeLayout) findViewById(R.id.rel_login_near_sign_groups);
 		getNearSIgnGroups();
+		mImgvAnimation = (ImageView) findViewById(R.id.imgv_animation);
 		mImgvFlush = (ImageView) findViewById(R.id.imgv_flush);
 		mImgvFlush.setOnClickListener(new OnClickListener() {
 
@@ -81,12 +77,19 @@ public class NearSignGroupsActivity extends ImageloaderBaseActivity {
 		});
 	}
 
+	private void startAnimation() {
+		if (mAnimationDrawable == null) {
+			mAnimationDrawable = (AnimationDrawable) mImgvAnimation.getDrawable();
+		}
+		mAnimationDrawable.start();
+	}
+
 	@SuppressLint("NewApi")
 	private void getNearSIgnGroups() {
 		if (MeetingApp.getLat(0) == 0 || MeetingApp.getLng(0) == 0) {
 			Toast.makeText(getApplication(), "定位失败，无法获取群组", 0).show();
 		} else {
-			showWaitingDialog();
+			// showWaitingDialog();
 			getNearSignGroups(MeetingApp.getLat(0), MeetingApp.getLng(0));
 		}
 	}
@@ -97,7 +100,7 @@ public class NearSignGroupsActivity extends ImageloaderBaseActivity {
 			@Override
 			public void handleMessage(Message msg) {
 				super.handleMessage(msg);
-				showWaitingDialog();
+				// showWaitingDialog();
 				getNearSignGroups(MeetingApp.getLat(0), MeetingApp.getLng(0));
 			}
 		};
@@ -120,7 +123,7 @@ public class NearSignGroupsActivity extends ImageloaderBaseActivity {
 			@Override
 			public void success(NetworkReturn result, Response arg1) {
 				super.success(result, arg1);
-				hideWaitingDialog();
+				// hideWaitingDialog();
 				if (result.result != 1) {
 					Toast.makeText(mContext, result.msg, Toast.LENGTH_SHORT).show();
 					return;
@@ -154,7 +157,7 @@ public class NearSignGroupsActivity extends ImageloaderBaseActivity {
 			@Override
 			public void failure(RetrofitError error) {
 				super.failure(error);
-				hideWaitingDialog();
+				// hideWaitingDialog();
 				Toast.makeText(mContext, "获取信息失败", Toast.LENGTH_SHORT).show();
 			}
 		});
@@ -183,6 +186,7 @@ public class NearSignGroupsActivity extends ImageloaderBaseActivity {
 	protected void onResume() {
 		super.onResume();
 		onTimeToUpdate();
+		startAnimation();
 	}
 
 	@Override
@@ -190,5 +194,12 @@ public class NearSignGroupsActivity extends ImageloaderBaseActivity {
 		super.onPause();
 		mTask.cancel();
 		mTimer.cancel();
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		mAnimationDrawable.stop();
+		mAnimationDrawable = null;
 	}
 }

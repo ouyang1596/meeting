@@ -3,7 +3,6 @@ package com.deshang365.meeting.activity;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -51,25 +50,15 @@ public class ChangeGroupNameActivity extends BaseActivity {
 			public void onClick(View v) {
 				String name = mEtvNewName.getText().toString().trim();
 				if (name.length() <= 0) {
-					Toast.makeText(ChangeGroupNameActivity.this, "名称不能为空！", Toast.LENGTH_SHORT).show();
+					Toast.makeText(ChangeGroupNameActivity.this, "请输入名称", Toast.LENGTH_SHORT).show();
 					return;
 				}
 				if (mGroupname.equals(name)) {
-					Toast.makeText(ChangeGroupNameActivity.this, "名称与原来相同！", Toast.LENGTH_SHORT).show();
+					Toast.makeText(ChangeGroupNameActivity.this, "名称与原来相同", Toast.LENGTH_SHORT).show();
 					return;
 				}
 				showWaitingDialog();
 				setGroupName(groupid, "" + MeetingApp.userInfo.uid, name);
-				// if (Build.VERSION.SDK_INT <=
-				// Build.VERSION_CODES.GINGERBREAD_MR1) {
-				// new UpdateGroupNameAsyn().execute(groupid, "" +
-				// MeetingApp.userInfo.uid, name);
-				// } else {
-				// new UpdateGroupNameAsyn()
-				// .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, groupid,
-				// "" + MeetingApp.userInfo.uid, name);
-				// }
-
 			}
 		});
 		mTvTopical = (TextView) findViewById(R.id.tv_top_alert_text);
@@ -107,63 +96,13 @@ public class ChangeGroupNameActivity extends BaseActivity {
 
 	}
 
-	// class UpdateGroupNameAsyn extends AsyncTask<String, Void,
-	// NetworkReturnBase> {
-	//
-	// @Override
-	// protected NetworkReturnBase doInBackground(String... params) {
-	// return Network.updateGroupName(params[0], params[1], params[2]);
-	// }
-	//
-	// @Override
-	// protected void onPostExecute(NetworkReturnBase result) {
-	// super.onPostExecute(result);
-	// hideWaitingDialog();
-	// if (result != null) {
-	// if (result.rescode == 1) {
-	// // Toast.makeText(ChangeGroupNameActivity.this,
-	// // result.message, Toast.LENGTH_SHORT).show();
-	// startActivity(new Intent(ChangeGroupNameActivity.this,
-	// MainActivity.class));
-	//
-	// } else {
-	// Toast.makeText(ChangeGroupNameActivity.this, result.message,
-	// Toast.LENGTH_SHORT).show();
-	// }
-	// } else {
-	// Toast.makeText(ChangeGroupNameActivity.this, "修改失败！",
-	// Toast.LENGTH_SHORT).show();
-	// }
-	//
-	// }
-	// }
-
-	private ProgressDialog mWaitingDialog;
-
-	public void showWaitingDialog() {
-		if (mWaitingDialog == null) {
-			mWaitingDialog = ProgressDialog.show(mContext, "", "正在提交信息...", true, false);
-			mWaitingDialog.setCancelable(true);
-		} else if (!mWaitingDialog.isShowing()) {
-			mWaitingDialog.show();
-		}
-	}
-
-	public void hideWaitingDialog() {
-		if (mWaitingDialog != null) {
-			mWaitingDialog.dismiss();
-		}
-	}
-
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
 	}
 
 	@Override
 	protected void onPause() {
-		// TODO Auto-generated method stub
 		super.onPause();
 	}
 }

@@ -1,27 +1,17 @@
 package com.deshang365.meeting.adapter;
 
-import java.io.File;
 import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.deshang365.meeting.R;
-import com.deshang365.meeting.baselib.ImageHandle;
-import com.deshang365.meeting.baselib.MeetingApp;
-import com.deshang365.meeting.model.Constants;
 import com.deshang365.meeting.model.GroupMemberInfo;
-import com.deshang365.meeting.model.Network;
 import com.deshang365.meeting.network.NewNetwork;
-import com.deshang365.meeting.util.MeetingUtils;
 
 public class UnSignedAdapter extends ImageLoaderAdapterBase {
 	private Context mContext;

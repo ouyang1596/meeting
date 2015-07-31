@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -35,15 +34,16 @@ public class TabButton extends LinearLayout {
 		mTbView = (LinearLayout) findViewById(R.id.ll_tabButton);
 
 		TypedArray attrsArray = context.obtainStyledAttributes(attrs, R.styleable.TabButton);
-		mImageNormal = attrsArray.getResourceId(R.styleable.TabButton_imageNormal, R.drawable.tab_bar_community_normal);
-		mImageSelected = attrsArray.getResourceId(R.styleable.TabButton_imageSelected, R.drawable.tab_bar_community_selected);
+		mImageNormal = attrsArray.getResourceId(R.styleable.TabButton_imageNormal, R.drawable.tab_bar_user_info_normal);
+		mImageSelected = attrsArray.getResourceId(R.styleable.TabButton_imageSelected, R.drawable.tab_bar_user_info_selected);
 		mTextColorNormal = attrsArray.getColor(R.styleable.TabButton_textColorNormal, 0xFFC5C5C5);
 		mTextColorSelected = attrsArray.getColor(R.styleable.TabButton_textColorSelected, 0xFFFFFFFF);
 
 		mImageView.setImageResource(mImageNormal);
 		mTextView.setTextColor(mTextColorNormal);
 		mTextView.setText(attrsArray.getString(R.styleable.TabButton_text));
-		//mTextView.setTextSize(attrsArray.getDimension(R.styleable.TabButton_textSize, 100));
+		// mTextView.setTextSize(attrsArray.getDimension(R.styleable.TabButton_textSize,
+		// 100));
 
 		attrsArray.recycle();
 	}

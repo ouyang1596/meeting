@@ -8,6 +8,13 @@
 
 package cn.sharesdk.onekeyshare.theme.skyblue;
 
+import static cn.sharesdk.framework.utils.R.getIdRes;
+import static cn.sharesdk.framework.utils.R.getLayoutRes;
+import static cn.sharesdk.framework.utils.R.getStringRes;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -19,18 +26,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.EditPageFakeActivity;
 import cn.sharesdk.onekeyshare.PicViewer;
-
-import static cn.sharesdk.framework.utils.R.getIdRes;
-import static cn.sharesdk.framework.utils.R.getLayoutRes;
-import static cn.sharesdk.framework.utils.R.getStringRes;
 
 /** 执行图文分享的页面，此页面不支持微信平台的分享 */
 public class EditPage extends EditPageFakeActivity implements OnClickListener, TextWatcher {

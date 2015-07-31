@@ -2,8 +2,6 @@ package com.deshang365.meeting.service;
 
 import java.io.File;
 
-import com.deshang365.meeting.model.Constants;
-
 import android.app.DownloadManager;
 import android.app.DownloadManager.Query;
 import android.app.DownloadManager.Request;
@@ -18,6 +16,8 @@ import android.os.Environment;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.deshang365.meeting.model.Constants;
 
 public class DownloadListenService extends Service {
 	private long mDownloadId;

@@ -7,8 +7,6 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
@@ -32,46 +30,43 @@ import com.tencent.stat.StatService;
 public class ImageloaderBaseActivity extends BaseActivity {
 
 	protected ImageLoader mImageLoader = ImageLoader.getInstance();
-    protected DisplayImageOptions mOptions;
-    protected ImageLoadingListener mAnimateFirstListener = new AnimateFirstDisplayListener();
+	protected DisplayImageOptions mOptions;
+	protected ImageLoadingListener mAnimateFirstListener = new AnimateFirstDisplayListener();
 
-    public void removeCacheImage(int uid) {
-        mImageLoader.getDiskCache().remove(NewNetwork.getAvatarUrl(uid));
-        mImageLoader.getMemoryCache().remove(NewNetwork.getAvatarUrl(uid));
-    }
-    
-    private static class AnimateFirstDisplayListener extends SimpleImageLoadingListener {
+	public void removeCacheImage(int uid) {
+		mImageLoader.getDiskCache().remove(NewNetwork.getAvatarUrl(uid));
+		mImageLoader.getMemoryCache().remove(NewNetwork.getAvatarUrl(uid));
+	}
 
-        static final List<String> displayedImages = Collections.synchronizedList(new LinkedList<String>());
+	private static class AnimateFirstDisplayListener extends SimpleImageLoadingListener {
+		static final List<String> displayedImages = Collections.synchronizedList(new LinkedList<String>());
 
-        @Override
-        public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-            if (loadedImage != null) {
-                ImageView imageView = (ImageView) view;
-                // 是否第一次显示
-                boolean firstDisplay = !displayedImages.contains(imageUri);
-                if (firstDisplay) {
-                    // 图片淡入效果
-                    FadeInBitmapDisplayer.animate(imageView, 500);
-                    displayedImages.add(imageUri);
-                }
-            }
-        }
-    }
-    
+		@Override
+		public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+			if (loadedImage != null) {
+				ImageView imageView = (ImageView) view;
+				// 是否第一次显示
+				boolean firstDisplay = !displayedImages.contains(imageUri);
+				if (firstDisplay) {
+					// 图片淡入效果
+					FadeInBitmapDisplayer.animate(imageView, 500);
+					displayedImages.add(imageUri);
+				}
+			}
+		}
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		mContext = this;
-		
-        mOptions = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.default_head_portrait)
-                .showImageForEmptyUri(R.drawable.default_head_portrait)
-                .showImageOnFail(R.drawable.default_head_portrait).cacheInMemory(true).cacheOnDisk(true)
-                .bitmapConfig(Bitmap.Config.RGB_565) // 设置图片的解码类型
-                .build();
-        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(mContext).build();
-        mImageLoader.init(config);
+		mOptions = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.default_head_portrait)
+				.showImageForEmptyUri(R.drawable.default_head_portrait).showImageOnFail(R.drawable.default_head_portrait)
+				.cacheInMemory(true).cacheOnDisk(true).bitmapConfig(Bitmap.Config.RGB_565) // 设置图片的解码类型
+				.build();
+		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(mContext).build();
+		mImageLoader.init(config);
 	}
 
 	@Override
@@ -91,7 +86,6 @@ public class ImageloaderBaseActivity extends BaseActivity {
 						intent.setClass(mContext, WebActivity.class);
 						mContext.startActivity(intent);
 					}
-
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}

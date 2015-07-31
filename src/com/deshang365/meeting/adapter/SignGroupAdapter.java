@@ -4,25 +4,18 @@ import java.util.List;
 
 import ru.biovamp.widget.CircleLayout;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v4.util.LruCache;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.deshang365.meeting.R;
-import com.deshang365.meeting.activity.SignHistoryActivity;
 import com.deshang365.meeting.baselib.MeetingApp;
 import com.deshang365.meeting.model.GroupMemberInfo;
 import com.deshang365.meeting.network.NewNetwork;
-import com.google.zxing.oned.rss.FinderPattern;
 
 public class SignGroupAdapter extends ImageLoaderAdapterBase {
 	private Context mContext;
@@ -60,7 +53,6 @@ public class SignGroupAdapter extends ImageLoaderAdapterBase {
 			vh.mImgvSigning = (ImageView) con.findViewById(R.id.imgv_group_signing);
 			vh.mTvGroupName = (TextView) con.findViewById(R.id.txtv_group_name);
 			vh.mTvGroupId = (TextView) con.findViewById(R.id.txtv_group_code);
-			vh.mVUserSign = con.findViewById(R.id.user_sign);
 			vh.mRelSIgnGroupItem = (RelativeLayout) con.findViewById(R.id.rel_sign_group_item);
 			vh.mClOne = (CircleLayout) con.findViewById(R.id.imgv_groupHead_one);
 			vh.mClTwo = (CircleLayout) con.findViewById(R.id.imgv_groupHead_two);
@@ -81,13 +73,8 @@ public class SignGroupAdapter extends ImageLoaderAdapterBase {
 		vh.mTvGroupId.setText(info.idcard);
 		if (info.mtype == 0) {
 			vh.mImgvCreaterorJoiner.setImageResource(R.drawable.creater);
-			vh.mVUserSign.setVisibility(View.GONE);
-
 		} else {
 			vh.mImgvCreaterorJoiner.setImageResource(R.drawable.joiner);
-			vh.mVUserSign.setVisibility(View.VISIBLE);
-			vh.mVUserSign.setTag(info);
-			vh.mVUserSign.setOnClickListener(userSignOnClickListener);
 		}
 		if ("0".equals(info.signState)) {
 			vh.mImgvSigning.setVisibility(View.VISIBLE);
@@ -96,38 +83,11 @@ public class SignGroupAdapter extends ImageLoaderAdapterBase {
 			} else {
 				vh.mImgvSigning.setImageResource(R.drawable.signing);
 			}
-
 		} else {
 			vh.mImgvSigning.setVisibility(View.GONE);
 		}
 		return con;
 	}
-
-	private OnClickListener userSignOnClickListener = new OnClickListener() {
-
-		@Override
-		public void onClick(View v) {
-			GroupMemberInfo info = (GroupMemberInfo) v.getTag();
-			Intent intent = new Intent(mContext, SignHistoryActivity.class);
-			intent.putExtra("groupname", info.name);
-			intent.putExtra("groupid", info.group_id);
-			intent.putExtra("groupcode", info.idcard);
-			intent.putExtra("showname", info.showname);
-			intent.putExtra("mtype", info.mtype);
-			intent.putExtra("createruid", info.uid);
-			intent.putExtra("meetingtype", info.meeting_type);
-			intent.putExtra("allow_join", info.allow_join);
-			intent.putExtra("hassign", info.has_sign);
-			intent.putExtra("signstate", info.signState);// -1 未发起过签到
-															// 0签到进行中1签到结束
-			Log.i("bm", "hassign==" + info.has_sign);
-			if (info.meetingid != null) {
-				intent.putExtra("meetingid", info.meetingid);
-			}
-			intent.putExtra("hxgroupid", info.hxgroupid);
-			mContext.startActivity(intent);
-		}
-	};
 
 	private void showImage(ViewHolder vh, List<Integer> uids) {
 		if (uids.size() == 1) {
@@ -185,7 +145,7 @@ public class SignGroupAdapter extends ImageLoaderAdapterBase {
 
 	class ViewHolder {
 		TextView mTvGroupId, mTvGroupName;
-		View mVUserSign;
+		// View mVUserSign;
 		CircleLayout mClOne, mClTwo, mClFour, mClFive;
 		ImageView mImgvCreaterorJoiner, mImgvSigning;
 		RelativeLayout mRelSIgnGroupItem;

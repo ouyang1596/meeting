@@ -21,7 +21,7 @@
             android:id="@+id/etv_new_name"
             style="@style/EditBg"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:background="@drawable/edit_bg_selector" />
     </RelativeLayout>
 

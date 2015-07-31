@@ -10,6 +10,7 @@ import retrofit.client.Response;
 import android.content.Context;
 import android.content.Intent;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,8 +19,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.deshang365.meeting.R;
-import com.deshang365.meeting.activity.MainActivity;
 import com.deshang365.meeting.activity.CreateSignActivity;
+import com.deshang365.meeting.activity.MainActivity;
+import com.deshang365.meeting.activity.SignHistoryActivity;
 import com.deshang365.meeting.activity.SigningActivity;
 import com.deshang365.meeting.adapter.SignGroupAdapter;
 import com.deshang365.meeting.baselib.MeetingApp;
@@ -52,7 +54,7 @@ public class MainTabMeeting extends MainTabViewBase {
 		mContext = context;
 		mView = LayoutInflater.from(context).inflate(R.layout.main_tab_meeting, this, true);
 		init();
-		getGroupList();
+		// getGroupList();
 	}
 
 	@Override
@@ -75,30 +77,15 @@ public class MainTabMeeting extends MainTabViewBase {
 				GroupMemberInfo groupMemberInfo = mAdapter.getItem(mPosition);
 				if (groupMemberInfo.mtype == 0) {
 					if ("0".equals(groupMemberInfo.signState)) {
-						Intent intent = new Intent(mContext, SigningActivity.class);
-						intent.putExtra("meetingid", groupMemberInfo.meetingid);
-						intent.putExtra("groupid", groupMemberInfo.group_id);
-						intent.putExtra("mtype", groupMemberInfo.mtype);
-						intent.putExtra("groupcode", groupMemberInfo.idcard);
-						intent.putExtra("showname", groupMemberInfo.showname);
-						intent.putExtra("groupname", groupMemberInfo.name);
-						intent.putExtra("allow_join", groupMemberInfo.allow_join);
-						intent.putExtra("hxgroupid", groupMemberInfo.hxgroupid);
-						intent.putExtra("createsigntype", groupMemberInfo.meeting_type);
-						mContext.startActivity(intent);
+						intentToSinging(groupMemberInfo);
 					} else {
-						Intent intent = new Intent(mContext, CreateSignActivity.class);
-						intent.putExtra("groupname", groupMemberInfo.name);
-						intent.putExtra("groupid", groupMemberInfo.group_id);
-						intent.putExtra("groupcode", groupMemberInfo.idcard);
-						intent.putExtra("showname", groupMemberInfo.showname);
-						intent.putExtra("hxgroupid", groupMemberInfo.hxgroupid);
-						intent.putExtra("allow_join", groupMemberInfo.allow_join);
-						intent.putExtra("mtype", groupMemberInfo.mtype);
-						mContext.startActivity(intent);
+						intentToCreateSign(groupMemberInfo);
 					}
+				} else {
+					intentToSignHistory(groupMemberInfo);
 				}
 			}
+
 		});
 
 		mListView.setOnRefreshListener(new OnRefreshListener<ListView>() {
@@ -132,6 +119,7 @@ public class MainTabMeeting extends MainTabViewBase {
 					GroupMemberInfo groupInfo = new GroupMemberInfo();
 					groupInfo.createtime = item.get("createtime").getValueAsText();
 					groupInfo.uid = item.get("uid").getValueAsInt();
+					Log.i("bm", "uid==" + groupInfo.uid);
 					groupInfo.valid = item.get("valid").getValueAsText();
 					groupInfo.name = item.get("name").getValueAsText();
 					groupInfo.showname = item.get("showname").getValueAsText();
@@ -160,19 +148,15 @@ public class MainTabMeeting extends MainTabViewBase {
 					}
 					mGroupListTmp.add(groupInfo);
 				}
-
 				if (mAdapter != null) {
 					MeetingApp.setmGroupList(mGroupListTmp);
 					if (MeetingApp.userInfo != null) {
-						// mAdapter.removeCacheImage(MeetingApp.userInfo.uid);
 						mAdapter.notifyDataSetChanged();
 					}
-
 					// 更新聊天页面
-					// if (MeetingApp.mHxHasLogin) {
-					// ((MainTabTalk)
-					// mMainActivty.mPageViews.get(1)).setNotifyDataSetChanged();
-					// }
+					if (MeetingApp.mHxHasLogin) {
+						((MainTabTalk) mMainActivty.mPageViews.get(1)).setNotifyDataSetChanged();
+					}
 					// 刷新MainTabUserInfo群组数量
 					MainTabUserInfo mainTabUserInfo = (MainTabUserInfo) mMainActivty.mPageViews.get(2);
 					if (mainTabUserInfo != null) {
@@ -185,8 +169,55 @@ public class MainTabMeeting extends MainTabViewBase {
 			public void failure(RetrofitError arg0) {
 				super.failure(arg0);
 				mListView.onRefreshComplete();
-				Toast.makeText(mContext, "获取群组列表失败！", 0).show();
+				Toast.makeText(mContext, "获取群组列表失败", 0).show();
 			}
 		});
+	}
+
+	private void intentToSignHistory(GroupMemberInfo groupMemberInfo) {
+		Intent intent = new Intent(mContext, SignHistoryActivity.class);
+		intent.putExtra("groupname", groupMemberInfo.name);
+		intent.putExtra("groupid", groupMemberInfo.group_id);
+		intent.putExtra("groupcode", groupMemberInfo.idcard);
+		intent.putExtra("showname", groupMemberInfo.showname);
+		intent.putExtra("mtype", groupMemberInfo.mtype);
+		intent.putExtra("createruid", groupMemberInfo.uid);
+		intent.putExtra("meetingtype", groupMemberInfo.meeting_type);
+		intent.putExtra("allow_join", groupMemberInfo.allow_join);
+		intent.putExtra("hassign", groupMemberInfo.has_sign);
+		intent.putExtra("signstate", groupMemberInfo.signState);
+		// 0签到进行中1签到结束
+		Log.i("bm", "hassign==" + groupMemberInfo.has_sign);
+		if (groupMemberInfo.meetingid != null) {
+			intent.putExtra("meetingid", groupMemberInfo.meetingid);
+		}
+		intent.putExtra("hxgroupid", groupMemberInfo.hxgroupid);
+		mContext.startActivity(intent);
+	}
+
+	private void intentToCreateSign(GroupMemberInfo groupMemberInfo) {
+		Intent intent = new Intent(mContext, CreateSignActivity.class);
+		intent.putExtra("groupname", groupMemberInfo.name);
+		intent.putExtra("groupid", groupMemberInfo.group_id);
+		intent.putExtra("groupcode", groupMemberInfo.idcard);
+		intent.putExtra("showname", groupMemberInfo.showname);
+		intent.putExtra("hxgroupid", groupMemberInfo.hxgroupid);
+		intent.putExtra("allow_join", groupMemberInfo.allow_join);
+		intent.putExtra("mtype", groupMemberInfo.mtype);
+		mContext.startActivity(intent);
+	}
+
+	private void intentToSinging(GroupMemberInfo groupMemberInfo) {
+		Intent intent = new Intent(mContext, SigningActivity.class);
+		intent.putExtra("meetingid", groupMemberInfo.meetingid);
+		intent.putExtra("groupid", groupMemberInfo.group_id);
+		intent.putExtra("mtype", groupMemberInfo.mtype);
+		intent.putExtra("groupcode", groupMemberInfo.idcard);
+		intent.putExtra("showname", groupMemberInfo.showname);
+		intent.putExtra("groupname", groupMemberInfo.name);
+		intent.putExtra("allow_join", groupMemberInfo.allow_join);
+		intent.putExtra("hxgroupid", groupMemberInfo.hxgroupid);
+		intent.putExtra("createsigntype", groupMemberInfo.meeting_type);
+		mContext.startActivity(intent);
 	}
 }

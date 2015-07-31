@@ -151,7 +151,7 @@
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:text="蓝牙签到适合近距离签到，无需签到码"
-            android:textColor="@color/new_orange_yellow"
+            android:textColor="@color/new_orange_default"
             android:textSize="@dimen/text_size_12" />
     </RelativeLayout>
 

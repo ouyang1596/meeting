@@ -1,5 +1,7 @@
 package com.deshang365.meeting.activity;
 
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -9,6 +11,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.deshang365.meeting.R;
+import com.deshang365.meeting.network.NetworkReturn;
+import com.deshang365.meeting.network.NewNetwork;
+import com.deshang365.meeting.network.OnResponse;
 
 public class FeedBackActivity extends BaseActivity {
 	private LinearLayout mLlBack;
@@ -35,7 +40,7 @@ public class FeedBackActivity extends BaseActivity {
 		});
 		mEtvMessage = (EditText) findViewById(R.id.etv_message);
 		mTvSend = (TextView) findViewById(R.id.txtv_what_need);
-		mTvSend.setText("发送");
+		mTvSend.setText("提交");
 		mTvSend.setVisibility(View.VISIBLE);
 		mTvSend.setOnClickListener(new OnClickListener() {
 
@@ -46,6 +51,29 @@ public class FeedBackActivity extends BaseActivity {
 					Toast.makeText(mContext, "您还未写下意见", Toast.LENGTH_SHORT).show();
 					return;
 				}
+				showWaitingDialog();
+				feedBack(message);
+			}
+		});
+	}
+
+	private void feedBack(String message) {
+		NewNetwork.feedBack(message, new OnResponse<NetworkReturn>("send_feed_Android") {
+			@Override
+			public void success(NetworkReturn result, Response arg1) {
+				super.success(result, arg1);
+				hideWaitingDialog();
+				if (result.result == 1) {
+					finish();
+				}
+				Toast.makeText(mContext, result.msg, Toast.LENGTH_SHORT).show();
+			}
+
+			@Override
+			public void failure(RetrofitError error) {
+				super.failure(error);
+				hideWaitingDialog();
+				Toast.makeText(mContext, "上传失败", Toast.LENGTH_SHORT).show();
 			}
 		});
 	}

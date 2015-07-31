@@ -14,15 +14,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
-import android.view.View;
 import android.widget.BaseAdapter;
 
 import com.deshang365.meeting.R;
 import com.deshang365.meeting.activity.MainActivity;
-import com.deshang365.meeting.adapter.SignGroupAdapter;
-import com.deshang365.meeting.adapter.TalkGroupAdapter2;
 import com.deshang365.meeting.baselib.InitLocation.OnLocationListener;
 import com.deshang365.meeting.model.Constants;
 import com.deshang365.meeting.model.GroupMemberInfo;
@@ -56,8 +54,10 @@ public class MeetingApp extends Application implements EMConnectionListener {
 	public static List<BaseAdapter> mGroupListAdapters;
 	public static Intent mIntentToTimeToUploadService;
 	public static Boolean mHxHasLogin = false;
-	public static String mVersionName = "-1";// 版本号
+	public static String mVersionCode = "-1";// 版本号
+	public static String mVersionName = "";//
 	public static SharedPreferences mParamsSharePrefreces;
+	public static Map<Integer, Bitmap> mCacheImageMap;
 
 	public static void loginOut() {
 		hasLogin = false;
@@ -93,11 +93,13 @@ public class MeetingApp extends Application implements EMConnectionListener {
 		initAppData();
 		initLocation();
 		try {
+			mVersionCode = getVersionCode();
 			mVersionName = getVersionName();
 		} catch (Exception e) {
-			mVersionName = "-1";
+			mVersionCode = "-1";
 		}
 		mTalkGroupList = new ArrayList<GroupMemberInfo>();
+		mCacheImageMap = new HashMap<Integer, Bitmap>();
 	}
 
 	private void setNotification() {
@@ -265,12 +267,21 @@ public class MeetingApp extends Application implements EMConnectionListener {
 		return processName;
 	}
 
+	private String getVersionCode() throws Exception {
+		// 获取packagemanager的实例
+		PackageManager packageManager = getPackageManager();
+		// getPackageName()是你当前类的包名，0代表是获取版本信息
+		PackageInfo packInfo = packageManager.getPackageInfo(getPackageName(), 0);
+		String version = "" + packInfo.versionCode;
+		return version;
+	}
+
 	private String getVersionName() throws Exception {
 		// 获取packagemanager的实例
 		PackageManager packageManager = getPackageManager();
 		// getPackageName()是你当前类的包名，0代表是获取版本信息
 		PackageInfo packInfo = packageManager.getPackageInfo(getPackageName(), 0);
-		String version = packInfo.versionName;
+		String version = "" + packInfo.versionName;
 		return version;
 	}
 

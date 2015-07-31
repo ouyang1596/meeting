@@ -9,14 +9,9 @@ import org.codehaus.jackson.JsonNode;
 
 import retrofit.RetrofitError;
 import retrofit.client.Response;
-
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnKeyListener;
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Build;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -31,8 +26,6 @@ import android.widget.Toast;
 import com.deshang365.meeting.R;
 import com.deshang365.meeting.baselib.MeetingApp;
 import com.deshang365.meeting.model.GroupMemberInfo;
-import com.deshang365.meeting.model.GroupMemberInfoList;
-import com.deshang365.meeting.model.Network;
 import com.deshang365.meeting.network.NetworkReturn;
 import com.deshang365.meeting.network.NewNetwork;
 import com.deshang365.meeting.network.OnResponse;
@@ -42,11 +35,12 @@ import com.tencent.stat.StatService;
 public class UnLoginActivity extends ImageloaderBaseActivity {
 	private TextView mTvLogin;
 	private RelativeLayout mRelNearSignGroups;
-	private ProgressDialog mWaitingDialog;
 	private int mIsJumpToSign;// 是否跳转到签到页面 0跳转 1不跳转
 	private Handler mHandler;
 	private Timer mTimer;
 	private ImageView mImgvFlush;
+	private ImageView mImgvAnimation;
+	private AnimationDrawable mAnimationDrawable;
 
 	// private int backState;// 是否直接返回 0直接返回 1需要点两次
 
@@ -69,7 +63,7 @@ public class UnLoginActivity extends ImageloaderBaseActivity {
 				finish();
 			}
 		});
-		showWaitingDialog();
+		// showWaitingDialog();
 		getNearSignGroups(MeetingApp.getLat(0), MeetingApp.getLng(0));
 		// if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.GINGERBREAD_MR1) {
 		// new GetNearSignGroupsUnloginAsyn().execute(MeetingApp.getLat(0),
@@ -80,6 +74,7 @@ public class UnLoginActivity extends ImageloaderBaseActivity {
 		// MeetingApp.getLat(0), MeetingApp.getLng(0));
 		// }
 		onTimeToUpdate();
+		mImgvAnimation = (ImageView) findViewById(R.id.imgv_animation);
 		mImgvFlush = (ImageView) findViewById(R.id.imgv_flush);
 		mImgvFlush.setOnClickListener(new OnClickListener() {
 
@@ -93,13 +88,20 @@ public class UnLoginActivity extends ImageloaderBaseActivity {
 		});
 	}
 
+	private void startAnimation() {
+		if (mAnimationDrawable == null) {
+			mAnimationDrawable = (AnimationDrawable) mImgvAnimation.getDrawable();
+		}
+		mAnimationDrawable.start();
+	}
+
 	private void onTimeToUpdate() {
 		mHandler = new Handler() {
 			@SuppressLint("NewApi")
 			@Override
 			public void handleMessage(Message msg) {
 				super.handleMessage(msg);
-				showWaitingDialog();
+				// showWaitingDialog();
 				getNearSignGroups(MeetingApp.getLat(0), MeetingApp.getLng(0));
 			}
 		};
@@ -123,7 +125,7 @@ public class UnLoginActivity extends ImageloaderBaseActivity {
 			@Override
 			public void success(NetworkReturn result, Response arg1) {
 				super.success(result, arg1);
-				hideWaitingDialog();
+				// hideWaitingDialog();
 				if (result.result != 1) {
 					Toast.makeText(mContext, result.msg, Toast.LENGTH_SHORT).show();
 					return;
@@ -157,7 +159,7 @@ public class UnLoginActivity extends ImageloaderBaseActivity {
 			@Override
 			public void failure(RetrofitError error) {
 				super.failure(error);
-				hideWaitingDialog();
+				// hideWaitingDialog();
 				Toast.makeText(mContext, "获取信息失败", Toast.LENGTH_SHORT).show();
 			}
 		});
@@ -181,30 +183,6 @@ public class UnLoginActivity extends ImageloaderBaseActivity {
 		}
 	};
 
-	public void showWaitingDialog() {
-		if (mWaitingDialog == null) {
-			mWaitingDialog = ProgressDialog.show(UnLoginActivity.this, "", "加载中...", true, false);
-			mWaitingDialog.setOnKeyListener(new OnKeyListener() {
-
-				@Override
-				public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-					if (keyCode == event.KEYCODE_BACK) {
-						hideWaitingDialog();
-					}
-					return false;
-				}
-			});
-		} else if (!mWaitingDialog.isShowing()) {
-			mWaitingDialog.show();
-		}
-	}
-
-	public void hideWaitingDialog() {
-		if (mWaitingDialog != null) {
-			mWaitingDialog.dismiss();
-		}
-	}
-
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == event.KEYCODE_BACK) {
@@ -217,11 +195,19 @@ public class UnLoginActivity extends ImageloaderBaseActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		startAnimation();
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
 		mTimer.cancel();
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		mAnimationDrawable.stop();
+		mAnimationDrawable = null;
 	}
 }

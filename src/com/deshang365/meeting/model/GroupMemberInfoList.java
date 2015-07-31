@@ -3,8 +3,6 @@ package com.deshang365.meeting.model;
 import java.io.Serializable;
 import java.util.List;
 
-import android.R.integer;
-
 public class GroupMemberInfoList extends NetworkReturnBase implements Serializable {
 	/**
 	 * 

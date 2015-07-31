@@ -1,8 +1,9 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/new_gray" >
+    android:background="@color/new_gray"
+    android:orientation="vertical" >
 
     <include
         android:id="@+id/top_alert"
@@ -14,7 +15,6 @@
         android:id="@+id/ll_signCount"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_below="@+id/top_alert"
         android:layout_marginTop="10dp"
         android:background="@color/white"
         android:orientation="horizontal" >
@@ -34,8 +34,11 @@
 
             <TextView
                 android:id="@+id/txtv_all_signCount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/circle"
+                android:gravity="center"
                 android:text="0"
                 android:textColor="@color/new_blue_default"
                 android:textSize="@dimen/text_size_16" />
@@ -43,22 +46,15 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="4dp"
                 android:gravity="center"
                 android:orientation="horizontal" >
-
-                <ImageView
-                    android:id="@+id/imgv_all_signCount"
-                    android:layout_width="15dp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/all_sign_count" />
 
                 <TextView
                     android:id="@+id/txtv_tag_all_signCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="3dp"
-                    android:text="总签到次数"
+                    android:text="签到次数"
                     android:textColor="@color/new_black_one"
                     android:textSize="@dimen/text_size_14" />
             </LinearLayout>
@@ -75,7 +71,7 @@
             android:background="@color/new_gray2" />
 
         <LinearLayout
-            android:id="@+id/ll_sign_absence"
+            android:id="@+id/ll_complete_sign"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -88,32 +84,137 @@
                 android:layout_weight="1" />
 
             <TextView
-                android:id="@+id/txtv_sign_absence"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/txtv_complete_sign"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/circle"
+                android:gravity="center"
                 android:text="0"
-                android:textColor="@color/new_orange_yellow"
+                android:textColor="@color/new_blue_default"
                 android:textSize="@dimen/text_size_16" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="4dp"
                 android:gravity="center"
                 android:orientation="horizontal" >
 
-                <ImageView
-                    android:id="@+id/imgv_sign_absence"
-                    android:layout_width="15dp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/sign_absence" />
-
                 <TextView
-                    android:id="@+id/txtv_tag_sign_absence"
+                    android:id="@+id/txtv_tag_complete_sign"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="3dp"
-                    android:text="缺席"
+                    android:text="到勤"
+                    android:textColor="@color/new_black_one"
+                    android:textSize="@dimen/text_size_14" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="@color/new_gray2" />
+
+        <LinearLayout
+            android:id="@+id/ll_sign_supplement"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/txtv_sign_supplement"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/circle"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@color/new_blue_default"
+                android:textSize="@dimen/text_size_16" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/txtv_tag_sign_supplement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="补签"
+                    android:textColor="@color/new_black_one"
+                    android:textSize="@dimen/text_size_14" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/new_gray2" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/white"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:id="@+id/ll_sign_late"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/txtv_sign_late"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/circle"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@color/new_blue_default"
+                android:textSize="@dimen/text_size_16" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/txtv_tag_sign_late"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="迟到"
                     android:textColor="@color/new_black_one"
                     android:textSize="@dimen/text_size_14" />
             </LinearLayout>
@@ -144,31 +245,78 @@
 
             <TextView
                 android:id="@+id/txtv_sign_leave"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/circle"
+                android:gravity="center"
                 android:text="0"
-                android:textColor="@color/new_really_blue"
+                android:textColor="@color/new_blue_default"
                 android:textSize="@dimen/text_size_16" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="4dp"
                 android:gravity="center"
                 android:orientation="horizontal" >
-
-                <ImageView
-                    android:id="@+id/imgv_sign_leave"
-                    android:layout_width="15dp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/sign_leave" />
 
                 <TextView
                     android:id="@+id/txtv_tag_sign_leave"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="3dp"
                     android:text="请假"
+                    android:textColor="@color/new_black_one"
+                    android:textSize="@dimen/text_size_14" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="@color/new_gray2" />
+
+        <LinearLayout
+            android:id="@+id/ll_sign_absence"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/txtv_sign_absence"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/circle"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@color/new_orange_default"
+                android:textSize="@dimen/text_size_16" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/txtv_tag_sign_absence"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="缺席"
                     android:textColor="@color/new_black_one"
                     android:textSize="@dimen/text_size_14" />
             </LinearLayout>
@@ -184,18 +332,17 @@
         android:id="@+id/rel_blue_create_sign"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/ll_signCount"
         android:layout_marginTop="10dp"
         android:background="@color/white" >
 
         <com.handmark.pulltorefresh.library.PullToRefreshListView
             xmlns:ptr="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/lv_sign_history"
+            android:id="@+id/plv_sign_history"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:cacheColorHint="#00000000"
-            android:divider="@color/bg_color"
-            android:dividerHeight="3px"
+            android:divider="@null"
+            android:dividerHeight="0dp"
             android:fadingEdge="none"
             android:fastScrollEnabled="false"
             android:footerDividersEnabled="false"
@@ -204,7 +351,8 @@
             android:overScrollMode="never"
             android:smoothScrollbar="true"
             ptr:ptrShowIndicator="false" />
-        <include layout="@layout/rel_progressbar" />
+
+        <include layout="@layout/rel_progressbar" />
     </RelativeLayout>
 
-</RelativeLayout>
+</LinearLayout>

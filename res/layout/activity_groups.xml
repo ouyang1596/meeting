@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         layout="@layout/public_top_alert" />
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/rel_createGroups"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,48 +18,50 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="20dp"
-        android:visibility="gone" >
-
-        <TextView
-            android:id="@+id/txtv_groupName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="赶紧给群取个漂亮的名字吧！"
-            android:textSize="@dimen/text_size_16" />
+        android:orientation="vertical" >
 
         <EditText
             android:id="@+id/etv_groupName"
             style="@style/EditBg"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txtv_groupName"
+            android:layout_height="40dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/edit_bg_selector"
+            android:drawableLeft="@drawable/group_name"
+            android:drawablePadding="4dp"
             android:hint="请输入群组名称" />
 
         <EditText
             android:id="@+id/etv_group_nickname"
             style="@style/EditBg"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/etv_groupName"
+            android:layout_height="40dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/edit_bg_selector"
+            android:drawableLeft="@drawable/nick_name"
+            android:drawablePadding="4dp"
             android:hint="请输入群组昵称" />
+
+        <TextView
+            android:id="@+id/txtv_groupName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="设置你在群里的名字，这个名字只会在这个群内显示"
+            android:textColor="@color/new_black_three"
+            android:textSize="@dimen/text_size_12" />
 
         <Button
             android:id="@+id/btn_creatGroups"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/etv_group_nickname"
+            android:layout_height="40dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/btn_blue_bg_radius_selector"
             android:padding="8dp"
-            android:text="创建群组"
+            android:text="创建"
             android:textColor="@drawable/text_color_selector"
             android:textSize="@dimen/text_size_16" />
-    </RelativeLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/rel_joinGroups"
@@ -79,7 +81,7 @@
                 android:id="@+id/etv_group_code"
                 style="@style/EditBg"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:background="@drawable/search_bg"
                 android:drawableLeft="@drawable/search"
                 android:drawablePadding="10dp"
@@ -109,7 +111,7 @@
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_marginTop="20dp"
-            android:background="@color/white"
+            android:background="@drawable/btn_white_bg_selector"
             android:gravity="center_vertical"
             android:orientation="horizontal" >
 
@@ -165,7 +167,7 @@
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_marginTop="1px"
-            android:background="@color/white"
+            android:background="@drawable/btn_white_bg_selector"
             android:gravity="center_vertical"
             android:orientation="horizontal" >
 

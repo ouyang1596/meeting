@@ -3,10 +3,6 @@ package com.deshang365.meeting.activity;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import cn.sharesdk.framework.statistics.NewAppReceiver;
-
-import com.deshang365.meeting.R;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -17,6 +13,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.deshang365.meeting.R;
 
 public class UserBlueSignActivity extends Activity {
 	private LinearLayout mLlBack;

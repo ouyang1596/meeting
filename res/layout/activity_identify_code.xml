@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:text="12345678901"
-                android:textColor="@color/new_orange_yellow"
+                android:textColor="@color/new_orange_default"
                 android:textSize="@dimen/text_size_16" />
         </LinearLayout>
 
@@ -52,7 +52,7 @@
             <EditText
                 android:id="@+id/etv_identyfi_code"
                 android:layout_width="match_parent"
-                android:layout_height="34dp"
+                android:layout_height="40dp"
                 android:background="@drawable/edit_bg_selector"
                 android:hint="请输入验证码"
                 android:paddingRight="70dp"
@@ -64,8 +64,8 @@
                 android:layout_height="30dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="2dp"
-                android:background="@drawable/new_orange_radius_bg"
+                android:layout_marginRight="6dp"
+                android:background="@drawable/btn_orange_default"
                 android:text="重新发送"
                 android:textColor="@drawable/text_color_selector"
                 android:textSize="@dimen/text_size_12" />

@@ -7,17 +7,19 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.deshang365.meeting.R;
 import com.deshang365.meeting.adapter.AboutAdapter;
+import com.deshang365.meeting.baselib.MeetingApp;
 
 public class AboutActivity extends BaseActivity {
 	private ListView mLvAbout;
 	private final String URLQUESTION = "http://meeting.deshang365.com/help.html?type=1";
 	private final String URLINTRODUCTION = "http://meeting.deshang365.com/help.html?type=2";
+	private final String URLWOLAIYE = "http://www.wlyeah.com/";
+	private TextView mTvVersion;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,8 @@ public class AboutActivity extends BaseActivity {
 	}
 
 	private void initView() {
+		mTvVersion = (TextView) findViewById(R.id.txtv_version);
+		mTvVersion.setText("V" + MeetingApp.mVersionName);
 		mLvAbout = (ListView) findViewById(R.id.lv_about);
 		TextView title = (TextView) findViewById(R.id.tv_top_alert_text);
 		title.setText("关于我们");
@@ -64,6 +68,11 @@ public class AboutActivity extends BaseActivity {
 					startActivity(new Intent(mContext, AppQrCodeActivity.class));
 				} else if (position == 4) {
 					startActivity(new Intent(mContext, FeedBackActivity.class));
+				} else if (position == 5) {
+					Intent intent = new Intent(mContext, WebActivity.class);
+					intent.putExtra("topical", "我来也");
+					intent.putExtra("url", URLWOLAIYE);
+					startActivity(intent);
 				}
 			}
 		});

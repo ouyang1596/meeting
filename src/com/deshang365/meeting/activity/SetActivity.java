@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.deshang365.meeting.R;
+import com.deshang365.meeting.model.Constants;
 import com.deshang365.meeting.util.MeetingUtils;
 
 public class SetActivity extends BaseActivity {
@@ -47,7 +48,7 @@ public class SetActivity extends BaseActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		int signMode = MeetingUtils.getParams();
+		int signMode = MeetingUtils.getParams(Constants.KEY_SIGN_MODE);
 		if (signMode == 0) {
 			mTvSignMode.setText("口令签到");
 		} else if (signMode == 1) {

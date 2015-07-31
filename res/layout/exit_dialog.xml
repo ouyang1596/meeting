@@ -15,7 +15,7 @@
             android:layout_height="wrap_content" >
 
             <TextView
-                android:id="@+id/txtv_exit"
+                android:id="@+id/tv_exit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="6dp"
@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/rel_exit"
             android:layout_marginTop="60dp"
-            android:background="@drawable/new_blue_radius2"
+            android:background="@drawable/btn_blue_radius2_default"
             android:orientation="horizontal" >
 
             <Button
@@ -71,7 +71,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/btn_blue_bg_radius_selector"
+                android:background="@drawable/btn_blue_bg_left_radius_selector"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
                 android:text="取消"
@@ -90,7 +90,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/btn_blue_bg_radius_selector"
+                android:background="@drawable/btn_blue_bg_right_radius_selector"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
                 android:text="确定"

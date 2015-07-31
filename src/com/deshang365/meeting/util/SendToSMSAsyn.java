@@ -2,10 +2,7 @@ package com.deshang365.meeting.util;
 
 import retrofit.RetrofitError;
 import retrofit.client.Response;
-import android.os.AsyncTask;
 
-import com.deshang365.meeting.model.Network;
-import com.deshang365.meeting.model.UserInfo;
 import com.deshang365.meeting.network.NetworkReturn;
 import com.deshang365.meeting.network.NewNetwork;
 import com.deshang365.meeting.network.OnResponse;

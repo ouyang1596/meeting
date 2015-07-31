@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="false" >
+
+    <item
+        android:drawable="@drawable/near_group_0"
+        android:duration="150"/>
+    <item
+        android:drawable="@drawable/near_group_2"
+        android:duration="150">
+    </item>
+    <item
+        android:drawable="@drawable/near_group_4"
+        android:duration="150">
+    </item>
+    <item
+        android:drawable="@drawable/near_group_6"
+        android:duration="150">
+    </item>
+    <item
+        android:drawable="@drawable/near_group_8"
+        android:duration="150">
+    </item>
+    <item
+        android:drawable="@drawable/near_group_10"
+        android:duration="150">
+    </item>
+    <item
+        android:drawable="@drawable/near_group_12"
+        android:duration="150">
+    </item>
+    <item
+        android:drawable="@drawable/near_group_14"
+        android:duration="150">
+    </item>
+    <item
+        android:drawable="@drawable/near_group_16"
+        android:duration="150">
+    </item>
+    <item
+        android:drawable="@drawable/near_group_18"
+        android:duration="150">
+    </item>
+    <item
+        android:drawable="@drawable/near_group_20"
+        android:duration="150">
+    </item>
+    <item
+        android:drawable="@drawable/near_group_22"
+        android:duration="150">
+    </item>
+
+</animation-list>

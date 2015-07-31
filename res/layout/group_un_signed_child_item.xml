@@ -12,7 +12,7 @@
         android:orientation="horizontal" >
 
         <TextView
-            android:id="@+id/txtv_child_createtime_data"
+            android:id="@+id/item_txtv_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="14dp"
@@ -26,7 +26,7 @@
             android:layout_weight="1" />
 
         <TextView
-            android:id="@+id/txtv_child_createtime_hour"
+            android:id="@+id/item_txtv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="14dp"
@@ -40,7 +40,7 @@
             android:layout_weight="1" />
 
         <TextView
-            android:id="@+id/txtv_child_cause"
+            android:id="@+id/item_txtv_state"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

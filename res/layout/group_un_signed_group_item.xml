@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@color/new_gray"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="vertical" >
+
+    <!-- android:descendantFocusability="blocksDescendants"屏蔽所有子控件获取Focus的权限 以达到响应ListView的ItemClick事件 -->
 
     <RelativeLayout
         android:id="@+id/rel_group"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@color/white" >
+        android:background="@drawable/btn_white_bg_selector" >
 
         <TextView
             android:id="@+id/txtv_group_showname"
@@ -25,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="累计缺席2次"
-            android:textColor="@color/new_orange_yellow"
+            android:textColor="@color/new_orange_default"
             android:textSize="@dimen/text_size_14"
             android:visibility="invisible" />
 
@@ -35,8 +40,18 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:visibility="gone" />
+            android:layout_marginRight="10dp" />
     </RelativeLayout>
 
-</RelativeLayout>
+    <!-- com.deshang365.meeting.view.AbsentDetailListView -->
+
+    <com.deshang365.meeting.view.AbsentDetailListView
+        android:id="@+id/child_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1px"
+        android:background="@color/white"
+        android:divider="@color/new_gray"
+        android:dividerHeight="1px" />
+
+</LinearLayout>

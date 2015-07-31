@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.deshang365.meeting.R;
@@ -47,6 +48,7 @@ public class SignHistoryAdapter extends BaseAdapter {
 			vh.mTvTime = (TextView) con.findViewById(R.id.txtv_time_per_sig_history);
 			vh.mTvState = (TextView) con.findViewById(R.id.txtv_state_per_sig_history);
 			vh.mImgvNext = (ImageView) con.findViewById(R.id.imgv_next);
+			vh.mLlSignStateCount = (LinearLayout) con.findViewById(R.id.ll_sign_state_count);
 			con.setTag(vh);
 		} else {
 			vh = (ViewHolder) con.getTag();
@@ -73,8 +75,9 @@ public class SignHistoryAdapter extends BaseAdapter {
 		return con;
 	}
 
-	class ViewHolder {
+	public class ViewHolder {
 		TextView mTvItem, mTvTime, mTvState;
 		ImageView mImgvNext;
+		public LinearLayout mLlSignStateCount;
 	}
 }

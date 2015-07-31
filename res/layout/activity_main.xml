@@ -56,7 +56,8 @@
                 tabbt:textColorNormal="#ff7a7e84"
                 tabbt:textColorSelected="@color/new_blue_default"
                 tabbt:textSize="@dimen/text_size_8" />
-            <RelativeLayout
+
+            <RelativeLayout
                 android:layout_width="0.0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.0" >
@@ -77,7 +78,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="3dp"
                     android:background="@drawable/unread_count_bg"
                     android:gravity="center"
                     android:textColor="@color/white"
@@ -104,5 +106,34 @@
         android:layout_height="match_parent"
         android:background="#50000000"
         android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/rel_tip"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#7f000000"
+        android:visibility="gone" >
+
+        <ImageView
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="65dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="45dp"
+            android:src="@drawable/tip_click_join_group" >
+        </ImageView>
+
+        <ImageView
+            android:id="@+id/imgv_tip_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="65dp"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/tip_i_know" >
+        </ImageView>
+    </RelativeLayout>
 
 </FrameLayout>

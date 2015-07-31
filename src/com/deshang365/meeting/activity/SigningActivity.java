@@ -11,6 +11,8 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -25,19 +27,15 @@ import android.widget.Toast;
 
 import com.deshang365.meeting.R;
 import com.deshang365.meeting.adapter.ExlSignListAdapter;
-import com.deshang365.meeting.baselib.MeetingApp;
-import com.deshang365.meeting.model.Constants;
 import com.deshang365.meeting.model.GroupMemberInfo;
 import com.deshang365.meeting.network.NetworkReturn;
 import com.deshang365.meeting.network.NewNetwork;
 import com.deshang365.meeting.network.OnResponse;
-import com.deshang365.meeting.view.CircularImageView;
 import com.deshang365.meeting.view.SignedView;
 import com.tencent.stat.StatService;
 
 public class SigningActivity extends ImageloaderBaseActivity {
-	private TextView mTvTopical, mTvGroupname, mTvIdcard, mTvSignMemberState;
-	private Button mBtnStopSign;
+	private TextView mTvTopical, mTvGroupname, mTvIdcard, mTvSignMemberState, mTvStopSign, mTvTimeRemain;
 	private LinearLayout mLlBack;
 	private ExpandableListView mExlistSIgnList;
 	private RadioGroup mRgSignList;
@@ -49,13 +47,12 @@ public class SigningActivity extends ImageloaderBaseActivity {
 	private String mGroupid;
 	private String mMeetingid;
 	private int mType;// 0是创建者 1是参与者
-	private int mSignState;// 签到状态 0是正在签到，1签到已完成
 	private AlertDialog mDialog;
-	private CircularImageView mImgvGroupHead;
-	private String mImagePath = Constants.AVATAR_PATH + MeetingApp.userInfo.uid;
+	private LinearLayout mLlTimeRemain;
 	private RelativeLayout mRelSignList/* , mRelSigned */;
-	private RelativeLayout mRelGroupInfo;
+	private LinearLayout mLlSignCode;
 	private int mCreateSignType;
+	private boolean isBack;// 判断Activity是否被finish()掉
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -76,52 +73,20 @@ public class SigningActivity extends ImageloaderBaseActivity {
 		mGroupid = getIntent().getStringExtra("groupid");
 		mType = getIntent().getIntExtra("mtype", -1);
 		mCreateSignType = getIntent().getIntExtra("createsigntype", -1);
-		mRelGroupInfo = (RelativeLayout) findViewById(R.id.rel_group_data);
+		mLlSignCode = (LinearLayout) findViewById(R.id.ll_sign_code);
 		mRelProBar = (RelativeLayout) findViewById(R.id.rel_progressbar);
 		if (mCreateSignType == 1) {
-			mRelGroupInfo.setVisibility(View.GONE);
+			mLlSignCode.setVisibility(View.GONE);
 		} else {
-			mRelGroupInfo.setVisibility(View.VISIBLE);
+			mLlSignCode.setVisibility(View.VISIBLE);
 		}
+		mTvTimeRemain = (TextView) findViewById(R.id.txtv_time_remain);
+		mLlTimeRemain = (LinearLayout) findViewById(R.id.ll_time_remain);
 		mRelSignList = (RelativeLayout) findViewById(R.id.rel_sign_list);
-		// mRelSigned = (RelativeLayout) findViewById(R.id.rel_all_signed);
-		mImgvGroupHead = (CircularImageView) findViewById(R.id.imgv_group_head);
-		mImageLoader.displayImage(NewNetwork.getAvatarUrl(MeetingApp.userInfo.uid), mImgvGroupHead, mOptions);
 		mTvGroupname = (TextView) findViewById(R.id.txtv_group_name);
 		mTvGroupname.setText(groupname);
 		mTvIdcard = (TextView) findViewById(R.id.txtv_group_code);
-		mTvIdcard.setText(groupcode);
-		mBtnStopSign = (Button) findViewById(R.id.btn_stop_sign);
-		if (mType == 0) {
-			mBtnStopSign.setVisibility(View.VISIBLE);
-			mImgvGroupmembers = (ImageView) findViewById(R.id.iv_group_members);
-			mImgvGroupmembers.setVisibility(View.VISIBLE);
-			mImgvGroupmembers.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					StatService.trackCustomEvent(mContext, "OpenGroup", "OK");
-					Intent intent = new Intent(mContext, GroupDetailsActivity.class);
-					intent.putExtra("groupname", groupname);
-					intent.putExtra("groupcode", groupcode);
-					intent.putExtra("groupid", mGroupid);
-					intent.putExtra("showname", showname);
-					intent.putExtra("mtype", mType);
-					intent.putExtra("allow_join", allow_join);
-					intent.putExtra("hxgroupid", hxgroupid);
-					startActivity(intent);
-				}
-			});
-		} else if (mType == 1) {
-			mBtnStopSign.setVisibility(View.INVISIBLE);
-
-		}
-		mBtnStopSign.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				stopSign();
-			}
-		});
+		mTvIdcard.setText("群组码：" + groupcode);
 		mExlistSIgnList = (ExpandableListView) findViewById(R.id.exl_sign_list);
 		mExlistSIgnList.setGroupIndicator(null);
 		mLlBack = (LinearLayout) findViewById(R.id.ll_top_alert_back);
@@ -178,6 +143,37 @@ public class SigningActivity extends ImageloaderBaseActivity {
 				}
 			}
 		});
+		mTvStopSign = (TextView) findViewById(R.id.txtv_what_need);
+		mTvStopSign.setText("结束签到");
+		if (mType == 0) {
+			mTvStopSign.setVisibility(View.VISIBLE);
+			mImgvGroupmembers = (ImageView) findViewById(R.id.imgv_what_need);
+			mImgvGroupmembers.setVisibility(View.VISIBLE);
+			mImgvGroupmembers.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					StatService.trackCustomEvent(mContext, "OpenGroup", "OK");
+					Intent intent = new Intent(mContext, GroupDetailsActivity.class);
+					intent.putExtra("groupname", groupname);
+					intent.putExtra("groupcode", groupcode);
+					intent.putExtra("groupid", mGroupid);
+					intent.putExtra("showname", showname);
+					intent.putExtra("mtype", mType);
+					intent.putExtra("allow_join", allow_join);
+					intent.putExtra("hxgroupid", hxgroupid);
+					startActivity(intent);
+				}
+			});
+		} else if (mType == 1) {
+			mTvStopSign.setVisibility(View.GONE);
+		}
+		mTvStopSign.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				stopSign();
+			}
+		});
 	}
 
 	private ExlSignListAdapter mAdapter;
@@ -185,6 +181,7 @@ public class SigningActivity extends ImageloaderBaseActivity {
 
 	public void getSignList(String groupid, String meetingid) {
 		NewNetwork.getSignList(groupid, meetingid, new OnResponse<NetworkReturn>("meetinglist_Android") {
+
 			@Override
 			public void success(NetworkReturn result, Response response) {
 				super.success(result, response);
@@ -196,6 +193,21 @@ public class SigningActivity extends ImageloaderBaseActivity {
 				ArrayList<List<GroupMemberInfo>> groupMemberInfoLists = new ArrayList<List<GroupMemberInfo>>();
 				JsonNode data = result.data;
 				JsonNode joiners = data.get("joiners");
+				int remain_time = -1;
+				if (data.has("remain_time")) {
+					remain_time = data.get("remain_time").getValueAsInt();
+				}
+				Log.i("bm", "" + remain_time);
+				if (remain_time == -1) {
+					mLlTimeRemain.setVisibility(View.GONE);
+				} else {
+					mLlTimeRemain.setVisibility(View.VISIBLE);
+					mTvTimeRemain.setText(remain_time + "秒");
+					// 避免Activity被finish掉后，网络请求还没完成，导致出错
+					if (!isBack) {
+						setTimeCountDown(remain_time);
+					}
+				}
 				List<GroupMemberInfo> joinersGroupInfoList = jsonData(joiners);
 				groupMemberInfoLists.add(joinersGroupInfoList);
 				JsonNode absenters = data.get("absenters");
@@ -226,7 +238,6 @@ public class SigningActivity extends ImageloaderBaseActivity {
 				Toast.makeText(mContext, "获取签到列表失败", Toast.LENGTH_SHORT).show();
 			}
 		});
-
 	}
 
 	private List<GroupMemberInfo> jsonData(JsonNode absenters) {
@@ -298,13 +309,8 @@ public class SigningActivity extends ImageloaderBaseActivity {
 					Toast.makeText(mContext, result.msg, Toast.LENGTH_SHORT).show();
 					return;
 				}
-				// 发送广播，停止定时请求
-				Intent receiveIntent = new Intent();
-				receiveIntent.setAction("stopreceive");
-				receiveIntent.putExtra("receivestate", 0);// 0创建者停止签到1应用推出
-				receiveIntent.putExtra("groupid", mGroupid);
-				sendBroadcast(receiveIntent);
-				Intent intent = new Intent(SigningActivity.this, SignResultActivity.class);
+				sendStopBroadcast();
+				Intent intent = new Intent(SigningActivity.this, SignSingleResultActivity.class);
 				intent.putExtra("groupid", mGroupid);
 				intent.putExtra("meetingid", mMeetingid);
 				startActivity(intent);
@@ -315,9 +321,60 @@ public class SigningActivity extends ImageloaderBaseActivity {
 			public void failure(RetrofitError error) {
 				super.failure(error);
 				hideWaitingDialog();
-				Toast.makeText(mContext, "请求失败", Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContext, "结束签到失败", Toast.LENGTH_SHORT).show();
+				// 结束签到失败后，是否要再次去请求getSignList获取时间
 			}
 		});
+	}
+
+	/**
+	 * 发送广播，停止定时请求
+	 * */
+	private void sendStopBroadcast() {
+		Intent receiveIntent = new Intent();
+		receiveIntent.setAction("stopreceive");
+		receiveIntent.putExtra("receivestate", 0);// 0创建者停止签到1应用推出
+		receiveIntent.putExtra("groupid", mGroupid);
+		sendBroadcast(receiveIntent);
+	}
+
+	TimeCount mTimeCount;
+
+	private void setTimeCountDown(int remain_time) {
+		if (mTimeCount == null) {
+			mTimeCount = new TimeCount(remain_time * 1000, 1000);
+			mTimeCount.start();
+		}
+	}
+
+	/**
+	 * 倒计时类
+	 * */
+	class TimeCount extends CountDownTimer {
+		public TimeCount(long millisInFuture, long countDownInterval) {
+			super(millisInFuture, countDownInterval);// 参数依次为总时长,和计时的时间间隔
+		}
+
+		@Override
+		public void onFinish() {// 计时完毕时触发
+			mTvTimeRemain.setText(0 + "秒");
+			showWaitingDialog();
+			stopSign(mGroupid, mMeetingid);
+			cancelTimeCountDown();
+		}
+
+		@Override
+		public void onTick(long millisUntilFinished) {// 计时过程显示
+			mTvTimeRemain.setText(millisUntilFinished / 1000 + "秒");
+			Log.i("bm", "time==" + millisUntilFinished / 1000 + "秒");
+		}
+	}
+
+	private void cancelTimeCountDown() {
+		if (mTimeCount != null) {
+			mTimeCount.cancel();
+			mTimeCount = null;
+		}
 	}
 
 	@Override
@@ -328,5 +385,12 @@ public class SigningActivity extends ImageloaderBaseActivity {
 	@Override
 	protected void onPause() {
 		super.onPause();
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		cancelTimeCountDown();
+		isBack = true;
 	}
 }

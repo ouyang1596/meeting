@@ -8,6 +8,17 @@
 
 package cn.sharesdk.onekeyshare.theme.classic;
 
+import static cn.sharesdk.framework.utils.R.dipToPx;
+import static cn.sharesdk.framework.utils.R.getBitmapRes;
+import static cn.sharesdk.framework.utils.R.getStringRes;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import m.framework.ui.widget.asyncview.AsyncImageView;
+import m.framework.ui.widget.asyncview.BitmapProcessor;
+import m.framework.ui.widget.pulltorefresh.PullToRefreshListAdapter;
+import m.framework.ui.widget.pulltorefresh.PullToRefreshView;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -28,23 +39,11 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.TitleLayout;
 import cn.sharesdk.framework.utils.UIHandler;
 import cn.sharesdk.onekeyshare.FollowerListFakeActivity;
-import m.framework.ui.widget.asyncview.AsyncImageView;
-import m.framework.ui.widget.asyncview.BitmapProcessor;
-import m.framework.ui.widget.pulltorefresh.PullToRefreshListAdapter;
-import m.framework.ui.widget.pulltorefresh.PullToRefreshView;
-
-import static cn.sharesdk.framework.utils.R.dipToPx;
-import static cn.sharesdk.framework.utils.R.getBitmapRes;
-import static cn.sharesdk.framework.utils.R.getStringRes;
 
 /** 获取好友或关注列表 */
 public class FollowListPage extends FollowerListFakeActivity implements OnClickListener, OnItemClickListener {

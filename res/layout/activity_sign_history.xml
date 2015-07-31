@@ -68,7 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:background="@drawable/looksignrecord"
+                android:background="@drawable/btn_sign_record_selector"
                 android:gravity="center"
                 android:paddingBottom="2dp"
                 android:paddingRight="20dp"
@@ -99,7 +99,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="44dp"
                 android:text="【正在签到中...】"
-                android:textColor="@color/new_orange_yellow"
+                android:textColor="@color/new_orange_default"
                 android:textSize="@dimen/text_size_16" />
 
             <Button
@@ -194,7 +194,7 @@
 
         <com.handmark.pulltorefresh.library.PullToRefreshListView
             xmlns:ptr="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/lv_sign_history"
+            android:id="@+id/plv_sign_history"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_below="@+id/txtv_sign_history"

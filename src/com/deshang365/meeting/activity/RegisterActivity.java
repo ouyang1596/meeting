@@ -24,16 +24,12 @@ import android.widget.Toast;
 import com.deshang365.meeting.R;
 import com.deshang365.meeting.baselib.MeetingApp;
 import com.deshang365.meeting.model.Constants;
-import com.deshang365.meeting.model.Network;
-import com.deshang365.meeting.model.NetworkReturnBase;
 import com.deshang365.meeting.model.UserInfo;
 import com.deshang365.meeting.network.NetworkReturn;
 import com.deshang365.meeting.network.NewNetwork;
 import com.deshang365.meeting.network.OnResponse;
 import com.deshang365.meeting.network.RetrofitUtils;
 import com.deshang365.meeting.util.MeetingUtils;
-import com.deshang365.meeting.util.SendToSMSAsyn;
-import com.deshang365.meeting.util.SendToSMSAsyn.onPostExecuteListener;
 import com.deshang365.util.ProfileHelper;
 import com.easemob.chat.EMChatManager;
 import com.easemob.exceptions.EaseMobException;
@@ -342,7 +338,7 @@ public class RegisterActivity extends BaseActivity {
 		}
 		Button btnLogin = (Button) mRegisteredView.findViewById(R.id.btn_exit);
 		btnLogin.setText("登陆");
-		TextView tvChangeState = (TextView) mRegisteredView.findViewById(R.id.txtv_exit);
+		TextView tvChangeState = (TextView) mRegisteredView.findViewById(R.id.tv_exit);
 		tvChangeState.setText("该手机号已被注册");
 		tvChangeState.setVisibility(View.VISIBLE);
 		btnLogin.setOnClickListener(new OnClickListener() {

@@ -25,7 +25,7 @@
             android:layout_centerHorizontal="true"
             android:gravity="center"
             android:text="手机号码："
-            android:textColor="@color/new_orange_yellow"
+            android:textColor="@color/new_orange_default"
             android:textSize="@dimen/text_size_16" />
 
         <EditText

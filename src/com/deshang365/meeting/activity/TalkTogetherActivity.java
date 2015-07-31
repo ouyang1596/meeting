@@ -5,33 +5,28 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.harmony.javax.security.auth.login.FailedLoginException;
 import org.codehaus.jackson.JsonNode;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import retrofit.RetrofitError;
 import retrofit.client.Response;
-
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,9 +34,6 @@ import com.deshang365.meeting.R;
 import com.deshang365.meeting.adapter.TalkAdapter;
 import com.deshang365.meeting.baselib.MeetingApp;
 import com.deshang365.meeting.model.GroupMemberInfo;
-import com.deshang365.meeting.model.GroupMemberInfoList;
-import com.deshang365.meeting.model.Network;
-import com.deshang365.meeting.model.NetworkReturnBase;
 import com.deshang365.meeting.network.NetworkReturn;
 import com.deshang365.meeting.network.NewNetwork;
 import com.deshang365.meeting.network.OnResponse;
@@ -58,13 +50,15 @@ import com.tencent.stat.StatService;
 
 public class TalkTogetherActivity extends BaseActivity {
 	private TextView mTvGroup, title;
-	private EditText mEtxtMessage;
+	private EditText mEtvMessage;
 	private Button mBtnSend;
 	private ListView mLvMessage;
 	private String mHxgroupid;
 	private ImageView mImgvGroupMember;
+	private RelativeLayout mRelWhole;
 	public static TalkTogetherActivity mTalkTogetherActivityInstance;
 	private LinearLayout mLlBack;
+	InputMethodManager mImm;
 	private EMConversation mConversation;
 	private TalkAdapter mAdapter;
 	private NewMessageBroadcastReceiver mMsgReceiver;
@@ -97,7 +91,6 @@ public class TalkTogetherActivity extends BaseActivity {
 				}
 			}
 		}
-
 		registerBroadcast();
 	}
 
@@ -120,7 +113,8 @@ public class TalkTogetherActivity extends BaseActivity {
 		final String groupid = getIntent().getStringExtra("groupid");
 		final String groupcode = getIntent().getStringExtra("groupcode");
 		final int mtype = getIntent().getIntExtra("mtype", -1);
-		mImgvGroupMember = (ImageView) findViewById(R.id.iv_group_members);
+		mRelWhole = (RelativeLayout) findViewById(R.id.rel_whole);
+		mImgvGroupMember = (ImageView) findViewById(R.id.imgv_what_need);
 		mImgvGroupMember.setVisibility(View.VISIBLE);
 		mImgvGroupMember.setOnClickListener(new OnClickListener() {
 
@@ -137,15 +131,13 @@ public class TalkTogetherActivity extends BaseActivity {
 				intent.putExtra("allow_join", allow_join);
 				intent.putExtra("mtype", mtype);
 				TalkTogetherActivity.this.startActivity(intent);
-				// showWaitingDialog();
-				// getGroupInfoByHxGroupId(mHxgroupid);
 			}
 		});
 		mLvMessage = (ListView) findViewById(R.id.lv_showMessage);
 		mLvMessage.setDividerHeight(0);
 		getMembersByHxGroupId(mHxgroupid);
-		mEtxtMessage = (EditText) findViewById(R.id.etxt_message);
-		mEtxtMessage.setOnTouchListener(new OnTouchListener() {
+		mEtvMessage = (EditText) findViewById(R.id.etxt_message);
+		mEtvMessage.setOnTouchListener(new OnTouchListener() {
 
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
@@ -153,117 +145,27 @@ public class TalkTogetherActivity extends BaseActivity {
 				return false;
 			}
 		});
-
 		mBtnSend = (Button) findViewById(R.id.btn_send);
 		mBtnSend.setOnClickListener(new OnClickListener() {
 
 			@SuppressLint("NewApi")
 			@Override
 			public void onClick(View v) {
-				StatService.trackCustomEvent(mContext, "Setmessage", "OK");
-				String content = mEtxtMessage.getText().toString();
-				if (content.length() <= 0) {
-					Toast.makeText(getApplication(), "消息不能为空！", 0).show();
-					return;
+				sendMessage();
+			}
+		});
+		mLvMessage.setOnTouchListener(new OnTouchListener() {
+
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				if (mImm == null) {
+					mImm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 				}
-				String desMessage = MeetingUtils.getDESMessage(content);
-				uploadMessage(mHxgroupid, content);
-				EMMessage message = EMMessage.createSendMessage(EMMessage.Type.TXT);
-				message.setChatType(ChatType.GroupChat);
-				TextMessageBody txtBody = new TextMessageBody(desMessage);
-				// 设置消息body
-				message.addBody(txtBody);
-				// 设置要发给谁,用户username或者群聊groupid
-				message.setReceipt(mHxgroupid);
-				// 把messgage加到conversation中
-				if (mConversation != null && mAdapter != null) {
-					mConversation.addMessage(message);
-					mAdapter.notifyDataSetChanged();
-				}
-				mLvMessage.setSelection(mLvMessage.getCount() - 1);
-				// 发送消息
-				EMChatManager.getInstance().sendMessage(message, new EMCallBack() {
-
-					@Override
-					public void onError(int arg0, final String message) {
-						runOnUiThread(new Runnable() {
-
-							@Override
-							public void run() {
-								if (mAdapter != null) {
-									mAdapter.notifyDataSetChanged();
-								}
-								mLvMessage.setSelection(mLvMessage.getCount() - 1);
-							}
-						});
-					}
-
-					@Override
-					public void onProgress(int arg0, String arg1) {
-						// TODO Auto-generated method stub
-
-					}
-
-					@Override
-					public void onSuccess() {
-						runOnUiThread(new Runnable() {
-
-							@Override
-							public void run() {
-								if (mAdapter != null) {
-									mAdapter.notifyDataSetChanged();
-								}
-								mLvMessage.setSelection(mLvMessage.getCount() - 1);
-							}
-						});
-
-					}
-				});
-				mEtxtMessage.setText("");
+				mImm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+				return false;
 			}
 		});
 	}
-
-	// private void getGroupInfoByHxGroupId(String hxGroupId) {
-	// NewNetwork.getGroupInfoByHxGroupId(hxGroupId, new
-	// OnResponse<NetworkReturn>("groupinfo_bymobcode_Android") {
-	// @Override
-	// public void success(NetworkReturn result, Response response) {
-	// super.success(result, response);
-	// hideWaitingDialog();
-	// if (result.result != 1) {
-	// Toast.makeText(mContext, result.msg, Toast.LENGTH_SHORT).show();
-	// return;
-	// }
-	// GroupMemberInfo groupInfo = new GroupMemberInfo();
-	// JsonNode object = result.data;
-	// groupInfo.showname = object.get("showname").getValueAsText();
-	// groupInfo.name = object.get("name").getValueAsText();
-	// groupInfo.idcard = object.get("idcard").getValueAsText();
-	// groupInfo.group_id = object.get("id").getValueAsText();
-	// groupInfo.hxid = object.get("mob_code").getValueAsText();
-	// groupInfo.mobile = object.get("mobile").getValueAsText();
-	// groupInfo.mtype = object.get("mtype").getValueAsInt();
-	// Intent intent = new Intent(TalkTogetherActivity.this,
-	// GroupDetailsActivity.class);
-	// intent.putExtra("groupid", groupInfo.group_id);
-	// intent.putExtra("groupname", groupInfo.name);
-	// intent.putExtra("showname", groupInfo.showname);
-	// intent.putExtra("groupcode", groupInfo.idcard);
-	// intent.putExtra("hxgroupid", mHxgroupid);
-	// intent.putExtra("mtype", groupInfo.mtype);
-	// TalkTogetherActivity.this.startActivity(intent);
-	// }
-	//
-	// @Override
-	// public void failure(RetrofitError error) {
-	// super.failure(error);
-	// hideWaitingDialog();
-	// Toast.makeText(mContext, "获取信息失败", Toast.LENGTH_SHORT).show();
-	// }
-	//
-	// });
-	// }
 
 	private class NewMessageBroadcastReceiver extends BroadcastReceiver {
 
@@ -284,7 +186,71 @@ public class TalkTogetherActivity extends BaseActivity {
 			}
 			mLvMessage.setSelection(mLvMessage.getCount() - 1);
 		}
+	}
 
+	/**
+	 * 发送消息
+	 * */
+	private void sendMessage() {
+		StatService.trackCustomEvent(mContext, "Setmessage", "OK");
+		String content = mEtvMessage.getText().toString();
+		if (content.length() <= 0) {
+			Toast.makeText(getApplication(), "消息不能为空！", 0).show();
+			return;
+		}
+		String desMessage = MeetingUtils.getDESMessage(content);
+		uploadMessage(mHxgroupid, content);
+		EMMessage message = EMMessage.createSendMessage(EMMessage.Type.TXT);
+		message.setChatType(ChatType.GroupChat);
+		TextMessageBody txtBody = new TextMessageBody(desMessage);
+		// 设置消息body
+		message.addBody(txtBody);
+		// 设置要发给谁,用户username或者群聊groupid
+		message.setReceipt(mHxgroupid);
+		// 把messgage加到conversation中
+		if (mConversation != null && mAdapter != null) {
+			mConversation.addMessage(message);
+			mAdapter.notifyDataSetChanged();
+		}
+		mLvMessage.setSelection(mLvMessage.getCount() - 1);
+		// 发送消息
+		EMChatManager.getInstance().sendMessage(message, new EMCallBack() {
+
+			@Override
+			public void onError(int arg0, final String message) {
+				runOnUiThread(new Runnable() {
+
+					@Override
+					public void run() {
+						if (mAdapter != null) {
+							mAdapter.notifyDataSetChanged();
+						}
+						mLvMessage.setSelection(mLvMessage.getCount() - 1);
+					}
+				});
+			}
+
+			@Override
+			public void onProgress(int arg0, String arg1) {
+
+			}
+
+			@Override
+			public void onSuccess() {
+				runOnUiThread(new Runnable() {
+
+					@Override
+					public void run() {
+						if (mAdapter != null) {
+							mAdapter.notifyDataSetChanged();
+						}
+						mLvMessage.setSelection(mLvMessage.getCount() - 1);
+					}
+				});
+
+			}
+		});
+		mEtvMessage.setText("");
 	}
 
 	private void uploadMessage(String mob_code, String message) {

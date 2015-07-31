@@ -21,7 +21,7 @@
             android:id="@+id/ll_sign_mode"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="@color/white"
+            android:background="@drawable/btn_white_bg_selector"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingLeft="14dp" >

@@ -7,7 +7,6 @@ import org.codehaus.jackson.JsonNode;
 
 import retrofit.RetrofitError;
 import retrofit.client.Response;
-import android.R.integer;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -173,7 +172,7 @@ public class SignHistoryActivity extends BaseActivity {
 				}
 			}
 		});
-		mImgvGroupmembers = (ImageView) findViewById(R.id.iv_group_members);
+		mImgvGroupmembers = (ImageView) findViewById(R.id.imgv_what_need);
 		mImgvGroupmembers.setVisibility(View.VISIBLE);
 		mImgvToSign = (ImageView) findViewById(R.id.imgv_tosign);
 		mImgvGroupmembers.setOnClickListener(new OnClickListener() {
@@ -210,8 +209,8 @@ public class SignHistoryActivity extends BaseActivity {
 			mTvIsSignIng.setVisibility(View.GONE);
 			mBtnUserSign.setText("暂未发起签到");
 		}
-		if (MeetingApp.mVersionName != null) {
-			isSigning(mGroupid, MeetingApp.mVersionName);
+		if (MeetingApp.mVersionCode != null) {
+			isSigning(mGroupid, MeetingApp.mVersionCode);
 		} else {
 			isSigning(mGroupid, "-1");
 		}

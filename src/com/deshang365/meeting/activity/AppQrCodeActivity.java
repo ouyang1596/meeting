@@ -1,16 +1,12 @@
 package com.deshang365.meeting.activity;
 
-import com.deshang365.meeting.R;
-import com.deshang365.meeting.R.layout;
-
-import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.deshang365.meeting.R;
 
 public class AppQrCodeActivity extends BaseActivity {
 	private LinearLayout mLlBack;

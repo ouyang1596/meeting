@@ -22,7 +22,7 @@
             android:id="@+id/etv_register_phone_number"
             style="@style/EditBg"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:background="@drawable/edit_bg_selector"
             android:hint="手机号码"
             android:inputType="number" />
@@ -31,7 +31,7 @@
             android:id="@+id/etv_register_passward"
             style="@style/EditBg"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_below="@+id/etv_register_phone_number"
             android:layout_marginTop="15dp"
             android:background="@drawable/edit_bg_selector"
